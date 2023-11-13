@@ -1,0 +1,30 @@
+{% extends "layouts/question.html" %}
+
+{% set serviceOrDisco = "service" %}
+
+{% if data['phase'] === "Discovery"%}
+    {% set serviceOrDisco = "discovery" %}
+{% endif %}
+
+{% set phase = request.fields.Phase | lower%}
+{% set type = request.fields.Type | lower%}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "Request submitted" %}
+
+{% block backlink %}{% endblock %}
+
+{% block content %}
+
+   
+
+            <div class="govuk-panel govuk-!-margin-bottom-5 govuk-panel--confirmation govuk-!-text-align-left">
+                <h1 class="govuk-panel__title">Draft deleted</h1>
+               
+            </div>
+
+            <p>If you want to submit a new request, you can do so from the <a href="/book" class="govuk-link">book</a> menu option.</p>
+
+
+
+{% endblock %}

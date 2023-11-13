@@ -1,0 +1,178 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Assess" %}
+{% set pageName = "Your dashboard" %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    {% include 'partials/_entry-header.html'%}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block sideNav %}
+
+ {% if view.includes('sspoint')%}
+        <nav class="dfe-vertical-nav">
+        <a href="/assess/entry/report/{{entry.fields.ID}}" class="govuk-back-link govuk-!-margin-top-0 govuk-!-margin-bottom-7">Back to report tasks</a>
+        <h2 class="dfe-vertical-nav--section-header">Report sections</h2>
+        <ul class="dfe-vertical-nav__section">
+             
+            {% for item in standards.standards %}
+                <li class="dfe-vertical-nav__section-item {% if view === item.partial %}dfe-vertical-nav__section-item--current{% endif %}">
+                    <a class="dfe-vertical-nav__link" href="/assess/entry/{{item.partial}}/{{entry.fields.ID}}">{{ item.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% else %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'overview' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess/entry/overview/{{entry.fields.ID}}">Overview</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'artefacts' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess/entry/artefacts/{{item.partial}}/{{entry.fields.ID}}">Artefacts</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'team' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess/entry/team/{{item.partial}}/{{entry.fields.ID}}">Team</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'panel' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess/entry/panel/{{entry.fields.ID}}">Panel</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view.includes('report') or view.includes('sspoint') %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess/entry/report/{{entry.fields.ID}}">Report</a>
+            </li>
+        </ul>
+    </nav>
+     {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+    {% if view === "overview" %}
+        {% include "./_tasks.html" %}
+        {% include "./_description.html" %}
+    {% endif %}
+
+    {% if view === "team" %}
+        {% include './_team.html'%}
+    {% endif %}
+
+    {% if view === "artefacts" %}
+        {% include './_artefacts.html'%}
+    {% endif %}
+
+        {% if view === "panel" %}
+        {% include './_panel.html'%}
+    {% endif %}
+
+    {% if view === "report" %}
+        {% include './_report-overview.html'%}
+    {% endif %}
+
+    {% if view === "report-outcome" %}
+        {% include './_report-outcome.html'%}
+    {% endif %}
+
+    {% if view === "report-sections" %}
+
+     {% if data['assessorType'] === 'lead' %}
+        {% include './_report-sections-lead.html'%}
+           {% endif %}
+
+              {% if data['assessorType'] === 'design' %}
+        {% include './_report-sections-design.html'%}
+           {% endif %}
+
+                  {% if data['assessorType'] === 'research' %}
+        {% include './_report-sections-research.html'%}
+           {% endif %}
+
+
+                  {% if data['assessorType'] === 'tech' %}
+        {% include './_report-sections-tech.html'%}
+           {% endif %}
+
+    {% endif %}
+
+    {% if view === "report-actions" %}
+        {% include './_report-actions.html'%}
+    {% endif %}
+
+    {% if view === "report-preview" %}
+        {% include './_report-preview.html'%}
+    {% endif %}
+
+    {% if view === "report-submit" %}
+        {% include './_report-submit.html'%}
+    {% endif %}
+
+    {% if view === "done-well" %}
+        {% include './_done-well.html'%}
+    {% endif %}
+
+    {% if view === "improve" %}
+        {% include './_improve.html'%}
+    {% endif %}
+
+    {% if subView.includes('pwell') %}
+        {% include './_point-pwell.html'%}
+    {% endif %}
+
+    {% if subView.includes('pimprove') %}
+        {% include './_point-pimprove.html'%}
+    {% endif %}
+
+    {% if subView.includes('pactions') %}
+        {% include './_point-pactions.html'%}
+    {% endif %}
+
+      {% if subView.includes('delete-well') %}
+        {% include './_delete-well.html'%}
+    {% endif %}
+
+          {% if subView.includes('edit-well') %}
+        {% include './_edit-well.html'%}
+    {% endif %}
+
+          {% if subView.includes('delete-improve') %}
+        {% include './_delete-improve.html'%}
+    {% endif %}
+
+          {% if subView.includes('edit-improve') %}
+        {% include './_edit-improve.html'%}
+    {% endif %}
+
+
+              {% if subView.includes('delete-action') %}
+        {% include './_delete-action.html'%}
+    {% endif %}
+
+          {% if subView.includes('edit-action') %}
+        {% include './_edit-action.html'%}
+    {% endif %}
+
+    {% if subView.includes('poutcome') %}
+        {% include './_point-poutcome.html'%}
+    {% endif %}
+
+    {% if view.includes('sspoint')and subView === '' %}
+        {% include './_sspoint.html'%}
+    {% endif %}
+
+    {% if view === "outcome" %}
+        {% include './_outcome.html'%}
+    {% endif %}
+
+{% endblock %}

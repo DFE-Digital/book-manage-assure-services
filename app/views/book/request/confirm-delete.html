@@ -1,0 +1,30 @@
+{% extends "layouts/question.html" %}
+
+{% set serviceOrDisco = "service" %}
+
+{% if data['phase'] === "Discovery"%}
+    {% set serviceOrDisco = "discovery" %}
+{% endif %}
+
+{% set phase = request.fields.Phase | lower%}
+{% set type = request.fields.Type | lower%}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "Request submitted" %}
+
+{% block backlink %}{% endblock %}
+
+{% block content %}
+
+    <h2 class="govuk-heading-m">Confirm you want to delete this draft</h2>
+    <p>This cannot be undone.</p>
+    <form action="/book/post/delete/{{request.id}}" method="post">
+
+        <div class="govuk-button-group">
+            <button class="govuk-button govuk-button--warning" data-module="govuk-button">Confirm deletion</button>
+            <a class="govuk-link" href="/book/request/tasks">Cancel and return to tasks</a>
+        </div>
+
+    </form>
+
+{% endblock %}

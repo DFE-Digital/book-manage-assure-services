@@ -1,0 +1,98 @@
+{% extends "layouts/question.html" %}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "Select the type of assurance you need" %}
+
+
+
+{% block backlink %}
+<a href="/book/request/phase" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="/book/post/type">
+
+        {% if data['phase'] === "Discovery" %}
+
+            <div class="govuk-panel govuk-panel--interruption">
+
+                <h2 class="govuk-heading-l">
+            You've said you're in the discovery phase
+          </h2>
+
+                <p class="govuk-body">
+            At the moment, you can only have a discovery peer review.
+          </p>
+
+            <p class="govuk-body">
+           You can read the guidance for <a class="govuk-link govuk-link--inverse" href="">what happens at a peer review</a> and <a class="govuk-link govuk-link--inverse" href="">how to prepare for a peer review</a>.
+          </p>
+
+                <div class="govuk-button-group">
+                    <button class="govuk-button  govuk-button--inverse" data-module="govuk-button">Continue with a peer review request</button>
+                    <a class="govuk-link govuk-link--inverse" href="/book/request/phase">Change phase</a>
+                </div>
+            </div>
+
+            {% else %}
+
+  <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset"  aria-describedby="type-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        {{pageName}}
+                    </h1>
+                </legend>
+                   <div id="type-hint" class="govuk-hint">
+      All are assessed against the 14 point Service Standard
+    </div>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="type" name="type" type="radio" value="Peer review">
+                        <label class="govuk-label govuk-radios__label" for="type">
+                            
+          Peer review
+        </label>  <div id="type-item-hint" class="govuk-hint govuk-radios__hint">
+          Informal review which can give you peace of mind you're working in the right way
+        </div>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="type-2" name="type" type="radio" value="Service assessment">
+                        <label class="govuk-label govuk-radios__label" for="type-2">
+          Service assessment
+        </label>
+         <div id="type-2-item-hint" class="govuk-hint govuk-radios__hint">
+          Formal service assessment which could be a DfE or cross-gov panel of assessors
+        </div>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="type-3" name="type" type="radio" value="Mock assessment">
+                        <label class="govuk-label govuk-radios__label" for="type-3">
+          Mock assessment
+        </label>
+          <div id="type-2-item-hint" class="govuk-hint govuk-radios__hint">
+         If you've not done a service assessment before, this can help you practice and prepare for a full service assessment. This will be a DfE assessor panel.
+        </div>
+                    </div>
+                   
+                   
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+        {% endif %}
+
+   
+
+      
+    </form>
+
+{% endblock %}
+
+{% block sideNav %}
+
+  
+
+{% endblock %}

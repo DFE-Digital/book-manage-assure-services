@@ -1,0 +1,110 @@
+
+<nav class="app-sub-navigation" aria-label="Application menu">
+
+  <ul class="app-sub-navigation__list">
+   
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Guidance</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Actions</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"aria-current="page"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+
+{% set pointname = ""%}
+
+{% for standard in standards.standards %}
+  {% if standard.partial === view %}
+  {% set pointname = standard.title%}
+  {% endif %}
+  {% endfor %}
+
+  {% set redOutput = false %}
+{% set amberOutput = false %}
+
+{% for action in actions %}
+  {% if action.fields.RAG == 'Red'  %}
+    {% set redOutput = true %}
+   
+  {% endif %}
+  {% if action.fields.RAG == 'Amber' and not amberOutput %}
+    {% set amberOutput = true %}
+  
+  {% endif %}
+{% endfor %}
+
+
+  {% if redOutput or amberOutput %}
+
+  <div class="govuk-notification-banner" role="region"
+  aria-labelledby="govuk-notification-banner-title"
+  data-module="govuk-notification-banner">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+
+
+{% if redOutput %}
+ <p class="govuk-notification-banner__heading">There are actions rated red. You should set the rating for this standard to red</p>
+ {% elseif amberOutput %}
+ <p class="govuk-notification-banner__heading">There are actions rated amber. You should set the rating for this standard to amber</p>
+
+{%endif%}
+  </div>
+</div>
+
+  {% endif %}
+
+
+<form method="post" action="/assess/post/outcome/{{point}}/{{entry.fields.ID}}">
+  <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      Rating for Service Standard point {{pointname | lower | replace('.',' - ')}} {{pointRating }}
+    </legend>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating" name="pointRating" type="radio" value="Red" {% if data['pointRating'] === 'Red'%}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="pointRating">
+          Red
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating-2" name="pointRating" type="radio" value="Amber" {% if data['pointRating'] === 'Amber'%}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="pointRating-2">
+          Amber
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating-3" name="pointRating" type="radio" value="Green" {% if data['pointRating'] === 'Green'%}checked{% endif %}>
+        <label class="govuk-label govuk-radios__label" for="pointRating-3">
+          Green
+        </label>
+      </div>
+     
+    </div>
+  </fieldset>
+</div>
+<div class="govuk-button-group">
+  <button class="govuk-button" data-module="govuk-button">
+    Save
+  </button>
+</div>
+</form>
+

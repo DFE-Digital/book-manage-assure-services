@@ -1,0 +1,60 @@
+{% extends "layouts/content-full.html" %}
+
+{% set selectedNav = "Assessments" %}
+{% set pageName = "Assessments" %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">{{pageName}}</h1>
+                    <p class="govuk-body-l">View upcoming service assessments and peer reviews and volunteer to be an assessor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+   <table class="govuk-table dfe-table--smaller">
+  <caption class="govuk-table__caption govuk-table__caption--m">Upcoming assessments</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Type</th>
+      <th scope="col" class="govuk-table__header">Phase</th>
+      <th scope="col" class="govuk-table__header">Assessment date</th>
+      <th scope="col" class="govuk-table__header">Lead</th>
+      <th scope="col" class="govuk-table__header">Design</th>
+      <th scope="col" class="govuk-table__header">Research</th>
+      <th scope="col" class="govuk-table__header">Tech</th>
+      <th scope="col" class="govuk-table__header">Accessibility</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">Service assessment plus service</th>
+      <td class="govuk-table__cell">Service assessment</td>
+      <td class="govuk-table__cell">Beta</td>
+      <td class="govuk-table__cell">10 Dec 2023 at 11am</td>
+      <td class="govuk-table__cell"><a href="#">Volunteer</a></td>
+      <td class="govuk-table__cell"><a href="#">Volunteer</a></td>
+      <td class="govuk-table__cell"><a href="#">Volunteer</a></td>
+      <td class="govuk-table__cell"><a href="#">Volunteer</a></td>
+      <td class="govuk-table__cell"><a href="#">Volunteer</a></td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block sideNav %}
+
+      
+
+{% endblock %}

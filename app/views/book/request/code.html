@@ -1,0 +1,107 @@
+{% extends "layouts/question.html" %}
+
+{% set serviceOrDisco = "service" %}
+
+{% if data['phase'] === "Discovery"%}
+{% set serviceOrDisco = "discovery" %}
+{% endif %}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "Project code" %}
+
+{% block backlink %}
+    <a href="/book/request/description" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+   {% if err or errcode%}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+         <div role="alert">
+            <h2 class="govuk-error-summary__title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+               <ul class="govuk-list govuk-error-summary__list">
+                  {% if err %}
+                  <li>
+                     <a href="#proj-code">Select if you know your project code </a>
+                  </li>
+                  {%elseif errcode%}
+                  <li>
+                     <a href="#proj-code-number">Enter code</a>
+                  </li>
+                  {% endif %}
+               </ul>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+
+<h1 class="govuk-heading-l">Project code</h1>
+<p class="govuk-body">This code is sometimes called a project ID. It starts with DDaT.</p> 
+
+<p class="govuk-body">For example, DDaT_22/23_001.</p> 
+<p class="govuk-body">Find the code on the <a href="https://educationgovuk.sharepoint.com/:x:/r/sites/efarafdg/c/_layouts/15/Doc.aspx?sourcedoc=%7B7086CF76-D57F-41B5-92E3-853C107AB68F%7D&file=DDaT%20Portfolio%20Tracker.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&cid=f4f6cbd1-a864-4102-aed3-962ca11d120f" class="govuk-link" rel="noreferrer noopener" target="_blank">DDaT portfolio tracker (opens in new tab)</a>, or speak to your <a href="https://educationgovuk.sharepoint.com/sites/lvewp00038/SitePages/DDaT-Business-Partners.aspx" class="govuk-link" rel="noreferrer noopener" target="_blank">business partner (opens in new tab)</a>.</p>
+
+      <form action="/book/post/code" method="post">
+         <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+            <fieldset class="govuk-fieldset" aria-describedby="proj-code-hint">
+               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                  
+                    Do you know your project code?
+                
+               </legend>
+               <div id="proj-code-hint" class="govuk-hint">
+                  Select one option.
+               </div>
+               {%if err%}
+               <p id="event-name-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span>Select if you know your project code
+               </p>
+               {% endif%}
+               <div class="govuk-radios" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="proj-code" name="projcode" type="radio" value="Yes" data-aria-controls="conditional-proj-code" {% if request.fields.ProjectCodeYN === "Yes" or data['projcode'] === "Yes"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="proj-code">
+                     Yes
+                     </label>
+                  </div><div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-proj-code">
+                     <div class="govuk-form-group {%if errcode%}govuk-form-group--error{% endif%}">
+                        <label class="govuk-label" for="proj-code-number">
+                       What is your project code?
+                        </label>
+                        {%if errcode%}
+                        <p id="proj-code-number-error" class="govuk-error-message">
+                           <span class="govuk-visually-hidden">Error:</span>What is your project code?
+                        </p>
+                        {% endif%}
+                       <input class="govuk-input govuk-!-width-one-third {%if errcode%}govuk-input--error{% endif%}" id="proj-code-number" name="projcodenumber" type="text" value="{{request.fields.ProjectCode}}">
+                     </div>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="proj-code-2" name="projcode" type="radio" value="No" data-aria-controls="conditional-proj-code-2"   {% if request.fields.ProjectCodeYN === "No"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="proj-code-2">
+                     No
+                     </label>
+                  </div>
+                  
+               </div>
+            </fieldset>
+         </div>
+        <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+      </form>
+{% endblock %}
+
+{% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-m">Related guidance</h2>
+        <ul class="govuk-list govuk-list--spaced">
+            <li>
+                <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a>
+            </li>
+        </ul>
+    </aside>
+
+{% endblock %}

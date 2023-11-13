@@ -1,0 +1,57 @@
+{% extends "layouts/content-with-sidenav-right.html" %}
+
+{% set selectedNav = "Dashboard" %}
+{% set pageName = "Your dashboard" %}
+
+{% block hero %}
+  <section class="dfe-hero">
+    <div class="govuk-width-container ">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">{{pageName}}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+      <h2 class="govuk-summary-card__title">Your actions</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+
+      <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header  govuk-!-width-one-half">Task</th>
+            <th scope="col" class="govuk-table__header">Service</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">
+              <a href="/admin/entry/468" class="govuk-link">New discovery peer review request <span class="govuk-visually-hidden"> for app</span></a>
+            </th>
+            <td class="govuk-table__cell">app</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block sideNav %}
+
+  <aside class="dfe-aside">
+    <h2 class="govuk-heading-m">Related guidance</h2>
+  </aside>
+
+{% endblock %}

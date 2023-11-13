@@ -1,0 +1,45 @@
+<nav class="app-sub-navigation" aria-label="Application menu">
+
+    <ul class="app-sub-navigation__list">
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
+        </li>
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
+        </li>
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+        </li>
+         {% if data['assessorType'] === 'lead' %}
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
+        </li>
+        {%endif%}
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link"href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
+        </li>
+ {% if data['assessorType'] === 'lead' %}
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+        </li>
+        {%endif%}
+
+    </ul>
+
+</nav>
+
+<h2 class="govuk-heading-l">Submit report</h2>
+
+<p>All the required sections of the report have been completed.</p>
+<p>As the lead assessor, you can submit this report.</p>
+
+<p>You should only submit the report once all the team are in agreement with the findings.</p>
+
+<p>When you submit the report, it will go to the service assesment team to check over and send to the delivery team.</p>
+
+<form action="/admin/submitreport/468" method="post">
+    <input type="hidden" name="entryid" value="recp7qZwFuNNyDmOh"/>
+    <div class="govuk-button-group">
+        <button class="govuk-button" data-module="govuk-button">Submit report</button>
+    </div>
+</form>

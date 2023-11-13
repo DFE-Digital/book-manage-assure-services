@@ -1,0 +1,88 @@
+
+<nav class="app-sub-navigation" aria-label="Application menu">
+
+  <ul class="app-sub-navigation__list">
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Guidance</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"aria-current="page" href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Actions</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+
+<h2 class="govuk-heading-l">Things the team has done well</h2>
+
+<p>Add items to the list. They should be useful, accurate and demonstrate how the team has met this standard.</p>
+
+{% if donewell.length%}
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">Comment</th>
+      <th scope="col" class="govuk-table__header">Assessor</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for item in donewell %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{item.fields.Comment}}</td>
+      <td class="govuk-table__cell">{{item.fields.Author}}</td>
+      <td class="govuk-table__cell"><a href="/assess/entry/{{view}}/edit-well/{{entry.fields.ID}}/{{item.id}}">Edit</a> or <a href="/assess/entry/{{view}}/delete-well/{{entry.fields.ID}}/{{item.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else%}
+
+<div class="govuk-inset-text">No feedback has been added to the list.</div>
+
+{% endif %}
+
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Add an item to the list
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+
+<form method="post" action="/assess/post/done-well/{{point}}/{{entry.fields.ID}}">
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+  <div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--s" for="donewell">
+        Details
+      </label>
+    </h1>
+   
+    <textarea class="govuk-textarea govuk-js-character-count" id="donewell" name="donewell" rows="5" aria-describedby="donewell-info donewell-hint"></textarea>
+  </div>
+  <div id="donewell-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 200 characters
+  </div>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save comments
+</button>
+
+  </form>   
+   </div>
+</details>

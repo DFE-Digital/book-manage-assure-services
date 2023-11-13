@@ -1,0 +1,79 @@
+
+<h2 class="govuk-heading-l govuk-!-margin-bottom-2">Report</h2>
+<p class="govuk-body govuk-!-margin-bottom-7">You have completed 2 of {{standards.standards |length}} sections.</p>
+
+<ol class="app-task-list">
+
+    <li>
+        <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span> Complete report sections
+          </h2>
+        <ul class="app-task-list__items">
+
+            {% for item in standards.standards %}
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="/assess/entry/{{item.partial}}/{{entry.fields.ID}}" class="govuk-link" aria-describedby="{{item.point}}-{{item.slug}}">
+                            {{item.title}}
+                        </a>
+                    </span>
+                    <span class="app-task-list__task-value">
+                        <strong class="govuk-tag govuk-tag--green">Green</strong>
+                    </span>
+
+                    <strong class="govuk-tag app-task-list__tag" id="{{item.point}}-{{item.slug}}">Completed</strong>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </li>
+    <li>
+        <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> Overall outcome and required actions
+          </h2>
+        <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                    <a href="/assess/entry/outcome/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="2-outcome">
+                 Overall outcome
+                </a>
+                </span>
+                <span class="app-task-list__task-value">
+                    <strong class="govuk-tag govuk-tag--red">Red</strong>
+                </span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="2-outcome">Cannot submit yet</strong>
+            </li>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                    <a href="/assess/entry/actions/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="2-actions">
+                 Actions required
+                </a>
+                </span>
+                <span class="app-task-list__task-value">
+                    No items
+                </span>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span> Check and submit
+          </h2>
+        <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                    <a href="/assess/entry/preview/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="3-preview">
+                 Preview report
+                </a>
+                </span>
+
+            </li>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                Submit report
+              </span>
+                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="3-submit">Cannot submit yet</strong>
+            </li>
+        </ul>
+    </li>
+</ol>

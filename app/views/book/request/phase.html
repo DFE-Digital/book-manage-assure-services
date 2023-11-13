@@ -1,0 +1,81 @@
+{% extends "layouts/question.html" %}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "What phase are you in?" %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="/book/post/phase">
+
+
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        {{pageName}}
+                    </h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="phase" name="phase" type="radio" value="Discovery">
+                        <label class="govuk-label govuk-radios__label" for="phase">
+          Discovery
+        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="phase-2" name="phase" type="radio" value="Alpha">
+                        <label class="govuk-label govuk-radios__label" for="phase-2">
+          Alpha
+        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="phase-3" name="phase" type="radio" value="Private beta">
+                        <label class="govuk-label govuk-radios__label" for="phase-3">
+          Private beta
+        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="phase-4" name="phase" type="radio" value="Public beta">
+                        <label class="govuk-label govuk-radios__label" for="phase-4">
+          Public beta
+        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="phase-5" name="phase" type="radio" value="Live">
+                        <label class="govuk-label govuk-radios__label" for="phase-5">
+          Live
+        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+
+{% endblock %}
+
+{% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-m">Related guidance</h2>
+        <ul class="govuk-list govuk-list--spaced">
+            <li>
+                <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a>
+            </li>
+        </ul>
+    </aside>
+
+{% endblock %}

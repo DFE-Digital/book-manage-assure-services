@@ -1,0 +1,39 @@
+{% extends "layouts/content-with-sidenav-right.html" %}
+
+{% set selectedNav = "" %}
+{% set pageName = "Prototype" %}
+
+{% block hero %}
+  <section class="dfe-hero">
+    <div class="govuk-width-container ">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">{{pageName}}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+
+ <p>Use this service as:</p>
+
+ <ul class="govuk-list">
+  <li><a href="/team">Team</a></li>
+  <li><a href="/assessor">Assessor</a></li>
+  <li><a href="/sateam">Service assessment team</a></li>
+  </ul>
+
+{% endblock %}
+
+{% block sideNav %}
+
+  <aside class="dfe-aside">
+    <h2 class="govuk-heading-m">Related guidance</h2>
+    <ul class="govuk-list govuk-list--spaced">
+      <li><a href="https://www.figma.com/file/eL1rPFL8nDwQPShGrd2FWo/Discovery-Peer-Review-(DPR)?type=design&node-id=488-2105&mode=design&t=lQHy2tqsiA5spGgm-0" target="_blank">Service map</a></li>
+    </ul>
+  </aside>
+
+{% endblock %}

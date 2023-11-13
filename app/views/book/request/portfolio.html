@@ -1,0 +1,131 @@
+{% extends "layouts/question.html" %}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "Which DfE group or arms-length body is your " + data['type']|lower +" for?" %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+   
+    {% if err or errcode%}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+         <div role="alert">
+            <h2 class="govuk-error-summary__title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+               <ul class="govuk-list govuk-error-summary__list">
+                  {% if err %}
+                  <li>
+                     <a href="#portfolio">Select DfE group or arms-length body</a>
+                  </li>
+                  {% endif %}
+               </ul>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+      <form action="/book/post/portfolio" method="post">
+         <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+            <fieldset class="govuk-fieldset">
+               <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <h1 class="govuk-fieldset__heading">
+                     Which DfE group or arms-length body is your {{data['type']|lower}} for?
+                  </h1>
+               </legend>
+               <div id="disco-end-hint" class="govuk-hint">
+                  You may know these as portfolios.
+               </div>
+               {%if err%}
+               <p id="event-name-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> Select portfolio or arms-length body
+               </p>
+               {% endif%}
+               <div class="govuk-radios" data-module="govuk-radios">
+
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-2" name="portfolio" type="radio" value="Customer Experience and Design" {%if request.fields.Portfolio === 'Customer Experience and Design'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-2">
+                     Customer Experience and Design
+                     </label>
+                  </div>
+                 <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio" name="portfolio" type="radio" value="Data" {%if request.fields.Portfolio === 'Data'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio">
+                     Data
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-0" name="portfolio" type="radio" value="Families" {%if request.fields.Portfolio === 'Families'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-0">
+                     Families group
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-1" name="portfolio" type="radio" value="Funding" {%if request.fields.Portfolio === 'Funding'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-1">
+                     Funding group
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-3" name="portfolio" type="radio" value="Regions" {%if request.fields.Portfolio === 'Regions'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-3">
+                     Regions group
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-4" name="portfolio" type="radio" value="Schools" {%if request.fields.Portfolio === 'Schools'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-4">
+                     Schools group
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-5" name="portfolio" type="radio" value="Skills" {%if request.fields.Portfolio === 'Skills'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-5">
+                     Skills group
+                     </label>
+                  </div>
+                  <div class="govuk-radios__divider">or</div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-6" name="portfolio" type="radio" value="Standards and Testing Agency" {%if request.fields.Portfolio === 'Standards and Testing Agency'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-6">
+                     Standards and Testing Agency
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-6a" name="portfolio" type="radio" value="Student Loans Company" {%if request.fields.Portfolio === 'Student Loans Company'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-6a">
+                     Student Loans Company
+                     </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="portfolio-7" name="portfolio" type="radio" value="Teaching Regulation Agency" {%if request.fields.Portfolio === 'Teaching Regulation Agency'%}checked{%endif%}>
+                     <label class="govuk-label govuk-radios__label" for="portfolio-7">
+                     Teaching Regulation Agency
+                     </label>
+                  </div>
+               </div>
+            </fieldset>
+         </div>
+          <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+      </form>
+
+{% endblock %}
+
+{% block sideNav %}
+
+
+
+{% endblock %}

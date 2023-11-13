@@ -1,0 +1,58 @@
+{% extends "layouts/question.html" %}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "How many transactions do you expect your service to have a year?" %}
+
+
+{% block backlink %}
+<a href="/book/request/type" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="/book/post/transactions">
+
+
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        {{pageName}}
+                    </h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="txns" name="txns" type="radio" value="Under 100,000">
+                        <label class="govuk-label govuk-radios__label" for="txns">
+          Under 100,000 per year
+        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="txns-2" name="txns" type="radio" value="100,000 or more">
+                        <label class="govuk-label govuk-radios__label" for="txns-2">
+          100,000 or more a year
+        </label>
+                    </div>
+                    
+               
+                    
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+
+{% endblock %}
+
+{% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-m">Related guidance</h2>
+        <ul class="govuk-list govuk-list--spaced">
+            <li>
+                <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a>
+            </li>
+        </ul>
+    </aside>
+
+{% endblock %}

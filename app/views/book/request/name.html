@@ -1,0 +1,69 @@
+{% extends "layouts/question.html" %}
+
+{% set serviceOrDisco = "service" %}
+
+{% if data['phase'] === "Discovery"%}
+{% set serviceOrDisco = "discovery" %}
+{% endif %}
+
+{% set selectedNav = "Book" %}
+{% set pageName = "What is the name of your "+ serviceOrDisco + "?" %}
+
+{% block backlink %}
+    <a href="/book/request/type" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+    {% if err %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">There is a problem</h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#title">Enter a name for your {{serviceOrDisco}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <form action="/book/post/name" method="post">
+       
+        <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="title">{{pageName}}</label>
+            </h1>
+           
+            <div id="title-hint" class="govuk-hint">This can be changed later on if needed</div>
+        
+         {%if err%}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span> Enter a name for your {{serviceOrDisco}}</p>
+                {% endif%}
+
+                <input class="govuk-input {%if err%} govuk-input--error{% endif%}" id="title" name="title" type="text" value="{{request.fields.Name}}">
+            </div>
+
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            </div>
+
+
+
+    </form>
+{% endblock %}
+
+{% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-m">Related guidance</h2>
+        <ul class="govuk-list govuk-list--spaced">
+            <li>
+                <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a>
+            </li>
+        </ul>
+    </aside>
+
+{% endblock %}

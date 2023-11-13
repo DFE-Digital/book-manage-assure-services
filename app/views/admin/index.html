@@ -1,0 +1,49 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Administration" %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <h1 class="govuk-heading-xl">{{pageName}}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block sideNav %}
+
+      <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/admins">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/reporting">Reporting</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+
+{% block content %}
+
+   
+
+{% endblock %}
+

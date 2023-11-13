@@ -1,0 +1,37 @@
+[
+    {
+        "phase": "Discovery",
+        "applicableStandards": [
+            {
+                "standard": "Peer review"
+            }
+        ]
+    },
+    {
+        "phase": "Alpha",
+        "applicableStandards": [
+           
+            {
+                "standard": "Service Standard"
+            }
+        ]
+    },
+    {
+        "phase": "Private beta",
+        "applicableStandards": [
+            
+            {
+                "standard": "Service Standard"
+            }
+        ]
+    },
+    {
+        "phase": "Public beta",
+        "applicableStandards": [
+            
+            {
+                "standard": "Service Standard"
+            }
+        ]
+    }
+]

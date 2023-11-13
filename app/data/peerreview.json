@@ -1,0 +1,16 @@
+{
+    "standards": [
+        {
+            "point": "1",
+            "title": "What the team has done well",
+            "description": "",
+            "partial": "done-well"
+        },
+        {
+            "point": "2",
+            "title": "What the team need to improve",
+            "description": "",
+            "partial": "improve"
+        }
+    ]
+}

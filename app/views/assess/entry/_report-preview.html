@@ -1,0 +1,122 @@
+<nav class="app-sub-navigation" aria-label="Application menu">
+
+    <ul class="app-sub-navigation__list">
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
+        </li>
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
+        </li>
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+        </li>
+         {% if data['assessorType'] === 'lead' %}
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
+        </li>
+        {% endif %}
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
+        </li>
+ {% if data['assessorType'] === 'lead' %}
+        <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+        </li>
+        {%endif%}
+
+    </ul>
+
+</nav>
+
+<h2 class="govuk-heading-l">Preview</h2>
+
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Outcome
+    </dt>
+        <dd class="govuk-summary-list__value">
+            <strong class="govuk-tag govuk-tag--grey">Pending</strong>
+        </dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Date of assessment
+    </dt>
+        <dd class="govuk-summary-list__value">
+           16 July 2023
+        </dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Portfolio
+    </dt>
+        <dd class="govuk-summary-list__value">
+        Customer Experience and Design
+    </dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Review panel
+    </dt>
+        <dd class="govuk-summary-list__value">
+            <ul class="govuk-list">
+
+                <li>Debbie Blanchard - Lead (Product)</li>
+                <li>Adam Dumbell - User research</li>
+                <li>Jake Lloyd - Accessibility</li>
+                <li>Kerry Lyons - Design</li>
+                <li>Roger Howells - Technical</li>
+
+            </ul>
+        </dd>
+    </div>
+
+</dl>
+
+<h3 class="govuk-heading-m  govuk-!-margin-top-6">Purpose of the {{entry.fields.Type | lower}}</h3>
+<p>{{entry.fields.Description}}</p>
+
+{% for standard in standards.standards %}
+
+    <h2 class="govuk-heading-m">{{standard.title}}</h2>
+    <p>Outcome {% if standard.point === "5"%}
+            <strong class="govuk-tag govuk-tag--red">Red</strong>{% else%}
+            <strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}
+        </p>
+
+        <h3 class="govuk-heading-s">What the team has done well</h3>
+        <ul>
+            {% for item in donewell %}
+                {% if item.fields.Standard === standard.point %}
+                    <li>{{ item.fields.Comment }}</li>
+                {% endif %}
+                {% endfor%}
+
+            </ul>
+
+            <h3 class="govuk-heading-s">What the team could improve</h3>
+            <ul>
+                {% for item in improve %}
+                    {% if item.fields.Standard === standard.point %}
+                        <li>{{ item.fields.Comment }}</li>
+                    {% endif %}
+                    {% endfor%}
+                </ul>
+
+                <h3 class="govuk-heading-s">Actions required</h3>
+
+                <ul>
+                    {% for action in actions %}
+                        {% if action.fields.Standard === standard.point%}
+                            <li>{{ action.fields.Comment}}</li>
+                        {% endif %}
+                        {% endfor%}
+                    </ul>
+
+                    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+                {% endfor %}

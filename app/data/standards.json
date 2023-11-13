@@ -1,0 +1,120 @@
+{
+    "standards": [
+        {
+            "point": "1",
+            "title": "1. Understand the user",
+            "description": "Take time to understand users' needs and the problem you're trying to solve for them.<br/><br/>Think about people's entire experience and the systems and processes around the product or service you're building.",
+            "partial": "sspoint1",
+            "assessors": [
+                {
+                    "role": "User research"
+                }
+            ],
+            "url": "https://apply-the-service-standard.education.gov.uk/service-standard/1-understand-user-needs"
+        },
+        {
+            "point": "2",
+            "title": "2. Solve a whole problem for users",
+            "description": "",
+            "partial": "sspoint2",
+            "assessors": [
+                {
+                    "role": "Design"
+                }
+            ]
+        },
+        {
+            "point": "3",
+            "title": "3. Provide a joined up experience across all channels",
+            "description": "",
+            "partial": "sspoint3",
+            "assessors": [
+                {
+                    "role": "Design"
+                }
+            ]
+        },
+        {
+            "point": "4",
+            "title": "4. Make the service simple to use",
+            "description": "",
+            "partial": "sspoint4",
+            "assessors": [
+                {
+                    "role": "Design"
+                }
+            ]
+        },
+        {
+            "point": "5",
+            "title": "5. Make sure everyone can use the service",
+            "description": "",
+            "partial": "sspoint5",
+            "assessors": [
+                {
+                    "role": "Design"
+                },
+                {
+                    "role": "User research"
+                },
+                {
+                    "role": "Accessibility specialist"
+                }
+            ]
+        },
+        {
+            "point": "6",
+            "title": "6. Have a multidisciplinary team",
+            "description": "",
+            "partial": "sspoint6"
+        },
+        {
+            "point": "7",
+            "title": "7. Use agile ways of working",
+            "description": "",
+            "partial": "sspoint7"
+        },
+        {
+            "point": "8",
+            "title": "8. Iterate and improve frequently",
+            "description": "",
+            "partial": "sspoint8"
+        },
+        {
+            "point": "9",
+            "title": "9. Create a secure service which protects users’ privacy",
+            "description": "",
+            "partial": "sspoint9"
+        },
+        {
+            "point": "10",
+            "title": "10. Define what success looks like and publish performance data",
+            "description": "",
+            "partial": "sspoint10"
+        },
+        {
+            "point": "11",
+            "title": "11. Choose the right tools and technology",
+            "description": "",
+            "partial": "sspoint11"
+        },
+        {
+            "point": "12",
+            "title": "12. Make new source code open",
+            "description": "",
+            "partial": "sspoint12"
+        },
+        {
+            "point": "13",
+            "title": "13. Use and contribute to open standards, common components and patterns",
+            "description": "",
+            "partial": "sspoint13"
+        },
+        {
+            "point": "14",
+            "title": "14. Operate a reliable service",
+            "description": "",
+            "partial": "sspoint14"
+        }
+    ]
+}
