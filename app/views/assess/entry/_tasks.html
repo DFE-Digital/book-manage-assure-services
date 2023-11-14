@@ -33,14 +33,20 @@
 
                     <li class="app-task-list__item">
                    
-                        {% if started === "true" %}
+                    
+                             {% if data['report-submitted'] === "true" %}
+                             <span class="app-task-list__task-name">
+                            <a href="/assess/entry/report-submitted-to-team/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">View assessment report</a>
+                        </span>
+                            <strong class="govuk-tag govuk-tag--yellow app-task-list__tag" id="read-declaration-status">Submitted</strong>
+                                {% elseif started === "true" %}
                              <span class="app-task-list__task-name">
                             <a href="/assess/entry/report/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">Continue assessment report</a>
                         </span>
                             <strong class="govuk-tag govuk-tag--yellow app-task-list__tag" id="read-declaration-status">Started</strong>
-                        {% elseif reviewing === "true"%}
+                        {% elseif reviewing === "true" %}
                              <span class="app-task-list__task-name">
-                            <a href="/assess/report/report-submitted-to-team/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">View assessment report</a>
+                            <a href="/assess/entry/report-submitted-to-team/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">View assessment report</a>
                         </span>
                             <strong class="govuk-tag govuk-tag--yellow app-task-list__tag" id="read-declaration-status">Submitted</strong>
                         {% elseif complete === "true"%}
@@ -48,7 +54,7 @@
                             <a href="/assess/report/complete/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">View assessment report</a>
                         </span>
                             <strong class="govuk-tag govuk-tag--green app-task-list__tag" id="read-declaration-status">Published</strong>
-                        {% elseif todo === "true"%}
+                        {% elseif todo === "true" %}
                              <span class="app-task-list__task-name">
                             <a href="/assess/entry/report/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">Complete assessment report</a>
                         </span>

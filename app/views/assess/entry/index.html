@@ -77,12 +77,18 @@
         {% include './_panel.html'%}
     {% endif %}
 
-    {% if view === "report" %}
+    {% if view === "report" and data['report-submitted'] === "true" %}
+        {% include './_report-submitted-to-team.html'%}
+        {% elseif view === "report" and data['report-submitted'] !== "true" %}
         {% include './_report-overview.html'%}
     {% endif %}
 
     {% if view === "report-outcome" %}
         {% include './_report-outcome.html'%}
+    {% endif %}
+
+        {% if view === "report-submitted" %}
+        {% include './_report-submitted.html'%}
     {% endif %}
 
     {% if view === "report-sections" %}
@@ -108,6 +114,10 @@
 
     {% if view === "report-actions" %}
         {% include './_report-actions.html'%}
+    {% endif %}
+
+        {% if view === "report-submitted-to-team" %}
+        {% include './_report-submitted-to-team.html'%}
     {% endif %}
 
     {% if view === "report-preview" %}

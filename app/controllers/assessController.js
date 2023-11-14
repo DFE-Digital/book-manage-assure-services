@@ -603,6 +603,18 @@ exports.get_entry_view = async function (req, res) {
     }
     await wait(500)
 
+    if(view === "report-submitted")
+    {
+        if(!req.session.data){
+            req.session.data = {}
+        }
+
+        req.session.data['report-submitted'] = 'true';
+
+    }
+
+    console.log(view)
+
     console.log('get_entry_view ' + id)
     axios
         .all([
