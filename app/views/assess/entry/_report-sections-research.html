@@ -44,9 +44,9 @@
 
        <tr class="govuk-table__row">
       <td class="govuk-table__cell"><a href="/assess/entry/{{standard.partial}}/{{entry.fields.ID}}" class="govuk-link">{{standard.title}}</a></td>
-      <td class="govuk-table__cell">{% if standard.point === "9" or standard.point === "10"  or standard.point === "11"  or standard.point === "12"  or standard.point === "13" %}<strong class="govuk-tag govuk-tag--grey">Not rated</strong>{% else%}<strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}</td>
-      <td class="govuk-table__cell">{% if standard.point === "9" or standard.point === "10"  or standard.point === "11"  or standard.point === "12"  or standard.point === "13"  %}None{% else%}None{% endif%}</td>
-      <td class="govuk-table__cell">{% if standard.point === "9" or standard.point === "10"   or standard.point === "11"  or standard.point === "12"  or standard.point === "13" %}<strong class="govuk-tag govuk-tag--grey">Not started</strong>{% else%}<strong class="govuk-tag">Complete</strong>{% endif%}</td>
+      <td class="govuk-table__cell">{% if standard.point === "1" or standard.point === "2"  or standard.point === "5"  %}<strong class="govuk-tag govuk-tag--grey">Not rated</strong>{% else%}<strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}</td>
+      <td class="govuk-table__cell">{% if standard.point === "1" or standard.point === "2"  or standard.point === "5"  %}None{% else%}None{% endif%}</td>
+      <td class="govuk-table__cell">{% if standard.point === "1" or standard.point === "2"  or standard.point === "5"  %}<strong class="govuk-tag govuk-tag--grey">Not started</strong>{% else%}<strong class="govuk-tag">Complete</strong>{% endif%}</td>
     </tr>
     {% endfor %}
   </tbody>
