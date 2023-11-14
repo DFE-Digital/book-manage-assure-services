@@ -66,55 +66,114 @@
             "point": "6",
             "title": "6. Have a multidisciplinary team",
             "description": "",
-            "partial": "sspoint6"
+            "partial": "sspoint6",
+            "assessors": [
+                {
+                    "role": "Lead / Delivery"
+                }
+            ]
         },
         {
             "point": "7",
             "title": "7. Use agile ways of working",
             "description": "",
-            "partial": "sspoint7"
+            "partial": "sspoint7",
+            "assessors": [
+                {
+                    "role": "Lead / Delivery"
+                }
+            ]
         },
         {
             "point": "8",
             "title": "8. Iterate and improve frequently",
             "description": "",
-            "partial": "sspoint8"
+            "partial": "sspoint8",
+            "assessors": [
+                {
+                    "role": "Product"
+                }
+            ]
         },
         {
             "point": "9",
             "title": "9. Create a secure service which protects users’ privacy",
             "description": "",
-            "partial": "sspoint9"
+            "partial": "sspoint9",
+            "assessors": [
+                {
+                    "role": "Lead"
+                }, {
+                    "role": "Product"
+                }, {
+                    "role": "Technical"
+                }
+            ]
         },
         {
             "point": "10",
             "title": "10. Define what success looks like and publish performance data",
             "description": "",
-            "partial": "sspoint10"
+            "partial": "sspoint10",
+            "assessors": [
+                {
+                    "role": "Lead"
+                }, {
+                    "role": "Product"
+                }, {
+                    "role": "Technical"
+                }
+            ]
         },
         {
             "point": "11",
             "title": "11. Choose the right tools and technology",
             "description": "",
-            "partial": "sspoint11"
+            "partial": "sspoint11",
+            "assessors": [
+                {
+                    "role": "Technical"
+                }
+            ]
         },
         {
             "point": "12",
             "title": "12. Make new source code open",
             "description": "",
-            "partial": "sspoint12"
+            "partial": "sspoint12",
+            "assessors": [
+               {
+                    "role": "Technical"
+                }
+            ]
         },
         {
             "point": "13",
             "title": "13. Use and contribute to open standards, common components and patterns",
             "description": "",
-            "partial": "sspoint13"
+            "partial": "sspoint13",
+            "assessors": [
+                {
+                    "role": "Design"
+                }, {
+                    "role": "Technical"
+                }
+            ]
         },
         {
             "point": "14",
             "title": "14. Operate a reliable service",
             "description": "",
-            "partial": "sspoint14"
+            "partial": "sspoint14",
+            "assessors": [
+                {
+                    "role": "Lead"
+                }, {
+                    "role": "Product"
+                }, {
+                    "role": "Technical"
+                }
+            ]
         }
     ]
 }
