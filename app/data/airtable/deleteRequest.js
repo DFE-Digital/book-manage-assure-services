@@ -1,15 +1,17 @@
-var Airtable = require('airtable')
-var axios = require('axios')
-var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE,
-)
+const Airtable = require('airtable');
 
-async function DeleteRequest(id) {
+const base = new Airtable({
+  apiKey: process.env.AIRTABLE_API_KEY,
+}).base(process.env.AIRTABLE_BASE);
+
+async function deleteReviewById(id) {
   try {
-      return await base('Reviews').destroy([id])
-  } catch (err) {
-    console.log(err)
+    await base('Assessments').destroy([id]);
+    //console.log(`Review with ID ${id} deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting review:', error.message);
+    throw error;
   }
 }
 
-module.exports = DeleteRequest
+module.exports = deleteReviewById;

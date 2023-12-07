@@ -1,0 +1,123 @@
+{% extends "layouts/content-with-sidenav-right.html" %}
+
+{% set selectedNav = "Action plans" %}
+{% set pageName = "Action plan" %}
+
+{% set entry = request[0]%}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <span class="govuk-caption-l">Action plan</span>
+
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3 govuk-!-font-size-36 ">
+                        <a class="govuk-link govuk-link--no-underline" href="/{{data.role}}/entry/{{entry.fields.ID}}">{{entry.fields.Name}}</a>
+                    </h1>
+                    <table class="govuk-table govuk-!-margin-bottom-0">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header ">Phase</th>
+                                <th scope="col" class="govuk-table__header">Assessment date</th>
+                                <th scope="col" class="govuk-table__header">Report</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+
+                                <td class="govuk-table__cell">
+                                    <strong class="govuk-tag">{{entry.fields.Phase}}</strong>
+                                </td>
+
+                                <td class="govuk-table__cell">
+                                    {% if entry.fields.ReviewDate%}{{(entry.fields.ReviewDate + " " + entry.fields.ReviewTime) | date("h:mm A")}} on {{entry.fields.ReviewDate | date('ddd D MMM YYYY')}}
+                                    {% else %}No date{% endif %}
+                                </td>
+
+                                <td class="govuk-table__cell">
+                                    {% if entry.fields.SubStatus === "Published"%}
+                                        <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="govuk-link govuk-link--no-visited-state">View report</a>
+                                    {% else %}
+                Not available
+                {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <span class="govuk-caption-l">Action</span>
+    <h2 class="govuk-heading-l">{{action.fields.Comment}}</h2>
+    <p class="govuk-body"></p>
+
+    <h2 class="govuk-heading-m">Additional details</h2>
+    <p class="govuk-body">{{action.fields.Details}}</p>
+
+    <h2 class="govuk-heading-m">Activity</h2>
+
+    <form method="post" action="/assess/post/improve/{{point}}/{{entry.fields.ID}}">
+
+        <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--s" for="improve">
+        Comments
+      </label>
+                </h1>
+
+                <textarea class="govuk-textarea govuk-js-character-count" id="improve" name="improve" rows="2" aria-describedby="improve-info improve-hint"></textarea>
+            </div>
+            <div id="improve-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 200 characters
+  </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+  Save comments
+</button>
+    </form>
+
+    {% if activity.length%}
+
+        {% for item in activity %}{% endfor %}
+
+        {% else%}
+
+        <div class="govuk-inset-text">No activity.</div>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-3">RAG Rating</h2>
+        <strong class="govuk-tag {% if action.fields.RAG === 'Green'%}govuk-tag--green{% elseif action.fields.RAG === 'Amber'%}govuk-tag--amber{% else%}govuk-tag--red{% endif %}">{{action.fields.RAG}}</strong>
+        <h2 class="govuk-heading-s  govuk-!-margin-bottom-3  govuk-!-margin-top-5">Status</h2>
+        <strong class="govuk-tag {% if action.fields.Status === 'Not started'%}govuk-tag--grey{% elseif action.fields.Status === 'Complete'%}govuk-tag--green{% else%}govuk-tag--blue{% endif %}">{{action.fields.Status}}</strong>
+        <h2 class="govuk-heading-s  govuk-!-margin-bottom-3  govuk-!-margin-top-5">Related standard</h2>
+
+        {% for standard in standards.standards%}
+            {% if standard.point === action.fields.Standard %}
+                <p>
+                    <a href="{{standard.url}}" class="govuk-link govuk-link--no-visited-state">{{standard.title}}</a>
+                </p>
+            {% endif %}
+        {% endfor %}
+
+        <hr/>
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-3">Change status</h2>
+
+    </aside>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Overview</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-third">Overall rating</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-third">Actions</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-third">Panel comments</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <strong class="govuk-tag govuk-tag--{{ entry.fields.Outcome | lower}}">
+                            {{ entry.fields.Outcome }}</strong>
+                    </td>
+                    <td class="govuk-table__cell">
+                        {% if entry.fields.Actions | length === 0%}
+      No actions
+      {% else%}
+                            {{entry.fields.Actions | length}} action{% if entry.fields.Actions | length !== 1 %}s{%endif%}
+                                {% endif%}
+                            </td>
+                            <td class="govuk-table__cell">
+                                {% if comments | length === 0%}
+      No comments
+      {% else%}
+                                    {{comments | length}} comment{% if comments | length !== 1 %}s{%endif%}
+                                        {% endif%}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>

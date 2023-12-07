@@ -1,0 +1,111 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Administrators" %}
+{% set view = "admins"%}
+{% set departmentName = "Department for Education" %}
+
+
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+
+
+{% endblock %}
+
+{% block content %}
+
+  
+
+<h1 class="govuk-heading-xl">Lead administrators</h1>
+
+<p>You can add other administrators to support the assurance lead administrators.</p>
+<p>You can <a href="">read guidance for administrators</a> for more information.</p>
+
+    <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Name</th>
+                            <th scope="col" class="govuk-table__header">Email</th>
+                            <th scope="col" class="govuk-table__header">Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                Mike Dunn
+                            </th>
+                            <td class="govuk-table__cell">mike.dunn@education.gov.uk</td>
+                            <td class="govuk-table__cell"><a href="">Change details or remove</a></td>
+                        </tr>
+ <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                Gary Perkins
+                            </th>
+                            <td class="govuk-table__cell">gary.perkins@education.gov.uk</td>
+                            <td class="govuk-table__cell"><a href="">Change details or remove</a></td>
+                        </tr>
+                      
+                    </tbody>
+                </table>
+
+<h2 class="govuk-heading-l">Other administrators</h2>
+<p>These administrators can action tasks on behalf of the department assurance leads. They cannot add other administrators.</p>
+
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Administrators</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action">
+                    <a class="govuk-link" href="/admin/administrators/add">
+          Add administrator
+                    </a>
+                </li>
+               
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Name</th>
+                            <th scope="col" class="govuk-table__header">Email</th>
+                            <th scope="col" class="govuk-table__header">Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                         {% for administrator in administrators %}
+                          <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                {{administrator.fields.UserName}}
+                            </th>
+                            <td class="govuk-table__cell">{{administrator.fields.EmailAddress}}</td>
+                            <td class="govuk-table__cell"><a href="/admin/administrators/manage/{{administrator.id}}">Change details or remove</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+</div>
+</div>
+{% endblock %}

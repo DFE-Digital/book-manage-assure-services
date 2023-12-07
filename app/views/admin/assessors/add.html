@@ -1,0 +1,156 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Add assessor" %}
+{% set view = "assessors"%}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+    {% if errors %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+
+                        {% for field, errorMessage in errors %}
+                            <li>
+                                <a href="#{{ field }}">{{ errorMessage }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <h1 class="govuk-heading-xl">Assesor details</h1>
+
+    <p>We'll send them a link to confirm their email address and create a password if they aren't already a registered user.</p>
+
+    <form action="/admin/assessors/add" method="post">
+
+        <div class="govuk-form-group{% if errors.firstName %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="firstName">First name</label>
+            {% if errors.firstName %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.firstName }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="firstName" name="firstName" type="text" value="{{data['firstName']}}">
+        </div>
+
+        <div class="govuk-form-group{% if errors.lastName %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="lastName">Last name</label>
+            {% if errors.lastName %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.lastName }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="lastName" name="lastName" type="text" value="{{data['lastName']}}">
+        </div>
+
+        <div class="govuk-form-group{% if errors.email %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="email">Email address</label>
+            {% if errors.email %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.email }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="email" name="email" type="text" value="{{data['email']}}">
+        </div>
+
+
+
+<div class="govuk-form-group{% if errors.role %} govuk-form-group--error{% endif %}">
+    <fieldset class="govuk-fieldset" aria-describedby="role-hint">
+        <legend class="govuk-fieldset__legend">
+            What roles will they perform as an assessor?
+        </legend>
+        <div id="role-hint" class="govuk-hint">
+            Select all that apply.
+        </div>
+        {% if errors.role %}
+            <p id="role-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error: </span>{{ errors.role }}
+            </p>
+        {% endif %}
+       <div class="govuk-checkboxes" data-module="govuk-checkboxes" id="role">
+    {% for roleOption in ['Lead assessor', 'Design', 'User research', 'Technical', 'Accessibility', 'Product', 'Delivery', 'Performance analysis'] %}
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="role-{{ loop.index }}" name="role" type="checkbox" value="{{ roleOption }}" {% if data.role and ((data.role is string and data.role == roleOption) or (data.role is iterable and roleOption in data.role)) %}checked{% endif %}>
+            <label class="govuk-label govuk-checkboxes__label" for="role-{{ loop.index }}">
+                {{ roleOption }}
+            </label>
+        </div>
+    {% endfor %}
+</div>
+    </fieldset>
+</div>
+
+         <div class="govuk-form-group{% if errors.crossgov %} govuk-form-group--error{% endif %}">
+            <fieldset class="govuk-fieldset" aria-describedby="crossgov-hint">
+                <legend class="govuk-fieldset__legend">
+        Are they also a cross government assessor?
+    </legend>
+                <div id="crossgov-hint" class="govuk-hint">
+      This means they have completed CDDO training and can assess other government departments services. This can be changed later.
+    </div>
+     {% if errors.crossgov %}
+                    <p id="crossgov-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.crossgov }}
+                    </p>
+                {% endif %}
+                <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="crossgov" name="crossgov" type="radio" value="Yes" {% if data.crossgov === 'Yes' %}checked{% endif %}>
+                        <label class="govuk-label govuk-radios__label" for="crossgov">
+          Yes
+        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="crossgov-2" name="crossgov" type="radio" value="No" {% if data.crossgov === 'No' %}checked{% endif %}>
+                        <label class="govuk-label govuk-radios__label" for="crossgov-2">
+          No
+        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+  Add assessor
+</button>
+
+    </form>
+
+{% endblock %}

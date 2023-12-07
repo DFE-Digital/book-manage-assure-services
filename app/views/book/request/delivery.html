@@ -16,88 +16,116 @@
     </section>
 {% endblock %}
 
+{% block backlink %}
+    <a href="/book/request/product" class="govuk-back-link">Back</a>
+{% endblock %}
+
 {% block content %}
 
-  {% if err or errcode%}
-      <div class="govuk-error-summary" data-module="govuk-error-summary">
-         <div role="alert">
-            <h2 class="govuk-error-summary__title">There is a problem</h2>
-            <div class="govuk-error-summary__body">
-               <ul class="govuk-list govuk-error-summary__list">
-                  {% if err %}
-                  <li>
-                     <a href="#code">Select if the team has a delivery manager</a>
-                  </li>
-                  {%elseif errcode%}
-                  <li>
-                     <a href="#code_">Select name</a>
-                  </li>
-                  {% endif %}
-               </ul>
+    {% if err or errcode%}
+
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">There is a problem</h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        {% if errd %}
+                            <li>
+                                <a href="#dm-hint">Select if the team has a delivery manager</a>
+                            </li>
+                            {% endif %}
+                            {% if errf %}
+                                <li>
+                                    <a href="#dmFirstName">Enter the first name</a>
+                                </li>
+                            {% endif %}
+                            {% if errl %}
+                                <li>
+                                    <a href="#dmLastName">Enter the last name</a>
+                                </li>
+                            {% endif %}
+
+                            {% if erre %}
+                                <li>
+                                    <a href="#dmEmail">Enter the email address</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      {% endif %}
-      <form action="/book/post/delivery" method="post">
-         <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
-            <fieldset class="govuk-fieldset" aria-describedby="dm-hint">
-               <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                  <h1 class="govuk-fieldset__heading">
-                     Does the team have a delivery manager?
-                  </h1>
-               </legend>
-               <div id="dm-hint" class="govuk-hint">
-                  Select one option.
-               </div>
-               {%if err%}
-               <p id="event-name-error" class="govuk-error-message">
-                  <span class="govuk-visually-hidden">Error:</span>Select if you have a delivery manager
-               </p>
-               {% endif%}
-               <div class="govuk-radios" data-module="govuk-radios">
-                  <div class="govuk-radios__item">
-                     <input class="govuk-radios__input" id="dm" name="dm" type="radio" value="Yes" data-aria-controls="conditional-dm" {% if request.fields.DeliveryManagerYN === "Yes"%}checked{% endif %}>
-                     <label class="govuk-label govuk-radios__label" for="dm">
-                     Yes
-                     </label>
-                  </div>
-                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-dm">
-                     <div class="govuk-form-group {%if errcode%}govuk-form-group--error{% endif%}">
-                        <label class="govuk-label" for="dm-name">
-                        Name of delivery manager
-                        </label>
-                        {%if errcode%}
+
+        {% endif %}
+
+        <form action="/book/post/delivery" method="post">
+            <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+                <fieldset class="govuk-fieldset" aria-describedby="dm-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">Does the team have a delivery manager?</h1>
+                    </legend>
+                    <div id="dm-hint" class="govuk-hint">Select one option.</div>
+                    {%if errd %}
                         <p id="event-name-error" class="govuk-error-message">
-                           <span class="govuk-visually-hidden">Error:</span>Select a name
-                        </p>
+                            <span class="govuk-visually-hidden">Error:</span>Select if the team has a delivery manager
+      </p>
                         {% endif%}
-                        <select class="govuk-select govuk-!-width-one-half auto" id="dm-name" name="dm-name">
-                        {% include "_names.html" %}
-                        </select>
-                     </div>
-                  </div>
-                  <div class="govuk-radios__item">
-                     <input class="govuk-radios__input" id="dm-2" name="dm" type="radio" value="No" data-aria-controls="conditional-dm-2"  {% if request.fields.DeliveryManagerYN === "No"%}checked{% endif %}>
-                     <label class="govuk-label govuk-radios__label" for="dm-2">
-                     No
-                     </label>
-                  </div>
-               </div>
-            </fieldset>
-         </div>
-        <div class="govuk-button-group">
-            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
-            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
-         </div>
-      </form>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="dm" name="dm" type="radio" value="Yes" data-aria-controls="conditional-dm" {% if request.fields.DeliveryManagerYN or data['dm'] === "Yes"%}checked{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="dm">Yes</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-dm">
 
-        {% endblock %}
+                                <p class="govuk-heading-m">Name and email address of the delivery manager</p>
 
-        {% block sideNav %}{% endblock %}
+                                <div class="govuk-form-group {%if errf%}govuk-form-group--error{% endif%}">
+                                    <label class="govuk-label" for="dmFirstName">First name</label>
+                                    {%if errf%}
+                                        <p id="event-name-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span>Enter first name
+            </p>
+                                        {% endif%}
+                                        <input class="govuk-input govuk-!-width-two-thirds {%if errFirst%} govuk-input--error{% endif%}" id="dmFirstName" name="dmFirstName" type="text" value="{% if request.fields.DMName %}{{request.fields.DMName | array('first')}}{% else%}{{data['dmFirstName']}}{% endif %}">
+                                    </div>
+                                    <div class="govuk-form-group {%if errl%}govuk-form-group--error{% endif%}">
+                                        <label class="govuk-label" for="dmLastName">Last name</label>
+                                        {%if errl%}
+                                            <p id="event-name-error" class="govuk-error-message">
+                                                <span class="govuk-visually-hidden">Error:</span>Enter last name
+            </p>
+                                            {% endif%}
+                                            <input class="govuk-input govuk-!-width-two-thirds {%if errFirst%} govuk-input--error{% endif%}" id="dmLastName" name="dmLastName" type="text" value="{% if request.fields.DMName %}{{request.fields.DMName | array('last')}}{% else%}{{data['dmLastName']}}{% endif %}">
+                                        </div>
+                                        <div class="govuk-form-group {%if erre%}govuk-form-group--error{% endif%}">
+                                            <label class="govuk-label" for="dmEmail">Email address</label>
+                                            {%if erre%}
+                                                <p id="event-name-error" class="govuk-error-message">
+                                                    <span class="govuk-visually-hidden">Error:</span>Enter an email address
+            </p>
+                                                {% endif%}
+                                                <input class="govuk-input govuk-!-width-two-thirds {%if errFirst%} govuk-input--error{% endif%}" id="dmEmail" name="dmEmail" type="text" value="{% if request.fields.DeliveryManager %}{{request.fields.DeliveryManager}}{% else%}{{data['dmEmail']}}{% endif %}">
+                                            </div>
+                                        </div>
+                                        <div class="govuk-radios__item">
+                                            <input class="govuk-radios__input" id="dm-2" name="dm" type="radio" value="No" data-aria-controls="conditional-dm-2"  {% if request.fields.DeliveryManagerYN === "No"%}checked{% endif %}>
+                                            <label class="govuk-label govuk-radios__label" for="dm-2">No</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="govuk-button-group">
+                                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                                <a class="govuk-link govuk-link--no-visited-state" href="/book/request/tasks">Skip and return to later</a>
+                            </div>
+                        </form>
 
-        {% block scripts %}
-            {{ super() }}
-            <script>
-                accessibleAutocomplete.enhanceSelectElement({defaultValue: '{{ request.fields.DeliveryManagerName }}', selectElement: document.querySelector('.auto')})
-            </script>
-        {% endblock %}
+                    {% endblock %}
+
+                    {% block sideNav %}{% endblock %}
+
+                    {% block scripts %}
+                        {{ super() }}
+                        <script>
+                            accessibleAutocomplete.enhanceSelectElement({defaultValue: '{{ dm-name }}', selectElement: document.querySelector('.auto')})
+                        </script>
+                    {% endblock %}

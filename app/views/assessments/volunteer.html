@@ -1,0 +1,215 @@
+{% extends "layouts/content-with-sidenav-right.html" %}
+{% set selectedNav = "Assessments" %}
+{% set pageName = "Assessments" %}
+
+{% block hero %}
+
+  <section class="dfe-hero">
+
+    <div class="govuk-width-container ">
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">{{pageName}}</h1>
+          <p class="govuk-body-l">View upcoming service assessments and peer reviews and volunteer to be an assessor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+
+  {% if entries.length %}
+    {%for entry in entries %}
+      {% set leadVolunteerNeeded = "true"%}
+      {% set designNeeded = "true"%}
+      {% set urNeeded = "true"%}
+      {% set techNeeded = "true"%}
+      {% set assNeeded = "true"%}
+      <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title">{{entry.fields.Name}}</h2>
+
+        </div>
+        <div class="govuk-summary-card__content">
+
+
+          <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                          Type
+                        </dt>
+              <dd class="govuk-summary-list__value">
+                {{entry.fields.Type}}
+              </dd>
+              <dd class="govuk-summary-list__actions"></dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                          Phase
+                        </dt>
+              <dd class="govuk-summary-list__value">
+                {{entry.fields.Phase}}
+              </dd>
+              <dd class="govuk-summary-list__actions"></dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                          Assessment date
+                        </dt>
+              <dd class="govuk-summary-list__value">
+                {% if entry.fields.ReviewDate %}
+                  {{entry.fields.ReviewDate | date('D MMM YYYY')}} at {{entry.fields.ReviewTime}}
+                {% else %}
+                            Assessment date not set yet
+                            {% endif%}
+
+                </dd>
+                <dd class="govuk-summary-list__actions"></dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                          Lead assessor
+                        </dt>
+                <dd class="govuk-summary-list__value">
+
+                  {% for row in panels %}
+                    {% if row.fields.ReviewID == entry.fields.ID %}
+                      {% if "Lead assessor" in row.fields.Role %}
+                        {% set leadVolunteerNeeded = "false"%}
+                        {{ row.fields.Name }}
+                      {% endif %}
+                    {% endif %}
+                    {% endfor%}
+                    {% if leadVolunteerNeeded === "true"%}
+                      <a href="/assessments/volunteer/{{entry.fields.ID}}/lead">Volunteer</a>{% endif%}
+
+                    </dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                          User research
+                        </dt>
+                    <dd class="govuk-summary-list__value">
+
+                      {% for row in panels %}
+                        {% if row.fields.ReviewID == entry.fields.ID %}
+                          {% if "User research" in row.fields.Role %}
+                            {% set urNeeded = "false"%}
+                            {{ row.fields.Name }}
+                          {% endif %}
+                        {% endif %}
+                        {% endfor%}
+                        {% if urNeeded === "true"%}
+                          <a href="/assessments/volunteer/{{entry.fields.ID}}/ur">Volunteer</a>{% endif%}
+
+                        </dd>
+                        <dd class="govuk-summary-list__actions"></dd>
+                      </div>
+
+                      <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                          Technical
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+
+                          {% for row in panels %}
+                            {% if row.fields.ReviewID == entry.fields.ID %}
+                              {% if row
+                                .fields
+                                .Role
+                                .includes("Technical") %}
+                                {% set techNeeded = "false"%}
+                                {{ row.fields.Name }}<br/>
+                              {% endif %}
+                            {% endif %}
+                            {% endfor%}
+                            {% if techNeeded === "true"%}
+                              <a href="/assessments/volunteer/{{entry.fields.ID}}/technical">Volunteer</a>{% endif%}
+                            </dd>
+                            <dd class="govuk-summary-list__actions"></dd>
+                          </div>
+
+                          <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                          Accessibility
+                        </dt>
+                            <dd class="govuk-summary-list__value">
+
+                              {% for row in panels %}
+                                {% if row.fields.ReviewID == entry.fields.ID %}
+                                  {% if row
+                                    .fields
+                                    .Role
+                                    .includes("Technical") %}
+                                    {% set assNeeded = "false"%}
+                                    {{ row.fields.Name }}<br/>
+                                  {% endif %}
+                                {% endif %}
+                                {% endfor%}
+                                {% if assNeeded === "true"%}
+                                  <a href="/assessments/volunteer/{{entry.fields.ID}}/accessibility">Volunteer</a>{% endif%}
+                                </dd>
+                                <dd class="govuk-summary-list__actions"></dd>
+                              </div>
+
+                                <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                          Design
+                        </dt>
+                            <dd class="govuk-summary-list__value">
+
+                              {% for row in panels %}
+                                {% if row.fields.ReviewID == entry.fields.ID %}
+                                  {% if row
+                                                        .fields
+                                                        .Role
+                                                        .includes("Content design")or row
+                                                        .fields
+                                                        .Role
+                                                        .includes("Service design")or row
+                                                        .fields
+                                                        .Role
+                                                        .includes("Interaction design") %}
+                                                        {% set designNeeded = "false"%}
+                                                        {{ row.fields.Name }} ({{row.fields.Role}})<br/>
+                                                    {% endif %}
+                                {% endif %}
+                                {% endfor%}
+                                {% if designNeeded === "true"%}
+                                  <a href="/assessments/volunteer/{{entry.fields.ID}}/design">Volunteer</a>{% endif%}
+                                </dd>
+                                <dd class="govuk-summary-list__actions"></dd>
+                              </div>
+
+                            </dl>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      <p>No assessments</p>
+                    {% endif %}
+
+                 
+                  {% endblock %}
+
+                
+
+
+
+                  {% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-m">Related guidance</h2>
+          <ul class="govuk-list govuk-list--spaced">
+      <li><a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a></li>
+    </ul>
+    </aside>
+
+{% endblock %}

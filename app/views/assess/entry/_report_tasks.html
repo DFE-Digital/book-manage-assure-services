@@ -13,7 +13,7 @@
             {% for item in standards.standards %}
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
-                        <a href="/assess/entry/{{item.partial}}/{{entry.fields.ID}}" class="govuk-link" aria-describedby="{{item.point}}-{{item.slug}}">
+                        <a href="/assess/entry/{{item.partial}}/{{entry.fields.ID}}" class="govuk-link govuk-link--no-visited-state" aria-describedby="{{item.point}}-{{item.slug}}">
                             {{item.title}}
                         </a>
                     </span>
@@ -34,7 +34,7 @@
         <ul class="app-task-list__items">
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">
-                    <a href="/assess/entry/outcome/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="2-outcome">
+                    <a href="/assess/entry/outcome/{{entry.fields.ID}}"  class="govuk-link govuk-link--no-visited-state" aria-describedby="2-outcome">
                  Overall outcome
                 </a>
                 </span>
@@ -45,7 +45,7 @@
             </li>
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">
-                    <a href="/assess/entry/actions/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="2-actions">
+                    <a href="/assess/entry/actions/{{entry.fields.ID}}"  class="govuk-link govuk-link--no-visited-state" aria-describedby="2-actions">
                  Actions required
                 </a>
                 </span>
@@ -62,7 +62,7 @@
         <ul class="app-task-list__items">
             <li class="app-task-list__item">
                 <span class="app-task-list__task-name">
-                    <a href="/assess/entry/preview/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="3-preview">
+                    <a href="/assess/entry/preview/{{entry.fields.ID}}"  class="govuk-link govuk-link--no-visited-state" aria-describedby="3-preview">
                  Preview report
                 </a>
                 </span>

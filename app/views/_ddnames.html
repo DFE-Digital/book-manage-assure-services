@@ -1,0 +1,7 @@
+<option value=""></option>
+
+{% for dd in ddNames %}
+
+<option value="{{dd.fields.EmailAddress}}">{{dd.fields.Name}} - {{dd.fields.Additional}}</option>
+
+{% endfor %}

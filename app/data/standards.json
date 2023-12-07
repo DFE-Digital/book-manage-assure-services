@@ -2,7 +2,7 @@
     "standards": [
         {
             "point": "1",
-            "title": "1. Understand the user",
+            "title": "Understand the user",
             "description": "Take time to understand users' needs and the problem you're trying to solve for them.<br/><br/>Think about people's entire experience and the systems and processes around the product or service you're building.",
             "partial": "sspoint1",
             "assessors": [
@@ -14,7 +14,7 @@
         },
         {
             "point": "2",
-            "title": "2. Solve a whole problem for users",
+            "title": "Solve a whole problem for users",
             "description": "",
             "partial": "sspoint2",
             "assessors": [
@@ -25,7 +25,7 @@
         },
         {
             "point": "3",
-            "title": "3. Provide a joined up experience across all channels",
+            "title": "Provide a joined up experience across all channels",
             "description": "",
             "partial": "sspoint3",
             "assessors": [
@@ -36,7 +36,7 @@
         },
         {
             "point": "4",
-            "title": "4. Make the service simple to use",
+            "title": "Make the service simple to use",
             "description": "",
             "partial": "sspoint4",
             "assessors": [
@@ -47,7 +47,7 @@
         },
         {
             "point": "5",
-            "title": "5. Make sure everyone can use the service",
+            "title": "Make sure everyone can use the service",
             "description": "",
             "partial": "sspoint5",
             "assessors": [
@@ -64,29 +64,29 @@
         },
         {
             "point": "6",
-            "title": "6. Have a multidisciplinary team",
+            "title": "Have a multidisciplinary team",
             "description": "",
             "partial": "sspoint6",
             "assessors": [
                 {
-                    "role": "Lead / Delivery"
+                    "role": "Delivery"
                 }
             ]
         },
         {
             "point": "7",
-            "title": "7. Use agile ways of working",
+            "title": "Use agile ways of working",
             "description": "",
             "partial": "sspoint7",
             "assessors": [
                 {
-                    "role": "Lead / Delivery"
+                    "role": "Delivery"
                 }
             ]
         },
         {
             "point": "8",
-            "title": "8. Iterate and improve frequently",
+            "title": "Iterate and improve frequently",
             "description": "",
             "partial": "sspoint8",
             "assessors": [
@@ -97,7 +97,7 @@
         },
         {
             "point": "9",
-            "title": "9. Create a secure service which protects users’ privacy",
+            "title": "Create a secure service which protects users’ privacy",
             "description": "",
             "partial": "sspoint9",
             "assessors": [
@@ -112,7 +112,7 @@
         },
         {
             "point": "10",
-            "title": "10. Define what success looks like and publish performance data",
+            "title": "Define what success looks like and publish performance data",
             "description": "",
             "partial": "sspoint10",
             "assessors": [
@@ -127,7 +127,7 @@
         },
         {
             "point": "11",
-            "title": "11. Choose the right tools and technology",
+            "title": "Choose the right tools and technology",
             "description": "",
             "partial": "sspoint11",
             "assessors": [
@@ -138,7 +138,7 @@
         },
         {
             "point": "12",
-            "title": "12. Make new source code open",
+            "title": "Make new source code open",
             "description": "",
             "partial": "sspoint12",
             "assessors": [
@@ -149,7 +149,7 @@
         },
         {
             "point": "13",
-            "title": "13. Use and contribute to open standards, common components and patterns",
+            "title": "Use and contribute to open standards, common components and patterns",
             "description": "",
             "partial": "sspoint13",
             "assessors": [
@@ -162,7 +162,7 @@
         },
         {
             "point": "14",
-            "title": "14. Operate a reliable service",
+            "title": "Operate a reliable service",
             "description": "",
             "partial": "sspoint14",
             "assessors": [

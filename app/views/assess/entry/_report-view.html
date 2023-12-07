@@ -1,0 +1,194 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Summary</h2>
+
+    </div>
+    <div class="govuk-summary-card__content">
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+      Overall rating
+    </dt>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--{{ entry.fields.Outcome | lower}}">
+                        {{ entry.fields.Outcome }}</strong>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+      Type
+    </dt>
+                <dd class="govuk-summary-list__value">
+                    {{entry.fields.Type}}
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+      Phase
+    </dt>
+                <dd class="govuk-summary-list__value">
+                    {{entry.fields.Phase}}
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+      Date of {{entry.fields.Type | lower}}
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{entry.fields.ReviewDate | date('ddd D MMMM YYYY')}}
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+      Portfolio
+    </dt>
+                <dd class="govuk-summary-list__value">
+                    {{entry.fields.Portfolio}}
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+      Review panel
+    </dt>
+                <dd class="govuk-summary-list__value">
+                    <ul class="govuk-list">
+
+                        {% for item in panel %}
+                            <li>{{ item.fields.FirstName }}
+                                {{ item.fields.LastName }} - {{ item.fields.Role }}</li>
+                            {% endfor%}
+
+                        </ul>
+                    </dd>
+                </div>
+
+            </dl>
+
+
+        </div>
+    </div>
+
+
+     <div class="govuk-summary-card">
+                        <div class="govuk-summary-card__title-wrapper">
+                            <h2 class="govuk-summary-card__title">Panel comments</h2>
+                          
+                        </div>
+                        <div class="govuk-summary-card__content">
+                              <ul class="govuk-!-margin-bottom-2 govuk-list govuk-list--bullet govuk-list--spaced">
+                              {% for comment in comments %}
+                                       
+                                            <li>{{comment.fields.Details}}</li>
+                                        {% endfor %}
+                                        </ul>
+  </div>
+    </div>
+
+{# 
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Standards</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">Standard</th>
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Actions</th>
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-quarter govuk-table__header--numeric">Rating</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+
+                    {% for standard in standards.standards %}
+                        {% set itemCount = actions | countByStandard(standard.point) %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link" href="#{{standard.point}}" aria-describedby="application-details-2-status">
+                                    {{standard.point}}. {{standard.title}}</a>
+                            </td>
+                            <td class="govuk-table__cell">
+                                {% if itemCount == 0 %}
+      No actions
+      {% else%}
+                                    {{itemCount }} action{% if itemCount !== 1 %}s{%endif%}
+                                        {% endif%}
+                                    </td>
+                                    <td class="govuk-table__cell govuk-table__header--numeric">
+
+                                        {% set found = false %}
+                                        {% for r in outcome %}
+                                            {% if r.fields.Standard == standard.point and r.rating != "" %}
+                                                <strong class="govuk-tag govuk-tag--{{ r.fields.RAG | lower}}">
+                                                    {{ r.fields.RAG }}</strong>
+                                                {% set found = true %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if not found %}
+                                            <strong class="govuk-tag">Not rated</strong>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+
+                                {% endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div> #}
+
+                {% for standard in standards.standards %}
+                    <div class="govuk-summary-card" id="{{standard.point}}">
+                        <div class="govuk-summary-card__title-wrapper">
+                            <h2 class="govuk-summary-card__title">{{standard.point}}. {{standard.title}}</h2>
+                            <ul class="govuk-summary-card__actions">
+                                <li class="govuk-summary-card__action">
+                                    {% set found = false %}
+                                    {% for r in outcome %}
+                                        {% if r.fields.Standard == standard.point and r.rating != "" %}
+                                            <strong class="govuk-tag govuk-tag--{{ r.fields.RAG | lower}}">
+                                                {{ r.fields.RAG }}</strong>
+                                            {% set found = true %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if not found %}
+                                        <strong class="govuk-tag">Not rated</strong>
+                                    {% endif %}
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="govuk-summary-card__content">
+
+                            {% set hasActions = false %}
+                            {% for action in actions %}
+                                {% if action.fields.Standard == standard.point %}
+                                    {% set hasActions = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if hasActions %}
+                                <p>The following actions are required to be completed by the team</p>
+
+                                <ul class="govuk-!-margin-bottom-3 govuk-list govuk-list--bullet govuk-list--spaced">
+                                    {% for action in actions %}
+                                        {% if action.fields.Standard == standard.point %}
+                                            <li>{{action.fields.Details}}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                {% else%}
+                                  <p class="govuk-!-margin-bottom-0">There are no actions required for this standard.</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    {% endfor%}

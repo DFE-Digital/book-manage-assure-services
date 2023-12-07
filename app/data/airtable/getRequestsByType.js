@@ -1,16 +1,17 @@
-var Airtable = require('airtable')
-var axios = require('axios')
-var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE,
-)
+const Airtable = require('airtable');
 
-async function GetRequestsByType(view) {
+const base = new Airtable({
+  apiKey: process.env.AIRTABLE_API_KEY,
+}).base(process.env.AIRTABLE_BASE);
+
+async function getRequestsByType(view) {
   try {
-    return await base('Reviews').select({ view: view }).all()
-  } catch (err) {
-    console.log(err)
+    const requests = await base('Assessments').select({ view }).all();
+    return requests;
+  } catch (error) {
+    console.error('Error retrieving requests:', error.message);
+    throw error;
   }
 }
 
-module.exports = GetRequestsByType
-
+module.exports = getRequestsByType;

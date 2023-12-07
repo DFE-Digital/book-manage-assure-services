@@ -1,48 +1,54 @@
 <nav class="app-sub-navigation" aria-label="Application menu">
-
-    <ul class="app-sub-navigation__list">
-  <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link"  href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
-        </li>
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
-        </li>
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
-        </li>
-         {% if data['assessorType'] === 'lead' %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
-        </li>
-        {% endif %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
-        </li>
- {% if data['assessorType'] === 'lead' %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
-        </li>
-        {% endif %}
-
+  <ul class="app-sub-navigation__list">
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Report sections</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Overall rating</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+    </li>
+     <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/report-comments/{{entry.fields.ID}}">Panel comments</a>
+    </li>
+    {% if isLeadAssessor == true  %}
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+      </li>
+      {%endif%}
     </ul>
+  </nav>
 
-</nav>
+
+{% if data['ratingErr'] === "true"%}
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <li>
+          <a href="#pointRatingOverall">{{data['ratingErrMessage']}}</a>
+        </li>
+       
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <h2 class="govuk-heading-l">Rating</h2>
 
 <p>This should be completed by the lead assessor.</p>
-
-<p>If there are any actions from the report, Red and Amber, we could provide some text to indicate the overall outcome should be Red or Amber.</p>
-
-<p>If they select Red or Amber, and no actions, trigger a message to say why are they doing this and should they add actions.</p>
-
 
 <form method="post" action="/assess/post/outcome/{{entry.fields.ID}}">
 
   <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-      What is the overall rating for this service assessment?
+      What is the overall rating for this {{entry.fields.Type | lower}}?
     </legend>
     <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
@@ -50,18 +56,25 @@
         <label class="govuk-label govuk-radios__label" for="pointRatingOverall">
           Red
         </label>
+        <div id="pointRatingOverall-hint" class="govuk-hint govuk-radios__hint">
+                        There are serious concerns or recommendations the team should address before continuing. This will require standards which have been rated red, to be reassessed.
+                     </div>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="pointRatingOverall-2" name="pointRatingOverall" type="radio" value="Amber" {% if entry.fields.Outcome === 'Amber'%}checked{% endif %}>
         <label class="govuk-label govuk-radios__label" for="pointRatingOverall-2">
           Amber
         </label>
+         <div id="pointRatingOverall-2-hint" class="govuk-hint govuk-radios__hint">
+                        There are some actions the team need to resolve. These actions will need to be actioned and evided in their next assessment.</div>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="pointRatingOverall-3" name="pointRatingOverall" type="radio" value="Green" {% if entry.fields.Outcome === 'Green'%}checked{% endif %}>
         <label class="govuk-label govuk-radios__label" for="pointRatingOverall-3">
           Green
         </label>
+         <div id="pointRatingOverall-3-hint" class="govuk-hint govuk-radios__hint">
+                      The team is on the right track.   </div>
       </div>
      
     </div>

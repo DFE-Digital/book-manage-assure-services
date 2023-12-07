@@ -1,0 +1,94 @@
+<p>Assessors can change their own name and email address in their profile. Any changes users make themselves will be reflected in the details on this page.</p>
+
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Name
+    </dt>
+        <dd class="govuk-summary-list__value">
+            {{assessor.fields.UserName}}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/admin/assessors/manage/change-name/{{assessor.fields.ID}}">
+        Change<span class="govuk-visually-hidden"> name</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Email
+    </dt>
+        <dd class="govuk-summary-list__value">
+            {{assessor.fields.EmailAddress}}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/admin/assessors/manage/change-email/{{assessor.fields.ID}}">
+        Change<span class="govuk-visually-hidden"> email</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Profession assessor
+    </dt>
+        <dd class="govuk-summary-list__value">
+            {% for role in assessor.fields.Role %}
+                {{ role }}
+                {% if not loop.last %}<br>{% endif %}
+            {% endfor %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden">  Profession assessor</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Lead assessor
+    </dt>
+        <dd class="govuk-summary-list__value">
+            {{assessor.fields.LeadAssessor | BoolToYesNo}}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> lead assessor</span>
+            </a>
+        </dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Cross-gov assessor
+    </dt>
+        <dd class="govuk-summary-list__value">
+            <p class="govuk-body">{{assessor.fields.CrossGovAssessor | BoolToYesNo}}</p>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden">  Cross-gov assessor</span>
+            </a>
+        </dd>
+    </div>
+
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Status
+    </dt>
+        <dd class="govuk-summary-list__value">
+            <p class="govuk-body">
+                {% if assessor.fields.Status == 'Active' %}
+                    <strong class="govuk-tag govuk-tag--green">Active</strong>
+                    {% else%}
+                    <strong class="govuk-tag govuk-tag--red">Disabled</strong>
+                {% endif %}
+
+            </p>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden">  status</span>
+            </a>
+        </dd>
+    </div>
+</dl>

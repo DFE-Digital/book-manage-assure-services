@@ -9,12 +9,13 @@
     <li class="app-sub-navigation__item">
       <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
     </li>
-    <li class="app-sub-navigation__item">
+    {# <li class="app-sub-navigation__item">
       <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+    </li> #}
+      <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Recommendations</a>
     </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Actions</a>
-    </li>
+
     <li class="app-sub-navigation__item">
       <a class="app-sub-navigation__link"aria-current="page"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
     </li>
@@ -25,10 +26,12 @@
 
 
 {% set pointname = ""%}
+{% set pointnumber = ""%}
 
 {% for standard in standards.standards %}
   {% if standard.partial === view %}
   {% set pointname = standard.title%}
+  {% set pointnumber = standard.point%}
   {% endif %}
   {% endfor %}
 
@@ -71,12 +74,46 @@
 
   {% endif %}
 
+<h2 class="govuk-heading-l">Rate this standard point</h2>
+
+
+
+{% for standard in standards.standards %}
+  {% if standard.partial === view %}
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Standard
+    </dt>
+        <dd class="govuk-summary-list__value">
+          {{ standard.point}}. {{ standard.title}}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Assessed by
+    </dt>
+        <dd class="govuk-summary-list__value">
+          {% for role in standard.assessors %}
+            {{role.role -}}
+            {% if not loop.last%}, {%endif%}
+            {% endfor %}
+          </dd>
+        </div>
+
+      </dl>
+
+    {% endif %}
+  {% endfor %}
+
 
 <form method="post" action="/assess/post/outcome/{{point}}/{{entry.fields.ID}}">
   <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-      Rating for Service Standard point {{pointname | lower | replace('.',' - ')}} {{pointRating }}
+      Rating
     </legend>
     <div class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
@@ -84,18 +121,27 @@
         <label class="govuk-label govuk-radios__label" for="pointRating">
           Red
         </label>
+         <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          This will mean this standard point will need to be reassessed.
+        </div>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="pointRating-2" name="pointRating" type="radio" value="Amber" {% if data['pointRating'] === 'Amber'%}checked{% endif %}>
         <label class="govuk-label govuk-radios__label" for="pointRating-2">
           Amber
         </label>
+         <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          Any recommendations will need to be resolved and evidenced at the team's next service assessment.
+        </div>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="pointRating-3" name="pointRating" type="radio" value="Green" {% if data['pointRating'] === 'Green'%}checked{% endif %}>
         <label class="govuk-label govuk-radios__label" for="pointRating-3">
           Green
         </label>
+         <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          No actions required, the team is on the right track.
+        </div>
       </div>
      
     </div>

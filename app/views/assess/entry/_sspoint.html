@@ -1,63 +1,103 @@
+{% set count = 0 %}
+{% set point = 0 %}
+
+{% for standard in standards.standards %}
+  {% if standard.partial === view %}
+    {% set point = standard.point %}
+  {% endif %}
+{% endfor %}
+
+{% if actions.length %}
+  {% for item in actions %}
+    {% if item.fields.Standard == point %}
+      {% set count = count + 1 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
 
 <nav class="app-sub-navigation" aria-label="Application menu">
-
   <ul class="app-sub-navigation__list">
     <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Guidance</a>
-    </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
-    </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+      <a class="app-sub-navigation__link" aria-current="page"   href="/assess/entry/{{view}}/{{entry.fields.ID}}">Outcome</a>
     </li>
     <li class="app-sub-navigation__item">
       <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Actions</a>
     </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
-    </li>
-
   </ul>
-
 </nav>
+
+
 
 {% for standard in standards.standards %}
   {% if standard.partial === view %}
-    <h2 class="govuk-heading-m">{{ standard.title}}</h2>
 
-    <p>{{standard.description | safe}}</p>
+    <h2 class="govuk-heading-l">{{ standard.point}}. {{ standard.title}}
+    </h2>
 
     <dl class="govuk-summary-list">
-    
+
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-      Assessed by
+      Rating
     </dt>
         <dd class="govuk-summary-list__value">
-          {% for role in standard.assessors %}
-            <strong class="govuk-tag">{{role.role}}</strong>
-          {% endfor %}
+          <strong class="govuk-tag govuk-tag--amber">Amber</strong>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a href="/assess/entry/sspoint5/{{entry.fields.ID}}" class="govuk-link">Change rating</a>
         </dd>
       </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Actions
+    </dt>
+        <dd class="govuk-summary-list__value">
+          {{count}} action{% if count !== 1 %}s{%endif%} recorded
+        </dd>
+          <dd class="govuk-summary-list__actions"><a href="/assess/entry/sspoint{{point}}/pactions/{{entry.fields.ID}}" class="govuk-link">Manage actions</a></dd>
+        </div>
 
-    </dl>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+      Assessed by
+    </dt>
+          <dd class="govuk-summary-list__value">
+            {% for role in standard.assessors %}
+              {{role.role -}}
+              {% if not loop.last%}, {%endif%}
+              {% endfor %}
+            </dd>
+          </div>
 
-  {% endif %}
-{% endfor %}
+        </dl>
 
+      {% endif %}
+    {% endfor %}
 
-  <h2 class="govuk-heading-m">Assessor guidance</h2>
+  <h2 class="govuk-heading-m">Guidance for assessing this standard at the {{entry.fields.Phase | lower}} phase</h2>
 
-<ul class="govuk-list govuk-list--bullet">
-<li>recommendations from most recent phase assessment have been addressed</li>
-<li>a plan for ongoing research and continuous improvement</li>
-<li>choosing the best methods to get results and feedback for the problems identified, not just relying on usability testing. Other methods you could use include a survey or analytics</li>
-<li>user research working with performance analysis to define success metrics</li>
-<li>how design and user needs have <a href="https://design-histories.education.gov.uk/"> changed over time </a> based on user research</li>
-<li>assisted digital routes, for example, offline or supporting routes, have been tested</li>
-<li>a third party <a href="https://design.education.gov.uk/accessibility/audits"> accessibility audit </a>  of the service and actions taken based on findings</li>
-<li>a <a href="https://educationgovuk.sharepoint.com/sites/lvewp00158/SitePages/DPIA.aspx" class="govuk-link" target="_blank" rel="noopener noreferrer">Data Protection Impact Assessment (DPIA) (opens in new tab)</a> has been carried out, where neccessary</li>
-<li>any neccessary security testing</li>
-<li>what the team has done beyond public beta to continue to meet user needs and deliver outcomes, when moving to live</li>
-</ul>
+  <p>This guidance is for {% for standard in standards.standards %}
+      {% if standard.partial === view %}
+        {% for role in standard.assessors %}
+          {{role.role | lower -}}
+          {% if not loop.last -%}
+            {% if loop.revindex == 2 %} and {% else -%}, {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}assessors to help apply this standard consistently.</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>recommendations from most recent phase assessment have been addressed</li>
+    <li>a plan for ongoing research and continuous improvement</li>
+    <li>choosing the best methods to get results and feedback for the problems identified, not just relying on usability testing. Other methods you could use include a survey or analytics</li>
+    <li>user research working with performance analysis to define success metrics</li>
+    <li>how design and user needs have <a href="https://design-histories.education.gov.uk/"> changed over time </a> based on user research</li>
+    <li>assisted digital routes, for example, offline or supporting routes, have been tested</li>
+    <li>a third party <a href="https://design.education.gov.uk/accessibility/audits"> accessibility audit </a>  of the service and actions taken based on findings</li>
+    <li>a <a href="https://educationgovuk.sharepoint.com/sites/lvewp00158/SitePages/DPIA.aspx" class="govuk-link govuk-link--no-visited-state" target="_blank" rel="noopener noreferrer">Data Protection Impact Assessment (DPIA) (opens in new tab)</a> has been carried out, where neccessary</li>
+    <li>any neccessary security testing</li>
+    <li>what the team has done beyond public beta to continue to meet user needs and deliver outcomes, when moving to live</li>
+  </ul>

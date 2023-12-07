@@ -1,0 +1,256 @@
+{# <nav class="app-sub-navigation" aria-label="Application menu">
+
+  <ul class="app-sub-navigation__list">
+    {# <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
+    </li> 
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/report-sections/{{entry.fields.ID}}">Report</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Action plan</a>
+    </li>
+    {% if isLeadAssessor == true  %}
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
+      </li>
+      {%endif%}
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview report</a>
+      </li>
+      {% if isLeadAssessor == true  %}
+        <li class="app-sub-navigation__item">
+          <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+        </li>
+        {%endif%}
+
+      </ul>
+
+    </nav> #}
+
+<h2 class="govuk-heading-l">Report</h2>
+
+<ul class="govuk-task-list">
+  <li class="govuk-task-list__item govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="application-details-2-status">Overall rating</a>
+    </div>
+    <div class="govuk-task-list__status" id="application-details-2-status">
+      <strong class="govuk-tag govuk-tag--grey">Not yet rated</strong>
+    </div>
+  </li>
+   <li class="govuk-task-list__item govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="application-details-2-status">Panel comments</a>
+        <div id="application-details-3-hint" class="govuk-task-list__hint">
+           15 comments have been added
+          </div>
+    </div>
+  </li>
+     <li class="govuk-task-list__item govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="application-details-2-status">Action plan</a>
+        <div id="application-details-3-hint" class="govuk-task-list__hint">
+           3 actions have been added
+          </div>
+    </div>
+   
+  </li>
+</ul>
+
+<h2 class="govuk-heading-m">Report sections</h2>
+
+<ul class="govuk-task-list">
+  {% for standard in standards.standards %}
+    <li class="govuk-task-list__item govuk-task-list__item--with-link">
+      <div class="govuk-task-list__name-and-hint">
+        <a class="govuk-link govuk-task-list__link" href="/assess/entry/sspoint{{standard.point}}/poutcome/{{entry.fields.ID}}" aria-describedby="application-details-2-status">
+          {{standard.point}}. {{standard.title}}</a>
+           {% if standard.point === "5"%}
+            <div id="application-details-3-hint" class="govuk-task-list__hint">
+            3 actions have beeen added
+          </div>
+       {% endif%}
+     
+      </div>
+      <div class="govuk-task-list__status" id="application-details-2-status">
+        {% if standard.point === "5"%}
+          <strong class="govuk-tag govuk-tag--orange">Amber</strong>
+        {% elseif standard.point === "9"%}
+                     <strong class="govuk-tag govuk-tag--grey">Not yet rated</strong>
+                {% else%}
+          <strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}
+        </div>
+      </li>
+      {% endfor%}
+    </ul>
+
+    <h2 class="govuk-heading-m">Submit report</h2>
+
+    <p>The report cannot be submitted for the following reasons:</p>
+
+ <ul class="govuk-list govuk-list--bullet">
+            <li>1 standard has not been rated</li>
+            <li>No overall rating has been given</li>
+            </ul>
+
+<ul class="govuk-task-list">
+   <li class="govuk-task-list__item govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="application-details-2-status">Submit report</a>
+        <div id="application-details-3-hint" class="govuk-task-list__hint">
+          
+          </div>
+    </div>
+   
+    <div class="govuk-task-list__status" id="application-details-2-status">
+      <strong class="govuk-tag govuk-tag--grey">Cannot submit yet</strong>
+    </div>
+  </li>
+    </ul>
+
+    {# 
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Rating
+        </dt>
+        <dd class="govuk-summary-list__value">
+           {% if standard.point === "5"%}
+                      <strong class="govuk-tag govuk-tag--red">Red</strong>{% else%}
+                      <strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link govuk-link--no-visited-state" href="/assess/entry/sspoint{{standard.point}}/poutcome/{{entry.fields.ID}}">
+            Change<span class="govuk-visually-hidden"> rating</span>
+          </a>
+        </dd>
+      </div>
+        <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Responsible assessor{% if standard.assessors.length > 1%}s{% endif%}
+        </dt>
+        <dd class="govuk-summary-list__value">
+           {% for role in standard.assessors %}
+                    {{role.role -}}{% if not loop.last%}, {%endif%}
+                    {% endfor %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+         
+        </dd>
+      </div>
+    </dl> #}
+
+    {# 
+   <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header govuk-!-width-one-half">Standard</th>
+          <th scope="col" class="govuk-table__header">Outcome</th>
+          <th scope="col" class="govuk-table__header">Actions</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for standard in standards.standards %}
+
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <a href="/assess/entry/{{standard.partial}}/{{entry.fields.ID}}" class="govuk-link govuk-link--no-visited-state">{{standard.title}}</a>
+            </td>
+            <td class="govuk-table__cell">
+              {% if standard.point === "5"%}
+                <strong class="govuk-tag govuk-tag--red">Red</strong>{% else%}
+                <strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}</td>
+              <td class="govuk-table__cell">
+                {% if standard.point === "5"%}1{% else%}0{% endif%}</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">Complete</strong>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table> 
+        #}
+    {# 
+ {% for standard in standards.standards %}
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">{{standard.point}}. {{standard.title}}</h2>
+     <ul class="govuk-summary-card__actions">
+      <li class="govuk-summary-card__action"> <a class="govuk-link govuk-link--no-visited-state" href="/assess/entry/{{standard.partial}}/{{entry.fields.ID}}">
+          Complete section<span class="govuk-visually-hidden">for {{standard.point}} {{standard.title}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Rating
+        </dt>
+        <dd class="govuk-summary-list__value">
+           {% if standard.point === "5"%}
+                      <strong class="govuk-tag govuk-tag--red">Red</strong>{% else%}
+                      <strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link govuk-link--no-visited-state" href="/assess/entry/sspoint{{standard.point}}/poutcome/{{entry.fields.ID}}">
+            Change<span class="govuk-visually-hidden"> rating</span>
+          </a>
+        </dd>
+      </div>
+        <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Responsible assessor{% if standard.assessors.length > 1%}s{% endif%}
+        </dt>
+        <dd class="govuk-summary-list__value">
+           {% for role in standard.assessors %}
+                    {{role.role -}}{% if not loop.last%}, {%endif%}
+                    {% endfor %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+         
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
+     {% endfor %}
+#}
+
+    {# 
+        {% for standard in standards.standards %}
+          <a href="/assess/entry/{{standard.partial}}/{{entry.fields.ID}}" class="card-link">
+            <div class="card   {% if standard.point === "5"%}card-red{% else%}card-green{% endif%}">
+              <div class="card-content">
+
+                <div class="govuk-grid-row">
+                  <div class="govuk-grid-column-two-thirds">
+                    <span class="govuk-caption-m">Point {{standard.point}}</span>
+                    <h2 class="govuk-heading-m govuk-!-margin-bottom-3" style="max-width: 80%;">{{standard.title}}</h2>
+                  </div>
+                  <div class="govuk-grid-column-one-thirds">
+                    <span class="govuk-caption-m govuk-!-margin-bottom-2">Rating</span>
+                    {% if standard.point === "5"%}
+                      <strong class="govuk-tag govuk-tag--red">Red</strong>{% else%}
+                      <strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}</span>
+                </div>
+              </div>
+
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                   <span class="govuk-caption-m govuk-!-margin-bottom-1">Responsible assessor{% if standard.assessors.length > 1%}s{% endif%}</span>
+               
+                  <p>{% for role in standard.assessors %}
+                    {{role.role -}}{% if not loop.last%}, {%endif%}
+                    {% endfor %}</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </a>
+
+        {% endfor %} #}

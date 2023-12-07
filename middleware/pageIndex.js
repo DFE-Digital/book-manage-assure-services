@@ -15,9 +15,9 @@ class PageIndex {
     const startTime = new Date().getTime();
     const config = this.getConnectionConfig();
 
-  console.log('Page indexing started')
+  //console.log('Page indexing started')
 
-  console.log('baseUrl: ' + baseUrl)
+  //console.log('baseUrl: ' + baseUrl)
 
     // Set Lunr to only split searches on spaces rather than spaces and hyphens
     lunr.tokenizer.separator = /\s+/;
@@ -38,7 +38,7 @@ class PageIndex {
       // jQuery array of jQuery link objects
       const links = $('#main-content').find('a');
 
-      //console.log(links)
+      ////console.log(links)
 
       // Build an array of axios requests
       let urls = [];
@@ -88,12 +88,12 @@ class PageIndex {
       const endTime = new Date().getTime();
       const indexTime = (endTime - startTime) / 1000;
       // eslint-disable-next-line no-console
-      console.log('--------------------------------------------------------------')
-      console.log(`Page index finished in ${indexTime}s`);
+      //console.log('--------------------------------------------------------------')
+      //console.log(`Page index finished in ${indexTime}s`);
     } catch (err) {
       const reason = err.response ? `${err.message} URL: ${err.response.config.url}` : err.message;
       // eslint-disable-next-line no-console
-      console.log(`Unable to index pages. Reason: ${reason}`);
+      //console.log(`Unable to index pages. Reason: ${reason}`);
     }
   }
 
@@ -104,7 +104,7 @@ class PageIndex {
    * @return {object[]} - Array of indexed page objects
    */
   search(query) {
-    console.log('Search: ' + query)
+    //console.log('Search: ' + query)
     // Skip running a search if there is no query
     if (!query) return [];
     return this.searchIndex(query)
@@ -121,15 +121,15 @@ class PageIndex {
 
   // Return indexed pages for passed query
   searchIndex(query) {
-    console.log('searchIndex:' + query)
+    //console.log('searchIndex:' + query)
 
     var ind = this.index.query((q) => {
 
-      console.log('thisindex: ' + this.index[0])
+      //console.log('thisindex: ' + this.index[0])
 
       lunr.tokenizer(query).forEach((token) => {
         const tokenString = token.toString();
-        console.log('tokenString:' + tokenString)
+        //console.log('tokenString:' + tokenString)
         q.term(tokenString, { boost: 100, fields: ['title'] });
         q.term(tokenString, { boost: 80, fields: ['h2'] });
         q.term(tokenString, { boost: 60, fields: ['h3'] });
@@ -140,7 +140,7 @@ class PageIndex {
       });
     });
 
-    console.log('INDEX:' + ind)
+    //console.log('INDEX:' + ind)
 
     return ind;
   }

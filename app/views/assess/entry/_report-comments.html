@@ -1,0 +1,106 @@
+<nav class="app-sub-navigation" aria-label="Application menu">
+  <ul class="app-sub-navigation__list">
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Report sections</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Overall rating</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+    </li>
+     <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report-comments/{{entry.fields.ID}}">Panel comments</a>
+    </li>
+    {% if isLeadAssessor == true  %}
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+      </li>
+      {%endif%}
+    </ul>
+  </nav>
+
+
+{% if data['ratingErr'] === "true"%}
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <li>
+          <a href="#pointRatingOverall">{{data['ratingErrMessage']}}</a>
+        </li>
+       
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<h2 class="govuk-heading-l">Panel comments</h2>
+
+    <p>Comments are general feedback that the team are not required to take any action on.</p>
+
+    {% if comments.length !==  0%}
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">Comment</th>
+            <th scope="col" class="govuk-table__header">Added by</th>
+            <th scope="col" class="govuk-table__header">Manage</th>
+
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for item in comments %}
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{item.fields.Details}}</td>
+                <td class="govuk-table__cell">{{item.fields.FirstName}}
+                  {{item.fields.LastName}}</td>
+                <td class="govuk-table__cell">
+                  <a href="/assess/entry/edit-comment/{{entry.fields.ID}}/{{item.id}}">Edit</a> or <a href="/assess/entry/delete-comment/{{entry.fields.ID}}/{{item.id}}">Delete</a>
+                </td>
+              </tr>
+      
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% else%}
+
+      <div class="govuk-inset-text">No comments have been added to the list.</div>
+
+    {% endif %}
+
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+      Add a comment to the list
+    </span>
+      </summary>
+      <div class="govuk-details__text">
+        <form method="post" action="/assess/post/comment/{{entry.fields.ID}}">
+          <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="300">
+            <div class="govuk-form-group">
+              <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--s" for="comment">
+       Comment for the team
+      </label>
+              </h1>
+
+              <textarea class="govuk-textarea govuk-js-character-count" id="comment" name="comment" rows="5" aria-describedby="comment-info 4-hint"></textarea>
+            </div>
+            <div id="comment-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 300 characters
+  </div>
+          </div>
+
+          <button class="govuk-button" data-module="govuk-button">
+  Save comments
+</button>
+
+        </form>
+      </div>
+    </details>

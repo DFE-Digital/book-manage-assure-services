@@ -1,0 +1,124 @@
+
+
+<nav class="app-sub-navigation" aria-label="Application menu">
+
+  <ul class="app-sub-navigation__list">
+  
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Guidance</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Actions</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+
+<h2 class="govuk-heading-l">Actions the team must complete</h2>
+
+<p>A red action will result in reassessment against this standard.</p>
+<p>An amber action will allow a team to continue, but they must complete the action against this standard before their next assessment. </p>
+
+{% if actions.length%}
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Item</th>
+      <th scope="col" class="govuk-table__header">Rating</th>
+      <th scope="col" class="govuk-table__header">Assessor</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for item in actions %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{item.fields.Comment}}</td>
+  <td class="govuk-table__cell"><strong class="govuk-tag {% if item.fields.RAG === 'Green'%}govuk-tag--green{% elseif item.fields.RAG === 'Amber'%}govuk-tag--amber{% else%}govuk-tag--red{% endif %}">{{item.fields.RAG}}</strong></td>
+
+      <td class="govuk-table__cell">{{item.fields.Author}}</td>
+      <td class="govuk-table__cell"><a href="/assess/entry/{{view}}/edit-action/{{entry.fields.ID}}/{{item.id}}">Edit</a> or <a href="/assess/entry/{{view}}/delete-action/{{entry.fields.ID}}/{{item.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else%}
+
+<div class="govuk-inset-text">No actions have been added to the list.</div>
+
+{% endif %}
+
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Add an item to the list
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+<form method="post" action="/assess/post/action/{{point}}/{{entry.fields.ID}}">
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+  <div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--s" for="action">
+        Details of what the team must do
+      </label>
+    </h1>
+   
+    <textarea class="govuk-textarea govuk-js-character-count" id="action" name="action" rows="5" aria-describedby="action-info action-hint"></textarea>
+  </div>
+  <div id="action-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 200 characters
+  </div>
+</div>
+
+
+ <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+      Actions require a rating to be assigned to them
+    </legend>
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating" name="pointRating" type="radio" value="Red">
+        <label class="govuk-label govuk-radios__label" for="pointRating">
+          Red
+        </label>
+          <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          This will require this action to be completed and this standard to be reassessed.
+        </div>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating-2" name="pointRating" type="radio" value="Amber">
+        <label class="govuk-label govuk-radios__label" for="pointRating-2">
+          Amber
+        </label>
+          <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+          This will require this action to be completed before their next assessment.
+        </div>
+      </div>
+  
+     
+    </div>
+  </fieldset>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save comments
+</button>
+
+  </form>
+  </div>
+  </details>

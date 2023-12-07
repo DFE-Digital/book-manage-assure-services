@@ -16,6 +16,10 @@
     </section>
 {% endblock %}
 
+{% block backlink %}
+    <a href="/book/request/dd" class="govuk-back-link">Back</a>
+{% endblock %}
+
 {% block content %}
    
    {% if err or errcode%}
@@ -87,7 +91,7 @@
          </div>
         <div class="govuk-button-group">
             <button class="govuk-button" data-module="govuk-button">Save and continue</button>
-            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+            <a class="govuk-link govuk-link--no-visited-state" href="/book/request/tasks">Skip and return to later</a>
          </div>
       </form>
 

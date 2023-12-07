@@ -1,0 +1,54 @@
+ {% if errors %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+
+                        {% for field, errorMessage in errors %}
+                            <li>
+                                <a href="#{{ field }}">{{ errorMessage }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+<h2 class="govuk-heading-l">Change name</h2>
+
+<form method="post" action="/admin/assessors/manage/change-name/{{assessor.fields.ID}}">
+       <div class="govuk-form-group{% if errors.firstName %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="firstName">First name</label>
+            {% if errors.firstName %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.firstName }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="firstName" name="firstName" type="text" value="{{assessor.fields.FirstName}}">
+        </div>
+
+        <div class="govuk-form-group{% if errors.lastName %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="lastName">Last name</label>
+            {% if errors.lastName %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.lastName }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="lastName" name="lastName" type="text" value="{{assessor.fields.LastName}}">
+        </div>
+
+
+<div class="govuk-button-group">
+  <button class="govuk-button" data-module="govuk-button">
+    Save change
+  </button>
+  <a class="govuk-link" href="/admin/assessors/manage/{{assessor.fields.ID}}">Cancel</a>
+</div>
+
+</form>

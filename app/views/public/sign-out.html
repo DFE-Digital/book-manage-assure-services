@@ -1,0 +1,13 @@
+{% extends "layouts/public.html" %}
+
+{% set selectedNav = "Home" %}
+{% set pageName = "You're signed out" %}
+
+{% block content %}
+
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">{{pageName}}</h1>
+        <p class="govuk-body">You can <a href="/sign-in">sign in</a> again if you need to.</p>
+    </div>
+
+{% endblock %}

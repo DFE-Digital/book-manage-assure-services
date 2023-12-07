@@ -1,0 +1,111 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Assessors" %}
+{% set view = "assessors"%}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="govuk-form-group">
+        <label id="filterTableLabel" for="filterTable" class="govuk-label govuk-!-font-weight-bold">Filter by name</label>
+        <input type="text" id="filterTable" class="govuk-input" aria-describedby="filterTableLabel" spellcheck="false" data-ms-editor="true">
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="govuk-heading-xl">Department assessors</h1>
+    <p class="govuk-body">Select an assessor to view details of the assessments they've completed, when they have completed training and update their status as a lead or cross-gov assessor.</p>
+
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Training history</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action">
+                    <a class="govuk-link" href="/admin/assessor/add">Add assessor</a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Assessor</th>
+                        <th scope="col" class="govuk-table__header">Role</th>
+                        <th scope="col" class="govuk-table__header">Lead</th>
+                        <th scope="col" class="govuk-table__header">X-GOV</th>
+                        <th scope="col" class="govuk-table__header">Completed</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for assessor in assessors %}
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="/admin/assessors/assessor/{{assessor.fields.ID}}" class="govuk-link">{{assessor.fields.UserName}}</a>
+                            </th>
+                            <td class="govuk-table__cell">
+                                {% for role in assessor.fields.Role %}
+                                    {{ role }}
+                                    {% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            </td>
+                            <td class="govuk-table__cell">{{assessor.fields.LeadAssessor | BoolToYesNo}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.CrossGovAssessor | BoolToYesNo}}</td>
+                            <td class="govuk-table__cell">-</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document
+            .getElementById('filterTable')
+            .addEventListener('keyup', function () {
+                let filter = this
+                    .value
+                    .toUpperCase();
+                let tableBody = document.querySelector('.govuk-table__body');
+                let rows = tableBody.querySelectorAll('.govuk-table__row');
+
+                for (let i = 0; i < rows.length; i++) {
+                    let person = rows[i].querySelector('.govuk-table__header');
+
+                    if (person) {
+                        let txtValue = person.textContent || person.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            rows[i].style.display = "";
+                            rows[i].setAttribute("aria-hidden", "false");
+                        } else {
+                            rows[i].style.display = "none";
+                            rows[i].setAttribute("aria-hidden", "true");
+                        }
+                    }
+                }
+            });
+    </script>
+
+{% endblock %}

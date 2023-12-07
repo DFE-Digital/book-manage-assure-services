@@ -9,29 +9,48 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
 const getEntryByID = require('../data/airtable/getEntryByID')
 const GetRequestsByType = require('../data/airtable/getRequestsByType')
 
-
 async function getArtefacts(id) {
-    return await base('Artefacts')
-        .select({ view: 'Files', filterByFormula: `{ReviewID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('Artefacts')
+            .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getArtefacts');
+        //console.log(err)
+    }
 }
 
 async function getPanel(id) {
-    return await base('ReviewPanel')
-        .select({ view: 'People', filterByFormula: `{ReviewID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('AssessorPanel')
+            .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getPanel');
+        //console.log(err)
+    }
 }
 
 async function getObservers(id) {
-    return await base('ReviewObservers')
-        .select({ view: 'People', filterByFormula: `{ReviewID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('ReviewObservers')
+            .select({ view: 'People', filterByFormula: `{ReviewID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getObservers');
+        //console.log(err)
+    }
 }
 
 async function getTeam(id) {
-    return await base('ReviewTeam')
-        .select({ view: 'People', filterByFormula: `{ReviewID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('AssessmentTeam')
+            .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getTeam');
+        //console.log(err)
+    }
 }
 
 async function getAssessors(viewName) {
@@ -39,37 +58,60 @@ async function getAssessors(viewName) {
 }
 
 async function getPerson(id) {
-    return await base('ReviewTeam')
-        .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('ReviewTeam')
+            .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getPerson');
+        //console.log(err)
+    }
 }
 
 async function getArtefact(id) {
-    return await base('Artefacts')
-        .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('Artefacts')
+            .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getArtefact');
+        //console.log(err)
+    }
 }
 
 async function getDates(id) {
-    return await base('ReviewDateOptions')
-        .select({ view: 'All', filterByFormula: `{ReviewID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('ReviewDateOptions')
+            .select({ view: 'All', filterByFormula: `{ReviewID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getDates');
+        //console.log(err)
+    }
 }
 
 async function getDate(id) {
-    //console.log(id)
-    return await base('ReviewDateOptions')
-        .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
-        .firstPage()
+    ////console.log(id)
+    try {
+        return await base('ReviewDateOptions')
+            .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getDate');
+        //console.log(err)
+    }
 }
-
 
 async function getPanelMember(id) {
-    return await base('ReviewPanel')
-        .select({ view: 'People', filterByFormula: `{ID} = "${id}"` })
-        .firstPage()
+    try {
+        return await base('ReviewPanel')
+            .select({ view: 'People', filterByFormula: `{ID} = "${id}"` })
+            .firstPage()
+    } catch (err) {
+        //console.log('getPanelMember');
+        //console.log(err)
+    }
 }
-
 
 async function getMyAssessments() {
     return await base('ReviewPanel').select({ view: 'Mine' }).all()
@@ -79,42 +121,89 @@ async function getActiveAssessments() {
     return await base('Reviews').select({ view: 'Recent' }).all()
 }
 
-
 async function getAllDoneWell(id) {
-    return await base('DoneWell')
-        .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
-        .all()
+    try {
+        return await base('DoneWell')
+            .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
+            .all()
+    } catch (err) {
+        //console.log('getArtegetAllDoneWellfacts');
+        //console.log(err)
+    }
 }
 
 async function getAllImprove(id) {
-    return await base('Improve')
-        .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
-        .all()
+    try {
+        return await base('Improve')
+            .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
+            .all()
+    } catch (err) {
+        //console.log('getAllImprove');
+        //console.log(err)
+    }
 }
 
 async function getAllActions(id) {
-    return await base('Actions')
-        .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
-        .all()
+    try {
+        return await base('Actions')
+            .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
+            .all()
+    } catch (err) {
+        //console.log('getAllActions');
+        //console.log(err)
+    }
 }
 
 async function getDoneWell(point, id) {
-    return await base('DoneWell')
-        .select({ view: 'All', filterByFormula: `AND({Assessment} = "${id}",{Standard} = "${point}")` })
-        .all()
+    try {
+        return await base('DoneWell')
+            .select({ view: 'All', filterByFormula: `AND({Assessment} = "${id}",{Standard} = "${point}")` })
+            .all()
+    } catch (err) {
+        //console.log('getDoneWell');
+        //console.log(err)
+    }
 }
 
-async function getOutcome(point, id) {
-    return await base('Outcomes')
-        .select({ view: 'All', filterByFormula: `AND({Assessment} = "${id}",{Standard} = "${point}")` })
-        .all()
+async function getOutcomes(id) {
+    try {
+        return await base('Outcomes')
+            .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
+            .all()
+    } catch (err) {
+        //console.log('**************************************************************************** getOutcome');
+        //console.log(err)
+    }
+}
+
+async function getComments(id) {
+    try {
+        return await base('AssessmentComments')
+            .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
+            .all()
+    } catch (err) {
+        //console.log('getComments');
+        //console.log(err)
+    }
+}
+
+
+async function getActionsForPointAndAssessment(point, id) {
+    try {
+        return await base('Actions')
+            .select({ view: 'All', filterByFormula: `AND({Assessment} = "${id}",{Standard} = "${point}")` })
+            .all()
+    } catch (err) {
+        //console.log('getActionsForPointAndAssessment');
+        //console.log(err)
+    }
 }
 
 async function getDoneWellByUID(id) {
     try {
         return await base('DoneWell').find(id)
     } catch (err) {
-        console.log(err)
+        //console.log(err)
     }
 }
 
@@ -122,35 +211,33 @@ async function DeleteWell(id) {
     try {
         return await base('DoneWell').destroy([id])
     } catch (err) {
-        console.log(err)
+        //console.log(err)
     }
 }
 
 async function getActionsForAssessment(id) {
     return await base('Actions')
-        .select({ view: 'All', filterByFormula: `{Assessment} = "${id}"` })
+        .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
         .all()
 }
 
 async function getActions(point, id) {
-    console.log('getActions : ' + point + ' - ' + id )
-    return await base('Actions')
-        .select({ view: 'All', filterByFormula: `AND({Assessment} = "${id}",{Standard} = "${point}")` })
-        .all()
+    try {
+        //console.log('getActions : ' + point + ' - ' + id)
+        return await base('Actions')
+            .select({ view: 'All', filterByFormula: `{AssessmentID} = "${id}"` })
+            .all()
+    } catch (err) {
+        //console.log('getActions');
+        //console.log(err)
+    }
 }
-
-async function getImprove(point, id) {
-    return await base('Improve')
-        .select({ view: 'All', filterByFormula: `AND({Assessment} = "${id}",{Standard} = "${point}")` })
-        .all()
-}
-
 
 async function getImproveByUID(id) {
     try {
         return await base('Improve').find(id)
     } catch (err) {
-        console.log(err)
+        //console.log(err)
     }
 }
 
@@ -158,7 +245,7 @@ async function DeleteImprove(id) {
     try {
         return await base('Improve').destroy([id])
     } catch (err) {
-        console.log(err)
+        //console.log(err)
     }
 }
 
@@ -166,19 +253,42 @@ async function getActionByUID(id) {
     try {
         return await base('Actions').find(id)
     } catch (err) {
-        console.log(err)
+        //console.log(err)
     }
 }
+
+async function getCommentByUID(id) {
+    try {
+        return await base('AssessmentComments').find(id)
+    } catch (err) {
+        //console.log(err)
+    }
+}
+
+
 
 async function DeleteAction(id) {
     try {
         return await base('Actions').destroy([id])
     } catch (err) {
-        console.log(err)
+        //console.log(err)
+    }
+}
+
+async function DeleteComment(id) {
+    try {
+        return await base('AssessmentComments').destroy([id])
+    } catch (err) {
+        //console.log(err)
     }
 }
 
 
+async function GetAssessmentsForAssessor(email, status) {
+    return await base('AssessorPanel')
+        .select({ view: status, filterByFormula: `{AssessorEmail} = "${email}"` })
+        .all()
+}
 
 function wait(waitTime) {
     return new Promise((resolve) => {
@@ -194,48 +304,29 @@ function extractNumbersFromString(str) {
     return numStr;
 }
 
+const filterAndExtractTitles = (jsonData, point) => {
+    const filteredStandards = jsonData.standards.filter(standard => standard.point === point);
+    const titles = filteredStandards.map(standard => standard.title);
+    return titles;
+};
 
+exports.get_assess = function (req, res) {
+    const email = req.session.data.user.email;
+    //console.log('Email: ' + email)
+
+    axios.all([GetAssessmentsForAssessor(email, 'Active')]).then(
+        axios.spread((entries) => {
+            //console.log(entries)
+            return res.render('assess/index', { entries })
+        }),
+    )
+}
 
 exports.get_assessor_dashboard = async function (req, res) {
 
     var assessorType = req.params.type;
     if (!req.session.data) {
         req.session.data = {};
-      }
-    
-    
-
-    if (assessorType === "lead") {
-        req.session.data['assessorType'] = "lead"
-
-        axios.all([GetRequestsByType('activelead')]).then(
-            axios.spread((entries) => {
-                return res.render('assess/index', { entries })
-            }),
-        )
-    }
-
-    if (assessorType === "design") {
-        req.session.data['assessorType'] = "design"
-
-
-
-        axios.all([GetRequestsByType('activedesign')]).then(
-            axios.spread((entries) => {
-                return res.render('assess/index', { entries })
-            }),
-        )
-    }
-
-    if (assessorType === "research") {
-        req.session.data['assessorType'] = "research"
-
-
-        axios.all([GetRequestsByType('activeresearch')]).then(
-            axios.spread((entries) => {
-                return res.render('assess/index', { entries })
-            }),
-        )
     }
 
     if (assessorType === "tech") {
@@ -251,38 +342,39 @@ exports.get_assessor_dashboard = async function (req, res) {
 
 }
 
-
 exports.get_entry = async function (req, res) {
     var id = req.params.id;
     var view = req.params.partial;
     var mainview = "overview";
 
+    try {
+        //console.log('Panel - Get Request ' + id)
+        axios
+            .all([
+                getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id)
+            ])
+            .then(
+                axios.spread(
+                    (
+                        entry, artefacts, panel, team
+                    ) => {
 
-    console.log('Panel - Get Request ' + id)
-    axios
-        .all([
-            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id)
-        ])
-        .then(
-            axios.spread(
-                (
-                    entry, artefacts, panel, team
-                ) => {
-                    entry = entry[0]
 
-                    var standards = require('../data/standards.json');
+                        var standards = require('../data/standards.json');
 
-                    if (entry.fields.Type === "Peer review") {
-                        standards = require('../data/peerreview.json');
-                    }
-                    return res.render('assess/entry/index', {
-                        entry, artefacts, panel, team, view, mainview, standards
-                    })
-                },
-            ),
-        )
+                        if (entry.fields.Type === "Peer review") {
+                            standards = require('../data/peerreview.json');
+                        }
+                        return res.render('assess/entry/index', {
+                            entry, artefacts, panel, team, view, mainview, standards
+                        })
+                    },
+                ),
+            )
+    } catch (err) {
+        //console.log(err)
+    }
 }
-
 
 exports.get_deletewell = async function (req, res) {
     var id = req.params.id
@@ -301,7 +393,7 @@ exports.get_deletewell = async function (req, res) {
                 (
                     entry, artefacts, panel, team, donewell
                 ) => {
-                    entry = entry[0]
+
 
                     var standards = require('../data/standards.json');
 
@@ -325,7 +417,7 @@ exports.post_deletewell_confirm = async function (req, res) {
 
     DeleteWell(uid)
 
-    await wait(500)
+    await wait(100)
 
     return res.redirect('/assess/entry/sspoint' + point + '/pwell/' + id)
 }
@@ -347,7 +439,7 @@ exports.get_editwell = async function (req, res) {
                 (
                     entry, artefacts, panel, team, donewell
                 ) => {
-                    entry = entry[0]
+
 
                     var standards = require('../data/standards.json');
 
@@ -383,8 +475,6 @@ exports.post_editwell_confirm = async function (req, res) {
 
 }
 
-
-
 exports.get_deleteimprove = async function (req, res) {
     var id = req.params.id
     var uid = req.params.uid
@@ -402,7 +492,7 @@ exports.get_deleteimprove = async function (req, res) {
                 (
                     entry, artefacts, panel, team, improve
                 ) => {
-                    entry = entry[0]
+
 
                     var standards = require('../data/standards.json');
 
@@ -426,7 +516,7 @@ exports.post_deleteimprove_confirm = async function (req, res) {
 
     DeleteImprove(uid)
 
-    await wait(500)
+    await wait(100)
 
     return res.redirect('/assess/entry/sspoint' + point + '/pimprove/' + id)
 }
@@ -448,7 +538,7 @@ exports.get_editimprove = async function (req, res) {
                 (
                     entry, artefacts, panel, team, improve
                 ) => {
-                    entry = entry[0]
+
 
                     var standards = require('../data/standards.json');
 
@@ -484,9 +574,6 @@ exports.post_editimprove_confirm = async function (req, res) {
 
 }
 
-
-
-
 exports.get_deleteaction = async function (req, res) {
     var id = req.params.id
     var uid = req.params.uid
@@ -504,7 +591,7 @@ exports.get_deleteaction = async function (req, res) {
                 (
                     entry, artefacts, panel, team, action
                 ) => {
-                    entry = entry[0]
+
 
                     var standards = require('../data/standards.json');
 
@@ -526,47 +613,52 @@ exports.post_deleteaction_confirm = async function (req, res) {
     var uid = req.params.uid
     var point = req.params.point;
 
-    console.log('Delete action: ' + uid)
+    //console.log('Delete action: ' + uid)
 
     DeleteAction(uid)
 
-    await wait(500)
+    await wait(100)
 
     return res.redirect('/assess/entry/sspoint' + point + '/pactions/' + id)
 }
 
 exports.get_editaction = async function (req, res) {
-    var id = req.params.id
-    var uid = req.params.uid
-    var view = req.params.partial;
-    var point = extractNumbersFromString(req.params.point)
-    var mainview = "report"
-    var subView = "edit-action"
+    try {
+        //console.log('get_editaction')
 
-    axios
-        .all([
-            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getActionByUID(uid)
-        ])
-        .then(
-            axios.spread(
-                (
-                    entry, artefacts, panel, team, action
-                ) => {
-                    entry = entry[0]
+        var id = req.params.id
+        var uid = req.params.uid
+        var view = req.params.partial;
+        var point = extractNumbersFromString(req.params.point)
+        var mainview = "report"
+        var subView = "edit-action"
+        var selnav = "report"
 
-                    var standards = require('../data/standards.json');
-
-                    if (entry.fields.Type === "Peer Review") {
-                        standards = require('../data/peerreview.json');
-                    }
-                    return res.render('assess/entry/index', {
-                        entry, artefacts, panel, team, view, mainview, standards, subView, point, action
-                    })
-                },
-            ),
-        )
+        axios
+            .all([
+                getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getActionByUID(uid)
+            ])
+            .then(
+                axios.spread(
+                    (
+                        entry, artefacts, panel, team, action
+                    ) => {
 
 
+                        var standards = require('../data/standards.json');
+
+                        if (entry.fields.Type === "Peer Review") {
+                            standards = require('../data/peerreview.json');
+                        }
+                        return res.render('assess/entry/index', {
+                            entry, artefacts, panel, team, view, mainview, standards, subView, point, action, selnav
+                        })
+                    },
+                ),
+            )
+    } catch (err) {
+        //console.log(err)
+    }
 }
 
 exports.post_editaction_confirm = async function (req, res) {
@@ -579,8 +671,7 @@ exports.post_editaction_confirm = async function (req, res) {
             {
                 id: uid,
                 fields: {
-                    Comment: req.body.action,
-                    RAG: req.body.pointRating
+                    Details: req.body.action
                 },
             },
         ]
@@ -589,6 +680,69 @@ exports.post_editaction_confirm = async function (req, res) {
 
 }
 
+exports.get_editcomment = async function (req, res) {
+    try {
+        //console.log('get_editcomment')
+
+        var id = req.params.id
+        var uid = req.params.uid
+        var view = 'edit-comment';
+        var point = extractNumbersFromString(req.params.point)
+        var mainview = "report"
+        var subView = "edit-comment"
+        var selnav = "report"
+
+        axios
+            .all([
+                getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getCommentByUID(uid)
+            ])
+            .then(
+                axios.spread(
+                    (
+                        entry, artefacts, panel, team, comment
+                    ) => {
+
+
+                        var standards = require('../data/standards.json');
+
+                        if (entry.fields.Type === "Peer Review") {
+                            standards = require('../data/peerreview.json');
+                        }
+                        return res.render('assess/entry/index', {
+                            entry, artefacts, panel, team, view, mainview, standards, subView, comment, selnav
+                        })
+                    },
+                ),
+            )
+    } catch (err) {
+        //console.log(err)
+    }
+}
+
+
+exports.post_editcomment_confirm = async function (req, res) {
+    var id = req.params.id
+    var uid = req.params.uid
+
+    //console.log('post_editecomment_confirm')
+
+    try {
+
+        base('AssessmentComments').update(
+            [
+                {
+                    id: uid,
+                    fields: {
+                        Details: req.body.comment
+                    },
+                },
+            ]
+        )
+        return res.redirect('/assess/entry/report-comments/' + id)
+    } catch (err) {
+        //console.log(err)
+    }
+}
 
 
 
@@ -601,11 +755,11 @@ exports.get_entry_view = async function (req, res) {
     if (view === 'report' || view === 'done-well' || view === 'improve' || view === 'preview' || view === 'submit' || view === "outcome" || view.includes('sspoint')) {
         mainview = "report"
     }
-    await wait(500)
+    var isLeadAssessor = false;
+    await wait(100)
 
-    if(view === "report-submitted")
-    {
-        if(!req.session.data){
+    if (view === "report-submitted") {
+        if (!req.session.data) {
             req.session.data = {}
         }
 
@@ -613,19 +767,33 @@ exports.get_entry_view = async function (req, res) {
 
     }
 
-    console.log(view)
+    //console.log(view)
 
-    console.log('get_entry_view ' + id)
+    //console.log('get_entry_view ' + id)
     axios
         .all([
-            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getActionsForAssessment(id), getAllDoneWell(id), getAllImprove(id)
+            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getActionsForAssessment(id), getOutcomes(id), getComments(id)
+
         ])
         .then(
             axios.spread(
                 (
-                    entry, artefacts, panel, team, actions, donewell, improve
+                    entry, artefacts, panel, team, actions, outcome, comments
                 ) => {
-                    entry = entry[0]
+
+             
+                    var userID = Array.isArray(req.session.data.user.uID) ? req.session.data.user.uID : [req.session.data.user.uID]
+                    console.log(userID)
+
+                    panel.forEach(function (item) {
+                        console.log(item.fields.UserUID)
+                        if (item.fields.UserUID[0] == userID[0]) {
+                            if (item.fields.Role == "Lead assessor") {
+                                isLeadAssessor = true;
+                            }
+                        }
+                    });
+
 
                     var standards = require('../data/standards.json');
 
@@ -633,7 +801,7 @@ exports.get_entry_view = async function (req, res) {
                         standards = require('../data/peerreview.json');
                     }
                     return res.render('assess/entry/index', {
-                        entry, artefacts, panel, team, view, mainview, standards, subView, actions, donewell, improve
+                        entry, artefacts, panel, team, view, mainview, standards, subView, actions, outcome, comments, isLeadAssessor
                     })
                 },
             ),
@@ -644,13 +812,13 @@ exports.get_entry_subview = async function (req, res) {
     var id = req.params.id;
     var view = req.params.partial;
     var subView = req.params.sub;
-
+    var isLeadAssessor = false;
     //Extract the standard from the partial
-    await wait(500)
+    await wait(100)
 
     var point = extractNumbersFromString(view)
 
-    console.log('sub report view: ' + view + " - " + subView)
+    //console.log('sub report view: ' + view + " - " + subView)
 
 
     var mainview = "overview";
@@ -660,17 +828,29 @@ exports.get_entry_subview = async function (req, res) {
     }
 
 
-    console.log('Panel - Get Request ' + id)
+    //console.log('Panel - Get Request ' + id)
     axios
         .all([
-            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getDoneWell(point, id), getImprove(point, id), getActions(point,id), getOutcome(point, id)
+            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getActions(point, id), getOutcomes(id), getComments(id)
         ])
         .then(
             axios.spread(
                 (
-                    entry, artefacts, panel, team, donewell, improve, actions, outcome
+                    entry, artefacts, panel, team, actions, outcome, comments
                 ) => {
-                    entry = entry[0]
+
+                    //console.log(panel);
+                    var userID = Array.isArray(req.session.data.user.uID) ? req.session.data.user.uID : [req.session.data.user.uID]
+                    console.log(userID)
+
+                    panel.forEach(function (item) {
+                        console.log(item.fields.UserUID)
+                        if (item.fields.UserUID[0] == userID[0]) {
+                            if (item.fields.Role == "Lead assessor") {
+                                isLeadAssessor = true;
+                            }
+                        }
+                    });
 
                     var standards = require('../data/standards.json');
 
@@ -678,7 +858,7 @@ exports.get_entry_subview = async function (req, res) {
                         standards = require('../data/peerreview.json');
                     }
                     return res.render('assess/entry/index', {
-                        entry, artefacts, panel, team, view, mainview, standards, subView, point, donewell, improve, actions, outcome
+                        entry, artefacts, panel, team, view, mainview, standards, subView, point, actions, outcome, comments, isLeadAssessor
                     })
                 },
             ),
@@ -748,29 +928,53 @@ exports.post_action = async function (req, res) {
     var point = req.params.point;
     var id = req.params.id;
 
-    // save to the DB
-    base('Actions').create(
-        [
-            {
-                fields: {
-                    Standard: point,
-                    Assessment: id,
-                    Comment: req.body.action,
-                    Author: 'Andy Jones',
-                    RAG: req.body.pointRating
+    var standards = require('../data/standards.json');
+
+    var user = req.session.data.user;
+
+    var title = filterAndExtractTitles(standards, point)
+
+
+    axios
+        .all([
+            getEntryByID(id)
+        ])
+        .then(
+            axios.spread(
+                (
+                    entry
+                ) => {
+
+                    // save to the DB
+                    base('Actions').create(
+                        [
+                            {
+                                fields: {
+                                    Standard: parseInt(point),
+                                    Assessment: Array.isArray(entry.id) ? entry.id : [entry.id],
+                                    Details: req.body.action,
+                                    AddedBy: Array.isArray(user.uID) ? user.uID : [user.uID],
+                                    StandardTitle: title[0]
+                                },
+                            },
+                        ],
+                        function (err, records) {
+                            if (err) {
+                                console.error(err)
+                                return
+                            }
+                            records.forEach(function (record) {
+                                return res.redirect('/assess/entry/sspoint' + point + '/pactions/' + id)
+                            })
+                        },
+                    )
+
                 },
-            },
-        ],
-        function (err, records) {
-            if (err) {
-                console.error(err)
-                return
-            }
-            records.forEach(function (record) {
-                return res.redirect('/assess/entry/sspoint' + point + '/pactions/' + id)
-            })
-        },
-    )
+            ),
+        )
+
+
+
 }
 
 exports.post_outcome = async function (req, res) {
@@ -783,84 +987,272 @@ exports.post_outcome = async function (req, res) {
     // If an Outcome exists for the point and assessment, update. If not, create.
 
 
-// Check if the entry already exists in the "Outcomes" base
-base('Outcomes').select({
-    filterByFormula: `AND({Standard} = '${point}', {Assessment} = '${id}')`,
-}).firstPage(function (err, records) {
-    if (err) {
-        console.error(err);
-        return;
-    }
+    // Do any actions exist?
 
-    if (records.length > 0) {
-        // If the entry exists, update it
-        const existingRecord = records[0];
-        base('Outcomes').update([
-            {
-                id: existingRecord.id,
-                fields: {
-                    RAG: pointRating,
+
+
+
+    // Check if the entry already exists in the "Outcomes" base
+    base('Outcomes').select({
+        filterByFormula: `AND({Standard} = '${point}', {Assessment} = '${id}')`,
+    }).firstPage(function (err, records) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        if (records.length > 0) {
+            // If the entry exists, update it
+            const existingRecord = records[0];
+            base('Outcomes').update([
+                {
+                    id: existingRecord.id,
+                    fields: {
+                        RAG: pointRating,
+                    },
                 },
-            },
-        ], function (err, updatedRecords) {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            // Redirect after updating
-            return res.redirect('/assess/entry/sspoint' + point + '/poutcome/' + id);
-        });
-    } else {
-        // If the entry does not exist, create a new one
-        base('Outcomes').create([
-            {
-                fields: {
-                    Standard: point,
-                    Assessment: id,
-                    RAG: pointRating,
-                },
-            },
-        ], function (err, newRecords) {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            // Redirect after creating
-            newRecords.forEach(function (record) {
+            ], function (err, updatedRecords) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                // Redirect after updating
                 return res.redirect('/assess/entry/sspoint' + point + '/poutcome/' + id);
             });
-        });
-    }
-});
+        } else {
+            // If the entry does not exist, create a new one
+            base('Outcomes').create([
+                {
+                    fields: {
+                        Standard: point,
+                        Assessment: id,
+                        RAG: pointRating,
+                    },
+                },
+            ], function (err, newRecords) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                // Redirect after creating
+                newRecords.forEach(function (record) {
+                    return res.redirect('/assess/entry/sspoint' + point + '/poutcome/' + id);
+                });
+            });
+        }
+    });
+}
+
+exports.post_submit_report = async function (req, res) {
+
+    var id = req.params.id;
+
+    axios
+    .all([
+        getEntryByID(id), getPanel(id)
+    ])
+    .then(
+        axios.spread(
+            (
+                entry, panel
+            ) => {
+
+                var userID = Array.isArray(req.session.data.user.uID) ? req.session.data.user.uID : [req.session.data.user.uID]
+
+                panel.forEach(function (item) {
+                    console.log(item.fields.UserUID)
+                    if (item.fields.UserUID[0] == userID[0]) {
+                        if (item.fields.Role == "Lead assessor") {
+                            isLeadAssessor = true;
+                        }
+                    }
+                });
+
+                if (isLeadAssessor) {
+                    base('Assessments').update(
+                        [
+                            {
+                                id: entry.id,
+                                fields: {
+                                    Status: 'Pending',
+                                    ReportStatus: 'Complete',
+                                },
+                            },
+                        ],
+                        function (err, records) {
+                            if (err) {
+                                console.error(err)
+                                return
+                            }
+                            records.forEach(function (record) {
+                                return res.redirect('/assess/entry/report-submitted/' + id)
+                            })
+                        },
+                    )
+                }
+                else{
+                    return res.redirect('/assess/entry/report-submit/' + id)
+                }
+            })
+    )
 }
 
 exports.post_overall_outcome = async function (req, res) {
 
-   
+    //console.log('post_overall_outcome')
+
     const uid = req.body.uid;
     var point = req.params.point;
     var id = req.params.id;
     const pointRating = req.body.pointRatingOverall;
 
-    base('Reviews').update(
-        [
-            {
-                id: uid,
-                fields: {
-                    Outcome: pointRating,
+    // Do actions exist, and is the outcome green - if so, we need to trigger some validation
+
+    axios
+        .all([
+            getAllActions(id)
+        ])
+        .then(
+            axios.spread(
+                (
+                    actions
+                ) => {
+                    if (actions.length > 0 && pointRating === 'Green') {
+
+                        //console.log('Actions: ' + actions)
+                        //console.log('Point rating: ' + pointRating)
+
+                        var errMessage = 'The rating cannot be green. This is because actions have been added.'
+
+                        if (!req.session.data) {
+                            req.session.data = {}
+                        }
+
+                        req.session.data['ratingErr'] = 'true';
+                        req.session.data['ratingErrMessage'] = errMessage;
+
+                        return res.redirect('/assess/entry/report-outcome/' + id);
+                    }
+                    else {
+                        req.session.data['ratingErr'] = 'false';
+                        req.session.data['ratingErrMessage'] = '';
+                        base('Assessments').update(
+                            [
+                                {
+                                    id: uid,
+                                    fields: {
+                                        Outcome: pointRating,
+                                    },
+                                },
+                            ],
+                            function (err, records) {
+                                if (err) {
+                                    console.error(err)
+                                    return
+                                }
+                                records.forEach(function (record) {
+                                    return res.redirect('/assess/entry/report/' + id);
+                                })
+                            },
+                        )
+                    }
                 },
-            },
-        ],
-        function (err, records) {
-            if (err) {
-                console.error(err)
-                return
-            }
-            records.forEach(function (record) {
-                return res.redirect('/assess/entry/report-outcome/' + id);
-            })
-        },
-    )
+            ),
+        )
 
 
+
+
+
+
+}
+
+
+exports.post_comment = async function (req, res) {
+
+    var id = req.params.id;
+    var user = req.session.data.user;
+
+    axios
+        .all([
+            getEntryByID(id)
+        ])
+        .then(
+            axios.spread(
+                (
+                    entry
+                ) => {
+                    // save to the DB
+                    base('AssessmentComments').create(
+                        [
+                            {
+                                fields: {
+                                    Assessment: Array.isArray(entry.id) ? entry.id : [entry.id],
+                                    Details: req.body.comment,
+                                    AddedBy: Array.isArray(user.uID) ? user.uID : [user.uID]
+                                },
+                            },
+                        ],
+                        function (err, records) {
+                            if (err) {
+                                console.error(err)
+                                return
+                            }
+                            records.forEach(function (record) {
+                                return res.redirect('/assess/entry/report-comments/' + id)
+                            })
+                        },
+                    )
+                },
+            ),
+        )
+}
+
+exports.get_deletecomment = async function (req, res) {
+    var id = req.params.id
+    var uid = req.params.uid
+    var view = 'delete-comments';
+    var point = extractNumbersFromString(req.params.point)
+    var mainview = "report"
+    var subView = "delete-comment"
+    var selnav = "report"
+
+    axios
+        .all([
+            getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id), getCommentByUID(uid)
+        ])
+        .then(
+            axios.spread(
+                (
+                    entry, artefacts, panel, team, comment
+                ) => {
+
+
+                    var standards = require('../data/standards.json');
+
+                    if (entry.fields.Type === "Peer Review") {
+                        standards = require('../data/peerreview.json');
+                    }
+                    return res.render('assess/entry/index', {
+                        entry, artefacts, panel, team, view, mainview, standards, subView, point, comment, selnav
+                    })
+                },
+            ),
+        )
+
+
+}
+
+exports.post_deletecomment_confirm = async function (req, res) {
+    var id = req.params.id
+    var uid = req.params.uid
+    var point = req.params.point;
+
+    //console.log('Delete comment: ' + uid)
+
+    DeleteComment(uid)
+
+    await wait(100)
+
+    return res.redirect('/assess/entry/report-comments/' + id)
 }

@@ -1,8 +1,7 @@
-<h2 class="govuk-heading-l">{{entry.fields.Phase}} team</h2>
 
 <div class="govuk-summary-card">
   <div class="govuk-summary-card__title-wrapper">
-    <h2 class="govuk-summary-card__title">Team members</h2>
+    <h2 class="govuk-summary-card__title">Service team</h2>
 
   </div>
   <div class="govuk-summary-card__content">
@@ -11,27 +10,27 @@
       <table class="govuk-table">
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Role</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-half">Role</th>
             <th scope="col" class="govuk-table__header">Person</th>
           </tr>
         </thead>
         <tbody class="govuk-table__body">
-              {% if entry.fields.ProductManagerName%}
+              {% if entry.fields.PMName%}
            <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">Product Manager</th>
-              <td class="govuk-table__cell">{{entry.fields.ProductManagerName}}</td>
+              <td class="govuk-table__cell"><a href="mailto:{{entry.fields.ProductManager }}" class="govuk-link govuk-link--no-visited-state">{{entry.fields.PMName | array('first') }} {{entry.fields.PMName | array('last') }}</a></td>
             </tr>
           {% endif %}
-          {% if entry.fields.DeliveryManagerName%}
+          {% if entry.fields.DMName%}
            <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">Delivery Manager</th>
-              <td class="govuk-table__cell">{{entry.fields.DeliveryManagerName}}</td>
+             <td class="govuk-table__cell"><a href="mailto:{{entry.fields.DeliveryManager }}" class="govuk-link govuk-link--no-visited-state">{{entry.fields.DMName | array('first') }} {{entry.fields.DMName | array('last') }}</a></td>
             </tr>
           {% endif %}
           {% for person in team %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{person.fields.Role}}</th>
-              <td class="govuk-table__cell">{{person.fields.Name}}</td>
+              <th scope="row" class="govuk-table__header">{{person.fields.RoleName}}</th>
+              <td class="govuk-table__cell"><a href="mailto:{{person.fields.EmailAddress}}" class="govuk-link govuk-link--no-visited-state">{{person.fields.Name}}</a></td>
             </tr>
           {% endfor %}
         </tbody>

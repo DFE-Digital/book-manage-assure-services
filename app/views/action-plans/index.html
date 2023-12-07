@@ -1,0 +1,67 @@
+{% extends "layouts/content-with-sidenav-right.html" %}
+
+{% set selectedNav = "Action plans" %}
+{% set pageName = "Services with actions" %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <h1 class="govuk-heading-xl">{{pageName}}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Service</th>
+                <th scope="col" class="govuk-table__header">Actions</th>
+                <th scope="col" class="govuk-table__header">Assessment date</th>
+                <th scope="col" class="govuk-table__header">Assessment rating</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body text-smaller">
+
+            {% for service in requests %}
+
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">{{service.fields.Name}}</th>
+                    <td class="govuk-table__cell">
+                        {{service.fields.Actions | length}}
+                    </td>
+                    <td class="govuk-table__cell">
+                        {% if service.fields.ReviewDate%}{{service.fields.ReviewDate | date('D MMM YYYY')}}
+                        {% else %}No date{% endif %}
+                    </td>
+                    <td class="govuk-table__cell">
+                        <strong class="govuk-tag {% if service.fields.Outcome === 'Red'%}govuk-tag--red{% elseif service.fields.Outcome === 'Amber'%}govuk-tag--amber{%elseif service.fields.Outcome === 'Green'%}govuk-tag--green{% else%}govuk-tag--grey{% endif %}">
+                            {{service.fields.Outcome }}</strong>
+                    </td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+
+    {% endblock %}
+
+    {% block sideNav %}
+
+        <aside class="dfe-aside">
+            <h2 class="govuk-heading-m">Related guidance</h2>
+            <ul class="govuk-list govuk-list--spaced">
+                <li>
+                    <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance/manage-actions-peer-review-service-assessment" target="_blank">Guidance for managing actions from a peer review or service assessment</a>
+                </li>
+            </ul>
+        </aside>
+
+    {% endblock %}

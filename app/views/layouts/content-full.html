@@ -41,7 +41,7 @@
         {% include 'layouts/_header.html'%}
 
       {% endblock %}
-      <section class="dfe-color-blue-tint-bg" id="phase-banner">
+      {# <section class="dfe-color-blue-tint-bg" id="phase-banner">
         <div class="govuk-width-container ">
           <div class="govuk-phase-banner">
             <p class="govuk-phase-banner__content">
@@ -49,19 +49,21 @@
       Beta
     </strong>
               <span class="govuk-phase-banner__text">
-      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      This is a new service – your <a class="govuk-link govuk-link--no-visited-state" href="#">feedback</a> will help us to improve it.
     </span>
             </p>
           </div>
 
         </div>
-      </section>
-      {% block hero %}{% endblock %}
+      </section> #}
+     <div class="dfe-in-page-hero">
+      {% block hero %}{% endblock %}     </div>
       {% block main %}
 
         <div class="govuk-width-container dfe-width-container">
           <main class="govuk-main-wrapper " id="main-content" role="main">
             <div class="govuk-grid-row">  
+            
               <div class="govuk-grid-column-full">
                 {% block content %}{% endblock %}
               </div>
@@ -81,6 +83,7 @@
     <script src="/assets/js/cookies.min.js"></script>
     <script src="/assets/js/feedback.min.js"></script>
     <script src="/assets/js/dfefrontend.min.js"></script>
+
         <script type="text/javascript" src="/assets/js/accessible-autocomplete.min.min.js"></script>
     {% block scripts %}{% endblock %}
     <script>

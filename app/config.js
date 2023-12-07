@@ -1,7 +1,7 @@
 module.exports = {
 
   // Base URL
-  baseURL: process.env.BASE_URL || 'https://standards.education.gov.uk/',
+  baseURL: process.env.baseURL || 'https://standards.education.gov.uk/',
 
   // Environment
   env: process.env.NODE_ENV || 'development',
@@ -12,7 +12,7 @@ module.exports = {
   
   assetPath: process.env.assetPath,
 
-  serviceName: 'Service assessment plus',
+  serviceName: 'Assure your service',
   cmsURL: process.env.CMS_URL || 'https://standards.education.gov.uk/',
   enableDrafts: process.env.ENABLE_DRAFTS || 'live',
   isbeta: 'true'

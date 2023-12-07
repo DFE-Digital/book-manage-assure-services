@@ -1,0 +1,153 @@
+
+
+<nav class="app-sub-navigation" aria-label="Application menu">
+
+  <ul class="app-sub-navigation__list">
+  
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Guidance</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
+    </li>
+    {# <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+    </li> #}
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Recommendations</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+
+<h2 class="govuk-heading-l">List of things the team need to improve</h2>
+
+
+{% for standard in standards.standards %}
+  {% if standard.partial === view %}
+    <dl class="govuk-summary-list">
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Standard
+    </dt>
+        <dd class="govuk-summary-list__value">
+          {{ standard.point}}. {{ standard.title}}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Assessed by
+    </dt>
+        <dd class="govuk-summary-list__value">
+          {% for role in standard.assessors %}
+            {{role.role -}}
+            {% if not loop.last%}, {%endif%}
+            {% endfor %}
+          </dd>
+        </div>
+
+      </dl>
+
+    {% endif %}
+  {% endfor %}
+
+{% if actions.length%}
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Recommendation</th>
+      <th scope="col" class="govuk-table__header">Action plan item</th>
+      <th scope="col" class="govuk-table__header">Added by</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for item in actions %}
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{item.fields.Comment}}</td>
+  <td class="govuk-table__cell">{{item.fields.Track}}</td>
+      <td class="govuk-table__cell">{{item.fields.Author}}</td>
+      <td class="govuk-table__cell"><a href="/assess/entry/{{view}}/edit-action/{{entry.fields.ID}}/{{item.id}}">Edit</a> or <a href="/assess/entry/{{view}}/delete-action/{{entry.fields.ID}}/{{item.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else%}
+
+<div class="govuk-inset-text">No recommendations have been added to the list.</div>
+
+{% endif %}
+
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Add a recommendation to the list
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+<form method="post" action="/assess/post/action/{{point}}/{{entry.fields.ID}}">
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="300">
+  <div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--s" for="action">
+        Details
+      </label>
+    </h1>
+   
+    <textarea class="govuk-textarea govuk-js-character-count" id="action" name="action" rows="3" aria-describedby="action-info action-hint"></textarea>
+  </div>
+  <div id="action-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 300 characters
+  </div>
+</div>
+
+<h2 class="govuk-heading-l">Action plan</h2>
+
+<p>Not all items need to be added to the service action plan to be tracked and resolved, they can just be advice or guidance.</p>
+<p>However, anything that requires a reassessment, or to be resolved by the next assessment, must be added to the service action plan.</p>
+
+ <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+      Add recommendation to action plan?
+    </legend>
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+           <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating-2" name="pointRating" type="radio" value="Yes">
+        <label class="govuk-label govuk-radios__label" for="pointRating-2">
+          Yes
+        </label>
+          <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+         The team must take action on this recommendation. It will be added to the action plan and will need to be evidenced at the next assessment.
+        </div>
+      </div>
+   <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="pointRating-3" name="pointRating" type="radio" value="No">
+        <label class="govuk-label govuk-radios__label" for="pointRating-3">
+          No
+        </label>
+          <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
+           This is just a suggestion for the team. It doesn't need to be added to the action plan.
+        </div>
+      </div>     
+    </div>
+  </fieldset>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save comments
+</button>
+
+  </form>
+  </div>
+  </details>

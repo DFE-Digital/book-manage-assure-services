@@ -1,0 +1,45 @@
+ {% if errors %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+
+                        {% for field, errorMessage in errors %}
+                            <li>
+                                <a href="#{{ field }}">{{ errorMessage }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+<h2 class="govuk-heading-l">Change email address</h2>
+
+<form method="post" action="/admin/assessors/manage/change-email/{{assessor.fields.ID}}">
+     
+     <div class="govuk-form-group{% if errors.email %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="email">Email address</label>
+            {% if errors.email %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.email }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="email" name="email" type="text" value="{{assessor.fields.EmailAddress}}">
+        </div>
+       
+
+
+<div class="govuk-button-group">
+  <button class="govuk-button" data-module="govuk-button">
+    Save change
+  </button>
+  <a class="govuk-link" href="/admin/assessors/manage/{{assessor.fields.ID}}">Cancel</a>
+</div>
+
+</form>

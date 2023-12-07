@@ -3,20 +3,7 @@
 {% set selectedNav = "Admin" %}
 {% set pageName = "Administration" %}
 
-{% block hero %}
 
-    <section class="dfe-hero">
-
-        <div class="govuk-width-container ">
-
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h1 class="govuk-heading-xl">{{pageName}}</h1>
-                </div>
-            </div>
-        </div>
-    </section>
-{% endblock %}
 
 
 {% block sideNav %}
@@ -24,7 +11,7 @@
       <nav class="dfe-vertical-nav">
         <ul class="dfe-vertical-nav__section">
             <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
-                <a class="dfe-vertical-nav__link" href="/admin/admins">Administrators</a>
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
             </li>
             <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
                 <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
@@ -33,7 +20,10 @@
                 <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
             </li>
             <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
-                <a class="dfe-vertical-nav__link" href="/admin/reporting">Reporting</a>
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
             </li>
         </ul>
     </nav>
@@ -43,7 +33,7 @@
 
 {% block content %}
 
-   
+   <p>You're an admin</p>
 
 {% endblock %}
 

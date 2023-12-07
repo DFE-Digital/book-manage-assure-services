@@ -29,7 +29,7 @@
                 </legend>
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="phase" name="phase" type="radio" value="Discovery">
+                        <input class="govuk-radios__input" id="phase" name="phase" type="radio" value="Discovery" {% if request.fields.Phase === 'Discovery' %}checked{%endif %}>
                         <label class="govuk-label govuk-radios__label" for="phase">
           Discovery
         </label>
@@ -41,13 +41,13 @@
         </label>
                     </div>
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="phase-3" name="phase" type="radio" value="Private beta">
+                        <input class="govuk-radios__input" id="phase-3" name="phase" type="radio" value="Private Beta">
                         <label class="govuk-label govuk-radios__label" for="phase-3">
           Private beta
         </label>
                     </div>
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="phase-4" name="phase" type="radio" value="Public beta">
+                        <input class="govuk-radios__input" id="phase-4" name="phase" type="radio" value="Public Beta">
                         <label class="govuk-label govuk-radios__label" for="phase-4">
           Public beta
         </label>

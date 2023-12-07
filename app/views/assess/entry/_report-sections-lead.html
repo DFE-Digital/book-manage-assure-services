@@ -1,20 +1,20 @@
 <nav class="app-sub-navigation" aria-label="Application menu">
 
     <ul class="app-sub-navigation__list">
-  <li class="app-sub-navigation__item">
+  {# <li class="app-sub-navigation__item">
             <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
-        </li>
+        </li> #}
         <li class="app-sub-navigation__item">
             <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
         </li>
         <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Action plan</a>
         </li>
         <li class="app-sub-navigation__item">
             <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
         </li>
         <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
+            <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview report</a>
         </li>
 
         <li class="app-sub-navigation__item">
@@ -40,7 +40,7 @@
     {% for standard in standards.standards %}
 
        <tr class="govuk-table__row">
-      <td class="govuk-table__cell"><a href="/assess/entry/{{standard.partial}}/{{entry.fields.ID}}" class="govuk-link">{{standard.title}}</a></td>
+      <td class="govuk-table__cell"><a href="/assess/entry/{{standard.partial}}/{{entry.fields.ID}}" class="govuk-link govuk-link--no-visited-state">{{standard.title}}</a></td>
       <td class="govuk-table__cell">{% if standard.point === "6" or standard.point === "7" %}<strong class="govuk-tag govuk-tag--grey">Not rated</strong>{% else%}<strong class="govuk-tag govuk-tag--green">Green</strong>{% endif%}</td>
       <td class="govuk-table__cell">{% if standard.point === "6" or standard.point === "7" %}None{% else%}None{% endif%}</td>
       <td class="govuk-table__cell">{% if standard.point === "6" or standard.point === "7" %}<strong class="govuk-tag govuk-tag--grey">Not started</strong>{% else%}<strong class="govuk-tag">Complete</strong>{% endif%}</td>

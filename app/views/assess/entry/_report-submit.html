@@ -1,45 +1,89 @@
 <nav class="app-sub-navigation" aria-label="Application menu">
 
     <ul class="app-sub-navigation__list">
-        <li class="app-sub-navigation__item">
+        {# <li class="app-sub-navigation__item">
             <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
-        </li>
+        </li> #}
         <li class="app-sub-navigation__item">
             <a class="app-sub-navigation__link" href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
         </li>
         <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Action plan</a>
         </li>
-         {% if data['assessorType'] === 'lead' %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
-        </li>
-        {%endif%}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link"href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
-        </li>
- {% if data['assessorType'] === 'lead' %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
-        </li>
-        {%endif%}
+        {% if isLeadAssessor == true %}
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
+            </li>
+            {%endif%}
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link"href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview report</a>
+            </li>
+            {% if isLeadAssessor == true %}
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+                </li>
+                {%endif%}
 
-    </ul>
+            </ul>
 
-</nav>
+        </nav>
 
-<h2 class="govuk-heading-l">Submit report</h2>
+        <h2 class="govuk-heading-l">Submit report</h2>
 
-<p>All the required sections of the report have been completed.</p>
-<p>As the lead assessor, you can submit this report.</p>
+        <form action="/assess/entry/submit-report/{{entry.fields.ID}}" method="post">
 
-<p>You should only submit the report once all the team are in agreement with the findings.</p>
+            {% set submittable = true %}
+            {% set redCount = 0 %}
+            {% set amberCount = 0 %}
+            {% set greenCount = 0 %}
 
-<p>When you submit the report, it will go to the service assesment team to check over and send to the delivery team.</p>
+            {% for outcome in outcome %}
+                {% if outcome.fields.RAG == 'Red' %}
+                    {% set redCount = redCount + 1 %}
+                {% elif outcome.fields.RAG == 'Amber' %}
+                    {% set amberCount = amberCount + 1 %}
+                {% elif outcome.fields.RAG == 'Green' %}
+                    {% set greenCount = greenCount + 1 %}
+                {% endif %}
+            {% endfor %}
 
-<form action="/assess/entry/report-submitted/{{entry.fields.ID}}" method="get">
-    <input type="hidden" name="entryid" value="recp7qZwFuNNyDmOh"/>
-    <div class="govuk-button-group">
-        <button class="govuk-button" data-module="govuk-button">Submit report</button>
-    </div>
-</form>
+            {% set actionsCount = actions | length %}
+            {% set overallRating = entry.fields.Outcome %}
+
+
+
+
+            {% if (overallRating == "Red" or overallRatingg == "Amber") %}
+                {% if actionsCount == 0 %}
+                    <p>Can't submit as no actions have been recorded.</p>
+                    {% set submittable = false %}
+                {% elif greenCount == 14 %}
+                    <p>Can't submit as you have no standards rated red or amber and no actions have been recorded.</p>
+                    {% set submittable = false %}
+                {% endif %}
+            {% elif overallRating == "Green" %}
+                {% if greenCount < 14 %}
+                    <p>Can't submit as you have an overall green rating but have red or amber standards.</p>
+                    {% set submittable = false %}
+                {% elif actionsCount > 0 %}
+                    <p>Can't submit as you have added actions but all standards are green, and overall rating is green.</p>
+                    {% set submittable = false %}
+                {% endif %}
+            {% endif %}
+
+            {% if submittable %}
+                <p>You can submit the report.</p>
+            {% endif %}
+
+            Submittable: {{submittable}}<br/>
+            Red count: {{redCount}}<br/>
+            Amber count: {{amberCount}}<br/>
+            Green count: {{greenCount}}<br/>
+            Actions count {{actionsCount}}<br/>
+            Overall {{overallRating}}
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button">Submit report</button>
+            </div>
+
+        </form>

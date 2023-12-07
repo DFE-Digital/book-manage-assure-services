@@ -1,0 +1,104 @@
+{% extends "layouts/content-with-sidenav-right.html" %}
+
+{% set selectedNav = "Action plans" %}
+{% set pageName = "Action plan" %}
+
+{% set entry = request[0]%}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <span class="govuk-caption-l">Action plan</span>
+
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3 govuk-!-font-size-36 ">
+                        <a class="govuk-link govuk-link--no-underline" href="/{{data.role}}/entry/{{entry.fields.ID}}">{{entry.fields.Name}}</a>
+                    </h1>
+                    <table class="govuk-table govuk-!-margin-bottom-0">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header ">Phase</th>
+                                <th scope="col" class="govuk-table__header">Assessment date</th>
+                                <th scope="col" class="govuk-table__header">Report</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+
+                                <td class="govuk-table__cell">
+                                    <strong class="govuk-tag">{{entry.fields.Phase}}</strong>
+                                </td>
+
+                                <td class="govuk-table__cell">
+                                    {% if entry.fields.ReviewDate%}{{(entry.fields.ReviewDate + " " + entry.fields.ReviewTime) | date("h:mm A")}} on {{entry.fields.ReviewDate | date('ddd D MMM YYYY')}}
+                                    {% else %}No date{% endif %}
+                                </td>
+
+                                <td class="govuk-table__cell">
+                                    {% if entry.fields.SubStatus === "Published"%}
+                                        <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="govuk-link govuk-link--no-visited-state">View report</a>
+                                    {% else %}
+                Not available
+                {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+    <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Actions</caption>
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Action</th>
+                <th scope="col" class="govuk-table__header">Rating</th>
+                <th scope="col" class="govuk-table__header">Status</th>
+                <th scope="col" class="govuk-table__header">Last updated</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            {% for action in actionplans %}
+                {% if action.fields.Assessment == request[0].fields.ID%}
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">
+                            <a href="/action-plans/plan/action/{{entry.fields.ID}}/{{action.id}}" class="govuk-link govuk-link--no-visited-state">{{action.fields.Comment | truncate(40)}}</a>
+                        </th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag {% if action.fields.RAG === 'Green'%}govuk-tag--green{% elseif action.fields.RAG === 'Amber'%}govuk-tag--amber{% else%}govuk-tag--red{% endif %}">{{action.fields.RAG}}</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag {% if action.fields.Status === 'Not started'%}govuk-tag--grey{% elseif action.fields.Status === 'Complete'%}govuk-tag--green{% else%}govuk-tag--blue{% endif %}">{{action.fields.Status}}</strong>
+                        </td>
+ <td class="govuk-table__cell">
+                          {{action.lastUpdated | date('DD MMM YYYY')}}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block sideNav %}
+
+    <aside class="dfe-aside">
+        <h2 class="govuk-heading-m">Related guidance</h2>
+        <ul class="govuk-list govuk-list--spaced">
+            <li>
+                <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a>
+            </li>
+        </ul>
+    </aside>
+
+{% endblock %}

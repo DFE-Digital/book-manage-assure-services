@@ -1,0 +1,131 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Surveys" %}
+{% set view = "surveys"%}
+
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+    <ul class="dfemanual-cta-cards">
+        <li class="card">
+            <h3 class="govuk-heading-m govuk-!-font-size-48 govuk-!-margin-bottom-2">Good</h3>
+            <p>Overall satisfaction score</p>
+            <p>
+                <a href="">View breakdown</a>
+            </p>
+        </li>
+        <li class="card">
+            <h3 class="govuk-heading-m govuk-!-font-size-48 govuk-!-margin-bottom-2">174</h3>
+            <p>Responses</p>
+            <p>
+                <a href="">View responses</a>
+            </p>
+        </li>
+    </ul>
+
+
+<h1 class="govuk-heading-l govuk-!-margin-top-5">Recent assessment average results</h1>
+
+<p>Selecting the service will show all the results of surveys for the assessment.</p>
+
+    <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Assessment</th>
+                            <th scope="col" class="govuk-table__header">Returns</th>
+                            <th scope="col" class="govuk-table__header">Booking</th>
+                            <th scope="col" class="govuk-table__header">Informed</th>
+                            <th scope="col" class="govuk-table__header">Assessment</th>
+                            <th scope="col" class="govuk-table__header">Report</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="#">Manage your school finances</a><br/><span class="govuk-body-s">Discovery</span>
+                            </th>
+                            <td class="govuk-table__cell">3</td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
+                            </td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
+                            </td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--red">Poor</strong>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="#">AI in schools</a><br/><span class="govuk-body-s">Alpha</span>
+                            </th>
+                            <td class="govuk-table__cell">6</td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+ <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--red">Poor</strong>
+                            </td>
+                        </tr>
+
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="#">Recruit more teachers</a><br/><span class="govuk-body-s">Alpha</span>
+                            </th>
+
+                            <td class="govuk-table__cell">7</td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+ <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+{% endblock %}

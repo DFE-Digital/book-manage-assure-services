@@ -1,7 +1,7 @@
 {% if entry.fields.Status === "New" %}
 <strong class="govuk-tag">{{entry.fields.Status}}</strong>
 {% elseif entry.fields.Status === "In progress"%}
-<strong class="govuk-tag govuk-tag--yellow">{{entry.fields.Status}}</strong>
+<strong class="govuk-tag govuk-tag--amber">{{entry.fields.Status}}</strong>
 {% elseif entry.fields.Status === "Complete"%}
 <strong class="govuk-tag govuk-tag--green">{{entry.fields.Status}}</strong>
 {% elseif entry.fields.Status === "Cancelled" or entry.fields.Status === "Rejected" %}

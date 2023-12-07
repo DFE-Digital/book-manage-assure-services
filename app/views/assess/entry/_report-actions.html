@@ -1,57 +1,61 @@
 <nav class="app-sub-navigation" aria-label="Application menu">
-
-    <ul class="app-sub-navigation__list">
-  <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link"href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
-        </li>
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
-        </li>
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" aria-current="page"  href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
-        </li>
-         {% if data['assessorType'] === 'lead' %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
-        </li>
-        {% endif %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
-        </li>
- {% if data['assessorType'] === 'lead' %}
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
-        </li>
-       {% endif %}
+  <ul class="app-sub-navigation__list">
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report/{{entry.fields.ID}}">Report sections</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Overall rating</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+    </li>
+    <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link"href="/assess/entry/report-comments/{{entry.fields.ID}}">Panel comments</a>
+    </li>
+    {% if isLeadAssessor == true  %}
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
+      </li>
+      {%endif%}
     </ul>
-
-</nav>
+  </nav>
 
 <h2 class="govuk-heading-l">Actions</h2>
 
-<p>Actions from the assessment report will be shown here. They are the things the team must action, and could be Red or Amber actions.</p>
-<p>These are part of the new assessment process, and can be tracked and updated within this service either from a new Nav option and from within a service assessment record.</p>
-
+<p>Actions that have been added against standards in the report.</p>
 
 
 {% if actions.length %}
 
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-table__caption--m">List of actions</caption>
+
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Summary</th>
-      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Standard</th>
-      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">Required action</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Applicable standard</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Standard rating</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
     {% for action in actions %}
     <tr class="govuk-table__row">
-        <td class="govuk-table__cell"><a href="/assess/entry/sspoint{{action.fields.Standard}}/pactions/{{action.fields.Assessment}}">{{action.fields.Comment}}</a></td>
-      <td class="govuk-table__cell">Point {{action.fields.Standard}}</td>
-      <td class="govuk-table__cell"><strong class="govuk-tag {% if action.fields.RAG === 'Green'%}govuk-tag--green{% elseif action.fields.RAG === 'Amber'%}govuk-tag--yellow{% else%}govuk-tag--red{% endif %}">{{action.fields.RAG}}</strong></td>
-    </tr>
+        <td class="govuk-table__cell">{{action.fields.Details}}</td>
+      <td class="govuk-table__cell"><a href="/assess/entry/sspoint{{action.fields.Standard}}/pactions/{{action.fields.AssessmentID}}">{{action.fields.Standard}}. {{action.fields.StandardTitle}}</a></td>
+      <td class="govuk-table__cell">
+          {% set found = false %}
+                    {% for r in outcome %}
+                      {% if r.fields.Standard == action.fields.Standard and r.rating != "" %}
+                        <strong class="govuk-tag govuk-tag--{{ r.fields.RAG | lower}}">
+                          {{ r.fields.RAG }}</strong>
+    {% set found = true %}
+  {% endif %}
+{% endfor %}
+
+{% if not found %}
+  <strong class="govuk-tag">Not rated</strong>
+                    {% endif %}
+        </td>
+      </tr>
     {% endfor %}
   </tbody>
 </table>

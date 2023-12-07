@@ -1,0 +1,151 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Andy Jones" %}
+{% set view = "assessors"%}
+
+{% block hero %}
+
+ {% include './_assessorinfo.html'%}
+
+{% endblock %}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+
+    <nav class="app-sub-navigation" aria-label="Application menu">
+
+        <ul class="app-sub-navigation__list">
+
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link" aria-current="page" href="/admin/assessors/assessor/{{assessor.fields.ID}}">Assessments</a>
+            </li>
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link" href="/admin/assessors/training/{{assessor.fields.ID}}">Training and development</a>
+            </li>
+
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link" href="/admin/assessors/manage/{{assessor.fields.ID}}">Manage assessor</a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <h2 class="govuk-heading-l">Assessments completed</h2>
+
+    <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header govuk-!-width-one-third">Service</th>
+                <th scope="col" class="govuk-table__header">Phase</th>
+                <th scope="col" class="govuk-table__header">Dept</th>
+                <th scope="col" class="govuk-table__header">Date</th>
+                <th scope="col" class="govuk-table__header">Role</th>
+                <th scope="col" class="govuk-table__header">Rating</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header cell-name">
+                    <a href="/admin/entry/497" class="govuk-link">iugefw9eg</a>
+                </th>
+                <td class="govuk-table__cell">Discovery</td>
+                <td class="govuk-table__cell">DfE</td>
+                <td class="govuk-table__cell">23 Jan 2024 </td>
+
+                <td class="govuk-table__cell">Design</td>
+                <td class="govuk-table__cell cell-status">
+                    <strong class="govuk-tag govuk-tag--amber">Amber</strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header cell-name">
+                    <a href="/admin/entry/495" class="govuk-link">shteuy</a>
+                </th>
+                <td class="govuk-table__cell">Discovery</td>
+                <td class="govuk-table__cell">DfE</td>
+                <td class="govuk-table__cell">9 Jan 2024 </td>
+
+                <td class="govuk-table__cell">Design</td>
+                <td class="govuk-table__cell cell-status">
+                    <strong class="govuk-tag govuk-tag--green">Green</strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header cell-name">
+                    <a href="/admin/entry/468" class="govuk-link">app</a>
+                </th>
+                <td class="govuk-table__cell">Alpha</td>
+                <td class="govuk-table__cell">HMRC</td>
+                <td class="govuk-table__cell">27 Nov 2023 </td>
+
+                <td class="govuk-table__cell">Lead</td>
+                <td class="govuk-table__cell cell-status">
+                    <strong class="govuk-tag govuk-tag--red">Red</strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header cell-name">
+                    <a href="/admin/entry/466" class="govuk-link">Online Careers Journey</a>
+                </th>
+                <td class="govuk-table__cell">Private Beta</td>
+                <td class="govuk-table__cell">DfE</td>
+                <td class="govuk-table__cell">21 Nov 2023 </td>
+
+                <td class="govuk-table__cell">Design</td>
+                <td class="govuk-table__cell cell-status">
+                    <strong class="govuk-tag govuk-tag--amber">Amber</strong>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header cell-name">
+                    <a href="/admin/entry/471" class="govuk-link">coventry test</a>
+                </th>
+                <td class="govuk-table__cell">Alpha</td>
+                <td class="govuk-table__cell">DfE</td>
+                <td class="govuk-table__cell">16 Nov 2023 </td>
+
+                <td class="govuk-table__cell">Design</td>
+                <td class="govuk-table__cell cell-status">
+                    <strong class="govuk-tag govuk-tag--amber">Amber</strong>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h2 class="govuk-heading-l">Upcoming assessments</h2>
+
+    <p>No upcoming assessments</p>
+
+{% endblock %}

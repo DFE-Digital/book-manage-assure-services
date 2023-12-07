@@ -1,24 +1,24 @@
 <nav class="app-sub-navigation" aria-label="Application menu">
 
     <ul class="app-sub-navigation__list">
-        <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report/{{entry.fields.ID}}">Overview</a>
-        </li>
+        {# <li class="app-sub-navigation__item">
+            <a class="app-sub-navigation__link" aria-current="page" href="/assess/entry/report/{{entry.fields.ID}}">Outcome</a>
+        </li> #}
         <li class="app-sub-navigation__item">
             <a class="app-sub-navigation__link" href="/assess/entry/report-sections/{{entry.fields.ID}}">Report sections</a>
         </li>
         <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Actions</a>
+            <a class="app-sub-navigation__link" href="/assess/entry/report-actions/{{entry.fields.ID}}">Action plan</a>
         </li>
-        {% if data['assessorType'] === 'lead' %}
+        {% if isLeadAssessor == true  %}
             <li class="app-sub-navigation__item">
                 <a class="app-sub-navigation__link" href="/assess/entry/report-outcome/{{entry.fields.ID}}">Rating</a>
             </li>
         {%endif%}
         <li class="app-sub-navigation__item">
-            <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview</a>
+            <a class="app-sub-navigation__link" href="/assess/entry/report-preview/{{entry.fields.ID}}">Preview report</a>
         </li>
-        {% if data['assessorType'] === 'lead' %}
+        {% if isLeadAssessor == true  %}
             <li class="app-sub-navigation__item">
                 <a class="app-sub-navigation__link" href="/assess/entry/report-submit/{{entry.fields.ID}}">Submit report</a>
             </li>
@@ -68,4 +68,4 @@
 
   <h3 class="govuk-heading-s">Guidance to help you complete the report</h3>
 
-        <p class="govuk-body"><a href="https://educationgovuk.sharepoint.com/:w:/r/sites/DesignOps/Shared Documents/1.Working/2.Projects/Service Assessments/Content Design/Content_service assessment plus service/Beta_Service assurance content/Step 5_Assess a service assessment or peer review.docx?d=w89304c4770aa42a3871c965be13afb0e&csf=1&web=1&e=cq0kIx" class="govuk-link" target="_blank">complete the service assessment report</a>
+        <p class="govuk-body"><a href="https://educationgovuk.sharepoint.com/:w:/r/sites/DesignOps/Shared Documents/1.Working/2.Projects/Service Assessments/Content Design/Content_service assessment plus service/Beta_Service assurance content/Step 5_Assess a service assessment or peer review.docx?d=w89304c4770aa42a3871c965be13afb0e&csf=1&web=1&e=cq0kIx" class="govuk-link govuk-link--no-visited-state" target="_blank">complete the service assessment report</a>

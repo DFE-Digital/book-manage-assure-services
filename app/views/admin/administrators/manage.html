@@ -1,0 +1,103 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Add administrator" %}
+{% set view = "admins"%}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+    {% if errors %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+
+                        {% for field, errorMessage in errors %}
+                            <li>
+                                <a href="#{{ field }}">{{ errorMessage }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <h1 class="govuk-heading-xl">Update or remove administrator</h1>
+
+    <form action="/admin/administrators/manage" method="post">
+
+        <div class="govuk-form-group{% if errors.firstName %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="firstName">First name</label>
+            {% if errors.firstName %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.firstName }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="firstName" name="firstName" type="text" value="{{administrator.fields.FirstName}}">
+        </div>
+
+        <div class="govuk-form-group{% if errors.lastName %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="lastName">Last name</label>
+            {% if errors.lastName %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.lastName }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="lastName" name="lastName" type="text" value="{{administrator.fields.LastName}}">
+        </div>
+
+        <div class="govuk-form-group{% if errors.email %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="email">Email address</label>
+            {% if errors.email %}
+                <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>{{ errors.email }}</span>
+                </p>
+            {% endif %}
+            <input class="govuk-input govuk-!-width-one-half" id="email" name="email" type="text" value="{{administrator.fields.EmailAddress}}">
+        </div>
+
+        <input type="hidden" name="uid" value="{{administrator.id}}">
+
+        <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">
+  Update details
+</button>
+            <a href="/admin/administrators/remove/{{administrator.id}}" role="button" class="govuk-button govuk-button--warning" data-module="govuk-button">
+  Remove administrator
+</a>
+        </div>
+
+    </form>
+
+{% endblock %}

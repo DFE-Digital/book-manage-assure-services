@@ -1,0 +1,70 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Manage" %}
+{% set pageName = entry.fields.Name %}
+
+{% block hero %}
+
+    <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    {% include 'partials/_entry-header.html'%}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if mainview === 'overview' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/manage/entry/{{entry.fields.ID}}">Overview</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'submission' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/manage/entry/submission/{{entry.fields.ID}}">Submission</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'artefacts' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/manage/entry/artefacts/{{entry.fields.ID}}">Artefacts</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'team' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/manage/entry/team/{{entry.fields.ID}}">Service team</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'panel' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/manage/entry/panel/{{entry.fields.ID}}">Assessor panel</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'report' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/manage/entry/report/{{entry.fields.ID}}">Report</a>
+            </li>
+
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+    {% if view === "overview" %}
+        {% include "./_tasks.html" %}
+        {% include "./_description.html" %}
+    {% endif %}
+
+    {% if view === "team" %}
+        {% include './_team.html'%}
+    {% endif %}
+
+    {% if view === "artefacts" %}
+        {% include './_artefacts.html'%}
+    {% endif %}
+
+    {% if view === "panel" %}
+        {% include './_panel.html'%}
+    {% endif %}
+
+ 
+
+{% endblock %}

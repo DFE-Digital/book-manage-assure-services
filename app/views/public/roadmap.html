@@ -1,0 +1,121 @@
+r{% extends "layouts/public.html" %}
+
+{% set selectedNav = "Home" %}
+{% set pageName = "Roadmap" %}
+{% set pageDescription = "The progress and roadmaps for features in this service." %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">{{pageName}}</h1>
+            <p class="govuk-body">{{pageDescription}}</p>
+            <p>In addition to viewing the roadmaps for each feature in detail, you can also make suggestions to the DfE team running this service.</p>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+
+            <h2 class="govuk-heading-l">Our progress</h2>
+            <p class="govuk-body">We're working on features based on their functionality within the service and what is necessary. Some other features can be supported using existing processes or manual workarounds until delivered.</p>
+
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Feature roadmaps</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Feature</th>
+                        <th scope="col" class="govuk-table__header">Priority</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header">Delivery</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Book an assessment or peer review</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--red">High</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--green">Testing</strong>
+                        </td>
+                         <td class="govuk-table__cell">January 2024</td>
+                    </tr>
+                      <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Administration (For department assurance leads)</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--red">High</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--amber">working on</strong>
+                        </td>
+                        <td class="govuk-table__cell">January 2024</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Manage an assessment or peer review</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--red">High</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
+                        </td>
+                         <td class="govuk-table__cell">February 2024</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Assess an assessment or peer review</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--red">High</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
+                        </td>
+                         <td class="govuk-table__cell">February 2024</td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Reporting an assessment or peer review</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--amber">Medium</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
+                        </td>
+                         <td class="govuk-table__cell">February 2024</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Action plans</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--red">High</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                        </td>
+                         <td class="govuk-table__cell">March 2024</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Survey participants of an assessment or peer review</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--green">Low</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                        </td>
+                         <td class="govuk-table__cell">March 2024</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Upcoming assessments</th>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--green">Low</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
+                        </td>
+                         <td class="govuk-table__cell">March to June 2024</td>
+                    </tr>
+
+                  
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

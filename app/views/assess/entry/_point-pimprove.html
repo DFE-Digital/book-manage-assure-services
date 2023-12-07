@@ -54,6 +54,7 @@
 
 {% endif %}
 
+<form method="post" action="/assess/post/improve/{{point}}/{{entry.fields.ID}}">
 <details class="govuk-details" data-module="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -61,7 +62,6 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-<form method="post" action="/assess/post/improve/{{point}}/{{entry.fields.ID}}">
 <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
   <div class="govuk-form-group">
     <h1 class="govuk-label-wrapper">
@@ -81,6 +81,6 @@
   Save comments
 </button>
 
-  </form>
+
   </div>
-  </details>
+  </details>  </form>

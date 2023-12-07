@@ -10,7 +10,7 @@
 {% set pageName = "What is the name of your "+ serviceOrDisco + "?" %}
 
 {% block backlink %}
-    <a href="/book/request/type" class="govuk-back-link">Back</a>
+    <a href="/book/request/phase" class="govuk-back-link">Back</a>
 {% endblock %}
 
 {% block content %}
@@ -42,7 +42,7 @@
                     <span class="govuk-visually-hidden">Error:</span> Enter a name for your {{serviceOrDisco}}</p>
                 {% endif%}
 
-                <input class="govuk-input {%if err%} govuk-input--error{% endif%}" id="title" name="title" type="text" value="{{request.fields.Name}}">
+                <input class="govuk-input {%if err%} govuk-input--error{% endif%}" id="title" name="title" type="text" value="{{request.fields.Title}}">
             </div>
 
 

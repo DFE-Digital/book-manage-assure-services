@@ -1,13 +1,5 @@
 {% extends "layouts/question.html" %}
 
-{% set serviceOrDisco = "service" %}
-
-{% if data['phase'] === "Discovery"%}
-    {% set serviceOrDisco = "discovery" %}
-{% endif %}
-
-{% set phase = request.fields.Phase | lower%}
-{% set type = request.fields.Type | lower%}
 
 {% set selectedNav = "Book" %}
 {% set pageName = "Request submitted" %}
@@ -19,8 +11,7 @@
     <div class="govuk-panel govuk-!-margin-bottom-5 govuk-panel--confirmation govuk-!-text-align-left">
         <h1 class="govuk-panel__title">Request submitted</h1>
         <div class="govuk-panel__body">
-            <p>We've got your request to book a {{phase}}
-                {{type}}.</p>
+            <p class="govuk-!-margin-bottom-0">We've got your request for a {{request.fields.Phase | lower}} {{request.fields.Type | lower}}</p>
 
         </div>
     </div>
@@ -29,9 +20,8 @@
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p>The service assessment team will email you to confirm your booking and agree a date for your {{phase}}
-        {{type}} within 3 working days.</p>
+    <p>The service assessment team will email you to confirm your booking and agree a date for your {{request.fields.Type | lower}} within 3 working days.</p>
 
-    <p>You can view the progress of your booking, add members of the team and artefacts by accessing the request from <a href="/manage/">your dashboard</a>.</p>
+    <p>You can view the progress of your booking, add members of the team and artefacts by accessing the request from the <a href="/manage/">manage option</a>.</p>
 
 {% endblock %}

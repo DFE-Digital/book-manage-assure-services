@@ -1,0 +1,217 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Analysis" %}
+{% set view = "analysis"%}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-xl">Analysis</h2>
+
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+
+            <h2 class="govuk-heading-l">Discovery peer review outcomes</h2>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div>
+                <canvas id="myChart" aria-label="Red, amber, and green outcomes for discovery assessments." role="img">
+                    <p>Red outcomes {{red | length}}, Amber outcomes {{amber | length}}, Green outcomes {{green | length}}</p>
+                </canvas>
+            </div>
+
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Data</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Outcome</th>
+                        <th scope="col" class="govuk-table__header">Count</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Red</th>
+                        <td class="govuk-table__cell">{{red | length}}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Amber</th>
+                        <td class="govuk-table__cell">{{amber | length}}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Green</th>
+                        <td class="govuk-table__cell">{{green | length}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-full">
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+        </div>
+
+    </div>
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-one-third">
+
+            <h2 class="govuk-heading-l">Alpha service assessment outcomes</h2>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div>
+                <canvas id="myChart2" aria-label="Red, amber, and green outcomes for discovery assessments." role="img">
+                    <p>Red outcomes {{red | length}}, Amber outcomes {{amber | length}}, Green outcomes {{green | length}}</p>
+                </canvas>
+            </div>
+
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m">Data</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Outcome</th>
+                        <th scope="col" class="govuk-table__header">Count</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Red</th>
+                        <td class="govuk-table__cell">{{red | length}}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Amber</th>
+                        <td class="govuk-table__cell">{{amber | length}}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Green</th>
+                        <td class="govuk-table__cell">{{green | length}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+        const ctx2 = document.getElementById('myChart2');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Red', 'Amber', 'Green'
+                ],
+                datasets: [
+                    {
+                        label: 'Numbers',
+                        data: [
+                            {{red | length}}, {{amber | length}}, {{green | length}}
+                        ],
+                        borderWidth: 1,
+                        backgroundColor: ['#d4351c', '#ffbf00', '#00703c']
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: Math.round,
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Red', 'Amber', 'Green'
+                ],
+                datasets: [
+                    {
+                        label: 'Numbers',
+                        data: [
+                            {{red | length}}, {{amber | length}}, {{green | length}}
+                        ],
+                        borderWidth: 1,
+                        backgroundColor: ['#d4351c', '#ffbf00', '#00703c']
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: Math.round,
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

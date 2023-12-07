@@ -20,17 +20,21 @@ require('dotenv').config();
 const app = express()
 app.use(compression());
 
+
+
 app.use(session({
-  secret: process.env.sessionkey,
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: false } // Note: `secure: true` in a production environment with HTTPS
+    secret: process.env.sessionkey,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    },
 }));
 
 
 
-
 const routes = require('./app/routes.js')
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -39,6 +43,7 @@ app.use(favicon(path.join(__dirname, 'public/assets/images', 'favicon.ico')));
 app.set('view engine', 'html')
 
 app.locals.serviceName = config.serviceName
+app.locals.useNames = (process.env.useNames === 'true' ? true : false);
 
 var enableDrafts = process.env.ENABLE_DRAFTS;
 
@@ -86,6 +91,15 @@ nunjuckEnv.addFilter('split', function(str, seperator) {
   return str.split(seperator);
 });
 
+nunjuckEnv.addFilter('array', function (input, key) {
+  try {
+    const parsedInput = JSON.parse(input);
+    return parsedInput[key];
+  } catch (error) {
+    return input; // Return the original input if parsing fails
+  }
+});
+
 nunjuckEnv.addFilter('BoolToYesNo', function(str) {
   return str ? 'Yes' : 'No'
 })
@@ -95,10 +109,23 @@ nunjuckEnv.addFilter('BoolToYesBlank', function(str) {
 })
 
 nunjuckEnv.addFilter('date', dateFilter)
+
+nunjuckEnv.addFilter('BoolToYesNo', function(str) {
+  return str ? 'Yes' : 'No'
+})
+
+nunjuckEnv.addFilter('BoolToYesBlank', function(str) {
+  return str ? 'Yes' : '-'
+})
+
 markdown.register(nunjuckEnv, marked.parse)
 
 nunjuckEnv.addFilter('formatNumber', function (number) {
   return number.toLocaleString();
+});
+
+nunjuckEnv.addFilter('countByStandard', function (array, point) {
+  return array.filter(item => item.fields.Standard == point).length;
 });
 
 app.use(forceHttps);
@@ -176,12 +203,14 @@ app.get(/^([^.]+)$/, function (req, res, next) {
 
 // Handle 404 errors
 app.use(function (req, res, next) {
-  res.status(404).render('error.html')
-})
+  //console.log('error 404 for URL:', req.url);
+  res.status(404).redirect('/404.html');
+});
 
 // Handle 500 errors
 app.use(function (err, req, res, next) {
-  console.error(err.stack)
+ //console.log('error 500')
+ //console.log(err)
   res.status(500).render('error.html')
 })
 

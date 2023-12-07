@@ -1,0 +1,136 @@
+{% extends "layouts/public.html" %}
+
+{% set selectedNav = "Home" %}
+{% set pageName = "Features" %}
+{% set pageDescription = "" %}
+
+{% block hero %}
+
+    <section class="product-page-intro">
+        <div class="govuk-width-container ">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+
+                    <div class="govuk-breadcrumbs govuk-breadcrumbs--inverse">
+                        <ol class="govuk-breadcrumbs__list">
+                            <li class="govuk-breadcrumbs__list-item">
+                                <a class="govuk-breadcrumbs__link" href="#">DfE Services</a>
+                            </li>
+                            <li class="govuk-breadcrumbs__list-item">{{serviceName}}</li>
+
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-two-thirds">
+
+                    <h1>Book, manage and assess products and services</h1>
+                    <p class="govuk-body">Use this service if you need to have a service assessment or peer review in the Department for Education.</p>
+
+                    <div class="button-container">
+                        <a href="/register" role="button" draggable="false" class="govuk-button product-page-button button-container__button govuk-!-margin-right-3" data-module="govuk-button">
+  Create an account
+</a>
+
+
+            or <a class="govuk-link govuk-link--inverse" href="/sign-in">sign in</a> if you’ve used
+            it before
+          </div>
+
+                </div>
+                 <div class="govuk-grid-column-one-third" style="text-align: right;">
+
+                  <img src="/assets/images/rag.png" style="max-width: 65%;
+    margin-top: 25px;
+    text-align: right;">
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Book a service assessment</h2>
+            <p class="govuk-body">Enables teams to submit a request for a peer review or service assessment.</p>
+            <p class="govuk-body">This also means assurance leads get consistent information about services and avoid the back and forth chasing for missing or incomplete information.</p>
+
+        </div>
+        <div class="govuk-grid-column-one-half">
+              <img src="/assets/images/book.png" style="max-width: 100%">
+        </div>
+    </div>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Management</h2>
+            <p class="govuk-body">Enables teams to submit a request for a peer review or service assessment.</p>
+            <p class="govuk-body">This also means assurance leads get consistent information about services and avoid the back and forth chasing for missing or incomplete information.</p>
+
+        </div>
+           <div class="govuk-grid-column-one-half">
+              <img src="/assets/images/manage.png" style="max-width: 100%">
+        </div>
+    </div>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Assess</h2>
+            <p class="govuk-body">Enables teams to submit a request for a peer review or service assessment.</p>
+            <p class="govuk-body">This also means assurance leads get consistent information about services and avoid the back and forth chasing for missing or incomplete information.</p>
+
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Reporting</h2>
+            <p class="govuk-body">Enables teams to submit a request for a peer review or service assessment.</p>
+            <p class="govuk-body">This also means assurance leads get consistent information about services and avoid the back and forth chasing for missing or incomplete information.</p>
+
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Tools for department assurance leads</h2>
+            <p class="govuk-body">Enables teams to submit a request for a peer review or service assessment.</p>
+            <p class="govuk-body">This also means assurance leads get consistent information about services and avoid the back and forth chasing for missing or incomplete information.</p>
+
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <img src="" alt="">
+        </div>
+    </div>
+
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">View our roadmaps</h2>
+            <p class="govuk-body">Enables teams to submit a request for a peer review or service assessment.</p>
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <img src="" alt="">
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,16 +1,17 @@
-var Airtable = require('airtable')
-var axios = require('axios')
-var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE,
-)
+const Airtable = require('airtable');
 
-async function GetRequestByID(id) {
+const base = new Airtable({
+  apiKey: process.env.AIRTABLE_API_KEY,
+}).base(process.env.AIRTABLE_BASE);
+
+async function getRequestById(id) {
   try {
-      return await base('Reviews').find(id)
-  } catch (err) {
-    console.log(err)
+    const request = await base('Assessments').find(id);
+    return request;
+  } catch (error) {
+    console.error('Error retrieving request:', error.message);
+    throw error;
   }
 }
 
-module.exports = GetRequestByID
-
+module.exports = getRequestById;

@@ -1,0 +1,102 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Andy Jones" %}
+{% set view = "assessors"%}
+
+{% block hero %}
+
+ {% include './_assessorinfo.html'%}
+
+{% endblock %}
+
+{% block sideNav %}
+
+    <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+            </li>
+            <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+            </li>
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block content %}
+
+    <nav class="app-sub-navigation" aria-label="Application menu">
+
+        <ul class="app-sub-navigation__list">
+
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link" href="/admin/assessors/assessor/{{assessor.fields.ID}}">Assessments</a>
+            </li>
+            <li class="app-sub-navigation__item">
+                <a class="app-sub-navigation__link"  aria-current="page"href="/admin/assessors/training/{{assessor.fields.ID}}">Training and development</a>
+            </li>
+  <li class="app-sub-navigation__item">
+      <a class="app-sub-navigation__link" href="/admin/assessors/manage/{{assessor.fields.ID}}">Manage assessor</a>
+    </li>
+        </ul>
+
+    </nav>
+
+
+
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Training history</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action">
+                    <a class="govuk-link" href="#">
+          Add training
+                    </a>
+                </li>
+               
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            {% if assessorTraining.length%}
+             <table class="govuk-table">
+
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-third">Training</th>
+                        <th scope="col" class="govuk-table__header">Provider</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for training in assessorTraining %}
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header cell-name">{{training.fields.Training}} </th>
+                        <td class="govuk-table__cell">{{training.fields.Provider}}</td>
+                        <td class="govuk-table__cell">{{training.fields.Date | date('D MMM YYYY')}}</td>
+
+                    </tr>
+                    {% endfor %}
+                   
+
+                </tbody>
+            </table>
+            {% else%}
+            <p class="govuk-body govuk-!-margin-bottom-0">No training has been recorded.</p>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

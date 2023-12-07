@@ -29,7 +29,7 @@
     "express-recaptcha": "^5.1.0",
     "express-session": "^1.17.3",
     "fs": "^0.0.1-security",
-    "govuk-frontend": "^4.6.0",
+    "govuk-frontend": "^4.7.0",
     "gulp-nunjucks-render": "^2.2.3",
     "gulp-webp": "^4.0.1",
     "helmet": "^6.1.5",
@@ -46,7 +46,9 @@
     "nunjucks-markdown": "^2.0.1",
     "path": "^0.12.7",
     "serve-favicon": "^2.5.0",
-    "urlencode": "^1.1.0"
+    "urlencode": "^1.1.0",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "axe-core": "^4.7.0",

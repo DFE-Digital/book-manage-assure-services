@@ -2,23 +2,19 @@
 
 {% set selectedNav = "Book" %}
 {% set pageName = "Book a service assessment or peer review" %}
+{% set hideHero = true %}
 
-{% block hero %}
 
-    <section class="dfe-hero">
-
-        <div class="govuk-width-container ">
-
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h1 class="govuk-heading-xl">{{pageName}}</h1>
-                </div>
-            </div>
-        </div>
-    </section>
+{% block h1title %} <span class="govuk-caption-l">Book</span>
+        <h1 class="govuk-heading-l">{{pageName}}</h1>
 {% endblock %}
 
 {% block content %}
+
+
+
+
+
 
     <p>You can use this service to:</p>
 
@@ -42,9 +38,14 @@
 
     {% if draft_records.length %}
 
-     <h2 class="govuk-heading-l">Continue with a draft</h2>
+        <h3 class="govuk-heading-m">Continue with a draft</h3>
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">Your drafts</h2>
 
-      <table class="dfeuk-table dfeuk-table-responsive dfeuk-table--smaller">
+            </div>
+            <div class="govuk-summary-card__content">
+                <table class="dfeuk-table dfeuk-table-responsive dfeuk-table--smaller">
                     <thead class="dfeuk-table__head">
                         <tr class="dfeuk-table__row">
                             <th scope="col" class="dfeuk-table__header govuk-!-width-one-third">Service</th>
@@ -57,7 +58,7 @@
                         {% for record in draft_records %}
                             <tr class="dfeuk-table__row">
                                 <th scope="row" class="dfeuk-table__header">
-                                    <a href="/book/draft/{{record.id}}">{{record.fields.Name}}</a>
+                                    <a href="/book/draft/{{record.id}}">{{record.fields.Title}}</a>
                                 </th>
                                 <td class="dfeuk-table__cell">{{record.fields.Phase}}</td>
                                 <td class="dfeuk-table__cell">{{record.fields.Created|date('D MMM YYYY')}}</td>
@@ -67,6 +68,8 @@
 
                     </tbody>
                 </table>
+            </div>
+        </div>
 
     {% endif %}
 
@@ -86,9 +89,11 @@
 
     <aside class="dfe-aside">
         <h2 class="govuk-heading-m">Related guidance</h2>
-          <ul class="govuk-list govuk-list--spaced">
-      <li><a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a></li>
-    </ul>
+        <ul class="govuk-list govuk-list--spaced">
+            <li>
+                <a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a>
+            </li>
+        </ul>
     </aside>
 
 {% endblock %}

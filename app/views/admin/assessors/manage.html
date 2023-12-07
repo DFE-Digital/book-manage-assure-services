@@ -1,0 +1,70 @@
+{% extends "layouts/content-with-sidenav.html" %}
+
+{% set selectedNav = "Admin" %}
+{% set pageName = "Andy Jones" %}
+{% set view = "assessors"%}
+
+{% block hero %}
+
+  {% include './_assessorinfo.html'%}
+
+{% endblock %}
+
+{% block sideNav %}
+
+  <nav class="dfe-vertical-nav">
+    <ul class="dfe-vertical-nav__section">
+      <li class="dfe-vertical-nav__section-item {% if view === 'admins' %}dfe-vertical-nav__section-item--current{% endif %}">
+        <a class="dfe-vertical-nav__link" href="/admin/administrators">Administrators</a>
+      </li>
+      <li class="dfe-vertical-nav__section-item {% if view === 'assessors' %}dfe-vertical-nav__section-item--current{% endif %}">
+        <a class="dfe-vertical-nav__link" href="/admin/assessors">Assessors</a>
+      </li>
+      <li class="dfe-vertical-nav__section-item {% if view === 'surveys' %}dfe-vertical-nav__section-item--current{% endif %}">
+        <a class="dfe-vertical-nav__link" href="/admin/surveys">Surveys</a>
+      </li>
+      <li class="dfe-vertical-nav__section-item {% if view === 'analysis' %}dfe-vertical-nav__section-item--current{% endif %}">
+        <a class="dfe-vertical-nav__link" href="/admin/analysis">Analysis</a>
+      </li>
+      <li class="dfe-vertical-nav__section-item {% if view === 'settings' %}dfe-vertical-nav__section-item--current{% endif %}">
+        <a class="dfe-vertical-nav__link" href="/admin/settings">Service settings</a>
+      </li>
+    </ul>
+  </nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <nav class="app-sub-navigation" aria-label="Application menu">
+
+    <ul class="app-sub-navigation__list">
+
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/admin/assessors/assessor/{{assessor.fields.ID}}">Assessments</a>
+      </li>
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" href="/admin/assessors/training/{{assessor.fields.ID}}">Training and development</a>
+      </li>
+      <li class="app-sub-navigation__item">
+        <a class="app-sub-navigation__link" aria-current="page" href="/admin/assessors/manage/{{assessor.fields.ID}}">Manage assessor</a>
+      </li>
+    </ul>
+
+  </nav>
+
+
+
+  {% if subView === undefined %}
+    {% include './_assessor_summary.html'%}
+  {% endif %}
+
+    {% if subView === 'change-name' %}
+    {% include './_change_name.html'%}
+  {% endif %}
+
+      {% if subView === 'change-email' %}
+    {% include './_change_email.html'%}
+  {% endif %}
+
+{% endblock %}

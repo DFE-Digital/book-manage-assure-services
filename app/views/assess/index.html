@@ -1,30 +1,52 @@
-{% extends "layouts/content-with-sidenav-right.html" %}
+{% extends "layouts/content-with-sidenav.html" %}
 
 {% set selectedNav = "Assess" %}
 {% set pageName = "Services you're assessing" %}
+{% set view = "active"%}
 
-{% block hero %}
+ {% block hero %}
+ <div class="govuk-width-container dfe-width-container dfe-white-bg">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-l">Assess</span>
+        <h1 class="govuk-heading-l">Active assessments</h1>
+<p>These are the services that you've been added to an an assessor panel member.</p>
+      </div>
+    </div>
+</div>
+ {% endblock %}
 
-    <section class="dfe-hero">
 
-        <div class="govuk-width-container ">
+{% block sideNav %}
 
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h1 class="govuk-heading-xl">{{pageName}}</h1>
-                </div>
-            </div>
-        </div>
-    </section>
+      <nav class="dfe-vertical-nav">
+        <ul class="dfe-vertical-nav__section">
+            <li class="dfe-vertical-nav__section-item {% if view === 'active' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess">Active</a>
+            </li>
+             <li class="dfe-vertical-nav__section-item {% if view === 'completed' %}dfe-vertical-nav__section-item--current{% endif %}">
+                <a class="dfe-vertical-nav__link" href="/assess/completed">Completed</a>
+            </li>
+          
+        </ul>
+    </nav>
+
 {% endblock %}
 
 {% block content %}
+
+
+
 
    <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
             <h2 class="govuk-summary-card__title">Services</h2>
         </div>
         <div class="govuk-summary-card__content">
+            {% if entries | length === 0%}
+            <p>You're not assigned to any active assessments.</p>
+            <p>How about <a href="/assessments" class="govuk-link">volunteering to assess a service</a>?</p>
+            {% else%}
             <table class="govuk-table">
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
@@ -36,29 +58,22 @@
                 </thead>
                 <tbody class="govuk-table__body">
                    {% for entry in entries %}
+
+            
                     <tr class="govuk-table__row">
                         <th scope="row" class="govuk-table__header">
-                            <a href="/assess/entry/overview/{{entry.fields.ID}}" class="govuk-link">{{entry.fields.Name}}</a>
+                            <a href="/assess/entry/overview/{{entry.fields.AssessmentID}}" class="govuk-link govuk-link--no-visited-state">{{entry.fields.AssessmentTitle}}</a>
                         </th>
-                        <td class="govuk-table__cell">{{entry.fields.Phase}}</td>
-                        <td class="govuk-table__cell">{{entry.fields.Type}}</td>
-                        <td class="govuk-table__cell">{% if entry.fields.ReviewDate %}{{entry.fields.ReviewTime}} on {{entry.fields.ReviewDate | date('D MMM YYYY')}}{% else%}No date booked{% endif %}</td>
+                        <td class="govuk-table__cell">{{entry.fields.AssessmentPhase}}</td>
+                        <td class="govuk-table__cell">{{entry.fields.AssessmentType}}</td>
+                        <td class="govuk-table__cell">{% if entry.fields.ReviewDate %}{{entry.fields.ReviewTime}} on {{entry.fields.ReviewDate[0] | date('D MMM YYYY')}}{% else%}No date booked{% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
         </div>
     </div>
 
 {% endblock %}
 
-{% block sideNav %}
-
-    <aside class="dfe-aside">
-        <h2 class="govuk-heading-m">Related guidance</h2>
-          <ul class="govuk-list govuk-list--spaced">
-      <li><a href="https://apply-service-standard-staging-7f500b6e58fb.herokuapp.com/service-assurance" target="_blank">Service assurance step by step</a></li>
-    </ul>
-    </aside>
-
-{% endblock %}

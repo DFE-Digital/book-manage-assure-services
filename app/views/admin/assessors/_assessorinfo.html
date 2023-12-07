@@ -1,0 +1,35 @@
+ <section class="dfe-hero">
+
+        <div class="govuk-width-container ">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <span class="govuk-caption-l">Assessor</span>
+                    <h1 class="govuk-heading-xl">{{assessor.fields.UserName}}</h1>
+                    <table class="govuk-table govuk-!-margin-top-5 govuk-!-margin-bottom-0">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Role</th>
+                                <th scope="col" class="govuk-table__header">Lead</th>
+                                <th scope="col" class="govuk-table__header">Cross-gov assessor</th>
+                                <th scope="col" class="govuk-table__header">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                 <td class="govuk-table__cell"> {% for role in assessor.fields.Role %}
+        {{ role }}
+        {% if not loop.last %}<br>{% endif %}
+      {% endfor %}</td>
+                                <td class="govuk-table__cell">{{assessor.fields.LeadAssessor | BoolToYesNo}}</td>
+                                <td class="govuk-table__cell">{{assessor.fields.CrossGovAssessor | BoolToYesNo}}</td>
+                                <td class="govuk-table__cell">
+                                    <strong class="govuk-tag govuk-tag--green">Active</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -2,19 +2,10 @@
 
   <ul class="app-sub-navigation__list">
     <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Guidance</a>
-    </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/pwell/{{entry.fields.ID}}">Done well</a>
-    </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link" href="/assess/entry/{{view}}/pimprove/{{entry.fields.ID}}">Improve</a>
+      <a class="app-sub-navigation__link"  href="/assess/entry/{{view}}/{{entry.fields.ID}}">Outcome</a>
     </li>
     <li class="app-sub-navigation__item">
       <a class="app-sub-navigation__link"  aria-current="page" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Actions</a>
-    </li>
-    <li class="app-sub-navigation__item">
-      <a class="app-sub-navigation__link"href="/assess/entry/{{view}}/poutcome/{{entry.fields.ID}}">Rating</a>
     </li>
 
   </ul>
@@ -29,7 +20,7 @@
       Action
     </dt>
     <dd class="govuk-summary-list__value">
-      {{action.fields.Comment}}
+      {{action.fields.Details}}
     </dd>
   </div>
   <div class="govuk-summary-list__row">
@@ -37,7 +28,7 @@
       Comment author
     </dt>
     <dd class="govuk-summary-list__value">
-      {{action.fields.Author}}
+      {{action.fields.FirstName}} {{action.fields.LastName}}
     </dd>
   </div>
 
@@ -47,7 +38,7 @@
   <button class="govuk-button govuk-button--warning" data-module="govuk-button">
   Delete
 </button>
-  <a class="govuk-link" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Cancel</a>
+  <a class="govuk-link govuk-link--no-visited-state" href="/assess/entry/{{view}}/pactions/{{entry.fields.ID}}">Cancel</a>
 </div>
 
 </form>
