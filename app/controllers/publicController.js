@@ -7,30 +7,47 @@ const validateToken = require('../data/airtable/auth/validateToken.js');
 
 // Gets
 
-exports.get_features = async function (req, res) {
+exports.get_home = function (req, res) {
+    return res.redirect('/features')
+}
+
+exports.get_features = function (req, res) {
     return res.render('public/features')
 }
 
-exports.get_roadmap = async function (req, res) {
+exports.get_roadmap = function (req, res) {
     return res.render('public/roadmap')
 }
 
-exports.get_contact = async function (req, res) {
+exports.get_feature_book = function (req, res) {
+    return res.render('public/features/book.html')
+}
+
+exports.get_feature_view = function (req, res) {
+    var view = req.params.id
+    console.log(view)
+    return res.render('public/features/'+view+'.html')
+}
+
+exports.get_contact = function (req, res) {
     return res.render('public/contact')
 }
 
-exports.get_sign_in = async function (req, res) {
+exports.get_sign_in = function (req, res) {
     return res.render('public/sign-in')
 }
 
-exports.get_check_email = async function (req, res) {
+exports.get_check_email = function (req, res) {
     return res.render('public/check-email')
 }
 
-exports.get_sign_out = async function (req, res) {
+exports.get_sign_out = function (req, res) {
     req.session.data = {}
     return res.redirect('/sign-in')
 }
+
+
+
 
 
 exports.get_check_token = async function (req, res) {
@@ -126,3 +143,5 @@ function sendMagicLinkEmail(token, email) {
         .then((response) => { return true })
         .catch((err) => console.log(err.response.data))
 }
+
+

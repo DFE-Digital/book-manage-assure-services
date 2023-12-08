@@ -203,7 +203,7 @@ app.get(/^([^.]+)$/, function (req, res, next) {
 
 // Handle 404 errors
 app.use(function (req, res, next) {
-  //console.log('error 404 for URL:', req.url);
+  console.log('error 404 for URL:', req.url);
   res.status(404).redirect('/404.html');
 });
 

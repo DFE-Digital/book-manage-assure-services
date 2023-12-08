@@ -7,7 +7,8 @@
     "gulp": "gulp",
     "watch": "gulp & nodemon index.js",
     "start": "node index.js",
-    "dev": "npm run watch"
+    "dev": "npm run watch",
+    "test": "jest"
   },
   "nodemonConfig": {
     "ext": "html"
@@ -66,6 +67,7 @@
     "gulp-replace": "^1.1.4",
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
+    "jest": "^29.7.0",
     "prettier": "^2.8.8",
     "puppeteer": "^19.11.1"
   }

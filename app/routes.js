@@ -89,19 +89,20 @@ function logSessionData(session) {
 
 
 // Public pages
-
+router.get("/", public_controller.get_home);
 router.get("/sign-in", public_controller.get_sign_in);
 router.post("/public/sign-in", public_controller.post_sign_in);
 router.get("/check-email", public_controller.get_check_email);
 router.get("/auth/token/:token", public_controller.get_check_token);
 router.get("/sign-out", public_controller.get_sign_out);
 
+
+
 router.get("/features", public_controller.get_features);
 router.get("/roadmap", public_controller.get_roadmap);
 router.get("/contact", public_controller.get_contact);
 
-
-
+router.get("/features/:id", public_controller.get_feature_view);
 
 // Book
 router.get("/book", authenticate, book_controller.get_start);

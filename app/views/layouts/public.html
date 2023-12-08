@@ -42,41 +42,40 @@
 
       {% endblock %}
 
+    
+        {% block hero %}{% endblock %}
+        {% block main %}
 
-         <div class="dfe-in-page-hero">
-      {% block hero %}{% endblock %}     </div>
-      {% block main %}
+          <div class="govuk-width-container dfe-width-container">
+            <main class="govuk-main-wrapper " id="main-content" role="main">
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                  {% block content %}{% endblock %}
+                </div>
 
-        <div class="govuk-width-container dfe-width-container">
-          <main class="govuk-main-wrapper " id="main-content" role="main">
-            <div class="govuk-grid-row">
-              <div class="govuk-grid-column-full">
-                {% block content %}{% endblock %}
               </div>
-          
-            </div>
-          </main>
-        </div>
+            </main>
+          </div>
+        {% endblock %}
+
+      </div>
+
+      {% block footer %}
+        {% include 'layouts/_footer.html'%}
       {% endblock %}
 
-    </div>
+      <script src="/assets/js/all.min.js"></script>
+      <script src="/assets/js/cookies.min.js"></script>
+      <script src="/assets/js/feedback.min.js"></script>
+      <script src="/assets/js/dfefrontend.min.js"></script>
 
-    {% block footer %}
-      {% include 'layouts/_footer.html'%}
-    {% endblock %}
+      <script type="text/javascript" src="/assets/js/accessible-autocomplete.min.min.js"></script>
+      {% block scripts %}{% endblock %}
+      <script>
+        window
+          .GOVUKFrontend
+          .initAll()
+      </script>
+    </body>
 
-    <script src="/assets/js/all.min.js"></script>
-    <script src="/assets/js/cookies.min.js"></script>
-    <script src="/assets/js/feedback.min.js"></script>
-    <script src="/assets/js/dfefrontend.min.js"></script>
-
-    <script type="text/javascript" src="/assets/js/accessible-autocomplete.min.min.js"></script>
-    {% block scripts %}{% endblock %}
-    <script>
-      window
-        .GOVUKFrontend
-        .initAll()
-    </script>
-  </body>
-
-</html>
+  </html>
