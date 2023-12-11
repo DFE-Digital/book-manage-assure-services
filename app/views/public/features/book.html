@@ -1,120 +1,78 @@
 {% extends "layouts/public.html" %}
 
-{% set selectedNav = "Home" %}
+{% set selectedNav = "Roadmap" %}
 {% set pageName = "Book an assessment or peer review" %}
 {% set pageDescription = "" %}
+{% set show_breadcrumbs = true %}
 
-{% block content %}
+{% block breadcrumbs %}
+    <a href="/roadmap" class="govuk-back-link">Back to roadmap</a>
+    {% endblock%}
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">{{pageName}}</h1>
-            <p class="govuk-body">{{pageDescription}}</p>
+    {% block content %}
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <h1 class="govuk-heading-xl">{{pageName}}</h1>
+                <p class="govuk-body">{{pageDescription}}</p>
+            </div>
         </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
 
-            <h2 class="govuk-heading-l">Our progress</h2>
-            <p class="govuk-body">We're working on features based on their functionality within the service and what is necessary. Some other features can be supported using existing processes or manual workarounds until delivered.</p>
+        <div class="govuk-grid-row">
 
-            <table class="govuk-table">
-                <caption class="govuk-table__caption govuk-table__caption--m">Feature roadmaps</caption>
-                <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Feature</th>
-                        <th scope="col" class="govuk-table__header">Priority</th>
-                        <th scope="col" class="govuk-table__header">Status</th>
-                        <th scope="col" class="govuk-table__header">Delivery</th>
-                    </tr>
-                </thead>
-                <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header"><a href="/features/book">Book an assessment or peer review</a></th>
-                        <td class="govuk-table__cell">
+            <div class="govuk-grid-column-two-thirds">
+
+                <h2 class="govuk-heading-l">Purpose</h2>
+                <p class="govuk-body">The book process allows users to submit a request to book a peer review of service assessment.</p>
+
+                <h2 class="govuk-heading-l">Features and needs</h2>
+
+                <p>The user journey and user needs met by this feature:</p>
+
+             
+
+            </div>
+            <div class="govuk-grid-column-one-third">
+
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Priority</dt>
+                        <dd class="govuk-summary-list__value">
                             <strong class="govuk-tag govuk-tag--red">High</strong>
-                        </td>
-                        <td class="govuk-table__cell">
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Status</dt>
+                        <dd class="govuk-summary-list__value">
                             <strong class="govuk-tag govuk-tag--green">Testing</strong>
-                        </td>
-                         <td class="govuk-table__cell">January 2024</td>
-                    </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Administration (For department assurance leads)</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--red">High</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--amber">working on</strong>
-                        </td>
-                        <td class="govuk-table__cell">January 2024</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Manage an assessment or peer review</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--red">High</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
-                        </td>
-                         <td class="govuk-table__cell">February 2024</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Assess an assessment or peer review</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--red">High</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
-                        </td>
-                         <td class="govuk-table__cell">February 2024</td>
-                    </tr>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Delivery</dt>
+                        <dd class="govuk-summary-list__value">Milestone 1<br/>January 2024</dd>
+                    </div>
 
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Reporting an assessment or peer review</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--amber">Medium</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
-                        </td>
-                         <td class="govuk-table__cell">February 2024</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Action plans</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--red">High</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag">Not started</strong>
-                        </td>
-                         <td class="govuk-table__cell">March 2024</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Survey participants of an assessment or peer review</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--green">Low</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag">Not started</strong>
-                        </td>
-                         <td class="govuk-table__cell">March 2024</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Upcoming assessments</th>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--green">Low</strong>
-                        </td>
-                        <td class="govuk-table__cell">
-                            <strong class="govuk-tag govuk-tag--amber">Working on</strong>
-                        </td>
-                         <td class="govuk-table__cell">March to June 2024</td>
-                    </tr>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">GitHub</dt>
+                        <dd class="govuk-summary-list__value">
+                            <a href="https://github.com/DFE-Digital/book-manage-assure-services/issues/1" class="govuk-link" target="_blank">Issue #1</a>
+                        </dd>
+                    </div>
+                </dl>
 
-                  
-                </tbody>
-            </table>
+                <h2 class="govuk-heading-m">Resources</h2>
+                <p class="govuk-body">Resources and artefacts to support this feature.</p>
+
+                <ul class="govuk-list govuk-list--spaced">
+                    <li>
+                        <a href="">View user journey map</a>
+                    </li>
+                    <li>
+                        <a href="">View service blueprint</a>
+                    </li>
+                </ul>
+
+            </div>
         </div>
-    </div>
-
-{% endblock %}
+    {% endblock %}

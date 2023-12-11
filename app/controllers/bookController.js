@@ -16,6 +16,8 @@ const GetRequestsByType = require('../data/airtable/getRequestsByType');
 const GetRequestByID = require('../data/airtable/getRequestByID');
 const DeleteRequest = require('../data/airtable/deleteRequest');
 const getDDNames = require('../data/airtable/ddNames');
+const getRequestsForUserByStatus = require('../data/airtable/getRequestsForUserByStatus');
+
 
 // Get requests - in journey order
 // Posts are further down
@@ -26,8 +28,11 @@ exports.get_start = function (req, res) {
   if (!req.session.data) {
     return res.redirect('/sign-in');
   }
+
+  var userID = req.session.data['user'].uID
+
   req.session.data['draftID'] = undefined;
-  axios.all([GetRequestsByType('Draft')]).then(
+  axios.all([getRequestsForUserByStatus('Draft', userID)]).then(
     axios.spread((draft_records) => {
       return res.render('book/index', { draft_records })
     }),

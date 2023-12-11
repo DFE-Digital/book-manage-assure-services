@@ -66,6 +66,22 @@ async function authenticateDevUser(req, res, next) {
     }
 }
 
+async function accessCheck(req, res, next) {
+
+    // Can the user access the request?
+    var user = req.session.data['User'];
+
+    console.log(user)
+
+    // Whats the assessmentID?
+    // this should always be a parameter of :assessmentid
+
+    console.log(req.params.assessmentid);
+
+    next()
+
+}
+
 function authenticateProdUser(req, res, next) {
     // Check if the user is authenticated
     if (req.session.data && req.session.data.user) {
@@ -194,7 +210,7 @@ router.post('/assess/post/outcome/:point/:id', authenticate, assess_controller.p
 
 router.post('/assess/entry/submit-report/:id', authenticate, assess_controller.post_submit_report)
 
-router.get("/assess/entry/:id", authenticate, assess_controller.get_entry);
+router.get("/assess/entry/:assessmentid", authenticate, accessCheck, assess_controller.get_entry);
 router.get("/assess/entry/:partial/:id", authenticate, assess_controller.get_entry_view);
 router.get("/assess/entry/:partial/:sub/:id", authenticate, assess_controller.get_entry_subview);
 

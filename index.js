@@ -23,7 +23,7 @@ app.use(compression());
 
 
 app.use(session({
-    secret: process.env.sessionkey,
+    secret: process.env.sessionKey,
     resave: false,
     saveUninitialized: true,
     cookie: {
